@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="561.25" y="475.0">com.softgroup.common.protocol.ResponseStatus</node>
+    <node x="40.5" y="395.0">com.softgroup.common.exceptions.MapperException</node>
+    <node x="343.0" y="710.0">com.softgroup.common.protocol.ResponseData</node>
+    <node x="516.9444444444445" y="240.0">com.softgroup.authorization.api.router.AuthorizationRouterHandler</node>
+    <node x="232.99999999999997" y="630.0">com.softgroup.common.protocol.Data</node>
+    <node x="137.99999999999997" y="790.0">com.softgroup.authorization.api.message.LoginRequest</node>
+    <node x="0.0" y="790.0">com.softgroup.authorization.api.message.RegisterRequest</node>
+    <node x="0.0" y="160.0">com.softgroup.authorization.api.router.AuthorizationRequestHandler</node>
+    <node x="264.0" y="790.0">com.softgroup.authorization.api.message.RegisterResponse</node>
+    <node x="410.0" y="790.0">com.softgroup.authorization.api.message.LoginResponse</node>
+    <node x="136.1944444444444" y="80.0">com.softgroup.common.router.api.RequestHandler</node>
+    <node x="434.25" y="315.0">com.softgroup.common.protocol.ActionHeader</node>
+    <node x="569.0" y="630.0">com.softgroup.common.datamapper.support.ModelWithEnum</node>
+    <node x="392.0" y="160.0">com.softgroup.common.router.api.CommonRouterHandler</node>
+    <node x="743.0" y="713.0">com.softgroup.common.datamapper.support.ModelB</node>
+    <node x="738.0" y="630.0">com.softgroup.common.datamapper.support.ModelA</node>
+    <node x="210.0" y="160.0">com.softgroup.common.router.api.AbstractRequestHandler</node>
+    <node x="34.5" y="315.0">com.softgroup.common.exceptions.SoftgroupException</node>
+    <node x="584.5" y="710.0">com.softgroup.common.datamapper.support.ModelWithEnum.ModelType</node>
+    <node x="229.0" y="475.0">com.softgroup.common.datamapper.DataMapperAppCfgIT</node>
+    <node x="574.0" y="160.0">com.softgroup.common.router.api.AbstractRouterHandler</node>
+    <node x="69.0" y="475.0">com.softgroup.common.datamapper.JacksonDataMapper</node>
+    <node x="357.8611111111111" y="0.0">com.softgroup.common.router.api.Handler</node>
+    <node x="0.0" y="555.0">com.softgroup.common.datamapper.configuration.DataMapperAppCfg</node>
+    <node x="74.99999999999997" y="710.0">com.softgroup.common.protocol.RequestData</node>
+    <node x="453.25" y="395.0">com.softgroup.common.protocol.Action</node>
+    <node x="434.25" y="475.0">com.softgroup.common.protocol.RoutedAction</node>
+    <node x="556.25" y="555.0">com.softgroup.common.protocol.Response</node>
+    <node x="423.0" y="555.0">com.softgroup.common.protocol.Request</node>
+    <node x="160.0" y="555.0">com.softgroup.common.datamapper.MapperTest</node>
+    <node x="571.3333333333333" y="80.0">com.softgroup.common.router.api.RouterHandler</node>
+    <node x="229.25" y="395.0">com.softgroup.common.datamapper.DataMapper</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.softgroup.authorization.api.message.LoginRequest" target="com.softgroup.common.protocol.RequestData">
+      <point x="0.0" y="-15.0" />
+      <point x="190.99999999999997" y="765.0" />
+      <point x="149.99999999999997" y="765.0" />
+      <point x="25.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.protocol.RoutedAction" target="com.softgroup.common.protocol.Action">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.authorization.api.message.RegisterResponse" target="com.softgroup.common.protocol.ResponseData">
+      <point x="0.0" y="-15.0" />
+      <point x="327.0" y="765.0" />
+      <point x="370.0" y="765.0" />
+      <point x="-27.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.datamapper.JacksonDataMapper" target="com.softgroup.common.datamapper.DataMapper">
+      <point x="35.0" y="-15.0" />
+      <point x="174.0" y="450.0" />
+      <point x="254.0" y="450.0" />
+      <point x="-24.75" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.protocol.Response" target="com.softgroup.common.protocol.RoutedAction">
+      <point x="-21.0" y="-15.0" />
+      <point x="577.25" y="530.0" />
+      <point x="514.5" y="530.0" />
+      <point x="26.75" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.protocol.Request" target="com.softgroup.common.protocol.RoutedAction">
+      <point x="0.0" y="-15.0" />
+      <point x="-26.75" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.router.api.RouterHandler" target="com.softgroup.common.router.api.Handler">
+      <point x="0.0" y="-15.0" />
+      <point x="626.8333333333333" y="55.0" />
+      <point x="414.8611111111111" y="55.0" />
+      <point x="19.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.router.api.AbstractRequestHandler" target="com.softgroup.common.router.api.RequestHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="291.0" y="135.0" />
+      <point x="224.6944444444444" y="135.0" />
+      <point x="29.5" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.datamapper.support.ModelWithEnum.ModelType" target="com.softgroup.common.datamapper.support.ModelWithEnum">
+      <point x="-23.25" y="-15.0" />
+      <point x="607.75" y="685.0" />
+      <point x="600.0" y="685.0" />
+      <point x="-31.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.authorization.api.router.AuthorizationRequestHandler" target="com.softgroup.common.router.api.RequestHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="95.0" y="135.0" />
+      <point x="165.6944444444444" y="135.0" />
+      <point x="-29.5" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.protocol.ResponseData" target="com.softgroup.common.protocol.Data">
+      <point x="0.0" y="-15.0" />
+      <point x="397.0" y="685.0" />
+      <point x="276.5" y="685.0" />
+      <point x="14.5" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.authorization.api.router.AuthorizationRouterHandler" target="com.softgroup.common.router.api.CommonRouterHandler">
+      <point x="-45.75" y="-15.0" />
+      <point x="562.6944444444445" y="215.0" />
+      <point x="473.0" y="215.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.router.api.CommonRouterHandler" target="com.softgroup.common.router.api.RouterHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="473.0" y="135.0" />
+      <point x="589.8333333333333" y="135.0" />
+      <point x="-37.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.router.api.AbstractRouterHandler" target="com.softgroup.common.router.api.RouterHandler">
+      <point x="0.0" y="-15.0" />
+      <point x="651.5" y="135.0" />
+      <point x="626.8333333333333" y="135.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.authorization.api.message.LoginResponse" target="com.softgroup.common.protocol.ResponseData">
+      <point x="0.0" y="-15.0" />
+      <point x="467.0" y="765.0" />
+      <point x="424.0" y="765.0" />
+      <point x="27.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.router.api.RequestHandler" target="com.softgroup.common.router.api.Handler">
+      <point x="0.0" y="-15.0" />
+      <point x="195.1944444444444" y="55.0" />
+      <point x="376.8611111111111" y="55.0" />
+      <point x="-19.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.protocol.RequestData" target="com.softgroup.common.protocol.Data">
+      <point x="0.0" y="-15.0" />
+      <point x="124.99999999999997" y="685.0" />
+      <point x="247.49999999999997" y="685.0" />
+      <point x="-14.5" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.authorization.api.message.RegisterRequest" target="com.softgroup.common.protocol.RequestData">
+      <point x="0.0" y="-15.0" />
+      <point x="59.0" y="765.0" />
+      <point x="99.99999999999997" y="765.0" />
+      <point x="-25.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.common.exceptions.MapperException" target="com.softgroup.common.exceptions.SoftgroupException">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.softgroup.authorization.api.router.AuthorizationRouterHandler" target="com.softgroup.common.router.api.RouterHandler">
+      <point x="45.75" y="-15.0" />
+      <point x="654.1944444444445" y="215.0" />
+      <point x="739.5" y="215.0" />
+      <point x="739.5" y="135.0" />
+      <point x="663.8333333333333" y="135.0" />
+      <point x="37.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="374.5" y="405.0" />
+  <SelectedNodes>
+    <node>com.softgroup.common.datamapper.support.ModelB</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
