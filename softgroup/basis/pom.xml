@@ -12,6 +12,9 @@
     <modules>
         <module>common-exceptions</module>
         <module>common-datamapper</module>
+        <module>common-router</module>
+        <module>common-protocol</module>
+
     </modules>
 
     <dependencies>
@@ -22,4 +25,5 @@
         </dependency>
 
     </dependencies>
+
 </project>

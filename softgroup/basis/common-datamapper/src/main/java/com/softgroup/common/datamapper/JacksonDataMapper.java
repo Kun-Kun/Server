@@ -44,7 +44,7 @@ public class JacksonDataMapper implements DataMapper {
 	}
 
 	@Override
-	public <T> T convert(Object map,Class<T>  dataType) {
+	public <T> T convert(Map<String, Object> map, Class<T> dataType) {
 		try {
 			return mapper.convertValue(map, dataType);
 		} catch (Exception ex) {
@@ -53,7 +53,16 @@ public class JacksonDataMapper implements DataMapper {
 	}
 
 	@Override
-	public <T> T mapData(String data,Class<T>  dataType) {
+	public <T> T convert(Map<String, Object> map, TypeReference<?> dataType) {
+		try {
+			return mapper.convertValue(map, dataType);
+		} catch (Exception ex) {
+			throw new MapperException("Can't convert map ", ex);
+		}
+	}
+
+	@Override
+	public <T> T mapData(String data, Class<T> dataType) {
 		try {
 			return mapper.readValue(data, dataType);
 		} catch (Exception ex) {
@@ -62,7 +71,7 @@ public class JacksonDataMapper implements DataMapper {
 	}
 
 	@Override
-	public <T> T mapData(String data,TypeReference<T>  dataType) {
+	public <T> T mapData(String data, TypeReference<?> dataType) {
 		try {
 			return mapper.readValue(data, dataType);
 		} catch (Exception ex) {
@@ -89,7 +98,7 @@ public class JacksonDataMapper implements DataMapper {
 	}
 
 	@Override
-	public String dataToString(Object data) {
+	public <T> String dataToString(T data) {
 		try {
 			return new String(mapper.writeValueAsBytes(data), "UTF-8");
 		} catch (Exception ex) {

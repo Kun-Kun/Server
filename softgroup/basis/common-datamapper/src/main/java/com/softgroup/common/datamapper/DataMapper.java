@@ -8,21 +8,23 @@ import java.util.Map;
 /**
  * @author vlischyshyn
  */
-public interface DataMapper  {
+public interface DataMapper {
 
-	Map convertToMap(Object value);
+	Map<String, Object> convertToMap(Object value);
 
-	<T> T convert(Object map, Class<T> dataType);
+	<T> T convert(Map<String, Object> map, Class<T> dataType);
+
+	<T> T convert(Map<String, Object> map, TypeReference<?> dataType);
 
 	<T> T mapData(String data, Class<T> dataType);
 
-	<T> T mapData(String data, TypeReference<T> dataType);
+	<T> T mapData(String data, TypeReference<?> dataType);
 
-	<T> T mapData(byte[] message,Class<T> dataType);
+	<T> T mapData(byte[] message, Class<T> dataType);
 
 	<T> T readValue(InputStream src, Class<T> valueType);
 
-	String dataToString(Object data);
+	<T> String dataToString(T data);
 
 	String objectToString(Object data);
 
