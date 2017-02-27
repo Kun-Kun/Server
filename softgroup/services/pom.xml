@@ -1,59 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.softgroup</groupId>
-		<artifactId>softgroup</artifactId>
-		<version>0.0.1</version>
-	</parent>
-	<artifactId>services</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.softgroup</groupId>
+        <artifactId>softgroup</artifactId>
+        <version>0.0.1</version>
+    </parent>
+    <artifactId>services</artifactId>
 
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
-	<modules>
+    <modules>
+        <module>authorization</module>
+        <module>profile</module>
+        <module>messenger</module>
+    </modules>
 
-		<module>authorization</module>
-	</modules>
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<properties>
-		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <dependencyManagement>
+        <dependencies>
 
-	<dependencyManagement>
-		<dependencies>
+            <dependency>
+                <groupId>com.softgroup</groupId>
+                <artifactId>common-protocol</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>com.softgroup</groupId>
-				<artifactId>common-protocol</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>com.softgroup</groupId>
+                <artifactId>common-router</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-			<dependency>
-				<groupId>com.softgroup</groupId>
-				<artifactId>common-router</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+        </dependencies>
+    </dependencyManagement>
 
-		</dependencies>
-	</dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-datamapper</artifactId>
+        </dependency>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.softgroup</groupId>
-			<artifactId>common-datamapper</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-protocol</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>com.softgroup</groupId>
-			<artifactId>common-protocol</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.softgroup</groupId>
-			<artifactId>common-router</artifactId>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-router</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
