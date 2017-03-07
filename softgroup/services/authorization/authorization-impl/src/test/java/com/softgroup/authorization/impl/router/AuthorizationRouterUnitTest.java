@@ -22,9 +22,7 @@ import java.util.HashMap;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by user on 26.02.2017.
@@ -40,9 +38,9 @@ public class AuthorizationRouterUnitTest {
     @Spy
     private HashMap<String,AuthorizationRequestHandler> handlersMap;
     @Mock
-    private LoginRequestHandler loginHandler;
+    private AuthorizationRequestHandler loginHandler;
     @Mock
-    private RegisterRequestHandler registerHandler;
+    private AuthorizationRequestHandler registerHandler;
 
     @Test
     public void isRouterExist(){
@@ -51,11 +49,8 @@ public class AuthorizationRouterUnitTest {
 
     private Request<LoginRequest> loginRequestREST;
     private Request<RegisterRequest> registerRequestREST;
-    private Request<SmsConfirmRequest> smsConfirmRequestREST;
-    private Response<LoginResponse> loginResponse;
-    private Response<RegisterResponse> registerResponse;
-
-    private Request badRequestREST;
+    private Response loginResponse;
+    private Response registerResponse;
 
     @Before
     public void createRequestResponse(){
@@ -95,14 +90,6 @@ public class AuthorizationRouterUnitTest {
             handlersMap.put(h.getName(),h);
         }
 
-        badRequestREST = new Request();
-        ActionHeader header3 = new ActionHeader();
-        header3.setCommand("sms_conform");
-        header3.setType("auth");
-        header3.setVersion("0");
-        header3.setUuid("0000");
-        badRequestREST.setHeader(header3);
-
     }
 
     @Test
@@ -110,7 +97,7 @@ public class AuthorizationRouterUnitTest {
         Response r = router.handle(loginRequestREST);
         assertThat(r.getData(),is(instanceOf(LoginResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
-        verify(loginHandler).handle(loginRequestREST);
+        verify(loginHandler,times(1)).handle(loginRequestREST);
         verify(loginHandler,never()).handle(registerRequestREST);
     }
 
@@ -119,15 +106,8 @@ public class AuthorizationRouterUnitTest {
         Response r = router.handle(registerRequestREST);
         assertThat(r.getData(),is(instanceOf(RegisterResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
-        verify(registerHandler).handle(registerRequestREST);
+        verify(registerHandler,times(1)).handle(registerRequestREST);
         verify(registerHandler,never()).handle(loginRequestREST);
     }
 
-
-    @Test
-    public void traceRouteToErrorHandler(){
-        Response r = router.handle(badRequestREST);
-        assertThat(r.getStatus().getCode(),is(422));
-        assertThat(r,is(instanceOf(Response.class)));
-    }
 }

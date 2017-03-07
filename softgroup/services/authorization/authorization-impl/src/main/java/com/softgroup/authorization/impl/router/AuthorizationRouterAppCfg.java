@@ -9,11 +9,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("com.softgroup.authorization")
 public class AuthorizationRouterAppCfg {
-/*
 
-    @Bean
-    public AuthorizationRouter authorizationRouter(){
-        return new AuthorizationRouter();
-    }
-*/
 }

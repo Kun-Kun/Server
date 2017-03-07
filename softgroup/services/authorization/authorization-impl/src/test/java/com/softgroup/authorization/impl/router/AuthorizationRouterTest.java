@@ -1,43 +1,57 @@
 package com.softgroup.authorization.impl.router;
 
 import com.softgroup.authorization.api.message.*;
+import com.softgroup.authorization.api.router.AuthorizationRequestHandler;
 import com.softgroup.common.protocol.ActionHeader;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
+import com.softgroup.common.router.api.Handler;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.instanceOf;
 
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
+
+
 /**
  * Created by user on 26.02.2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AuthorizationRouterAppCfg.class})
+@ContextConfiguration(classes = {AuthorizationRouterTest.LessonRouterTestCfg.class})
 public class AuthorizationRouterTest {
 
     @Autowired
     private AuthorizationRouter router;
 
+    @Autowired
+    @Qualifier("register")
+    private Handler registerHandler;
+
+    @Autowired
+    @Qualifier("login")
+    private Handler loginHander;
+
     @Test
-    public void isRouterExist(){
+    public void isRouterExist() {
         assertThat(router, CoreMatchers.notNullValue());
     }
 
     private Request<LoginRequest> loginRequestREST;
     private Request<RegisterRequest> registerRequestREST;
-    private Request<SmsConfirmRequest> smsConfirmRequestREST;
     private Request badRequestREST;
 
     @Before
-    public void createRequests(){
+    public void createRequests() {
         loginRequestREST = new Request<LoginRequest>();
         ActionHeader header = new ActionHeader();
         header.setCommand("login");
@@ -54,49 +68,59 @@ public class AuthorizationRouterTest {
         registerRequestREST.setHeader(header1);
         registerRequestREST.setData(registerEntry);
 
-        smsConfirmRequestREST = new Request<SmsConfirmRequest>();
-        ActionHeader header2 = new ActionHeader();
-        header2.setCommand("sms_confirm");
-        header2.setType("authorization");
-        SmsConfirmRequest smsConfirmEntry = new SmsConfirmRequest();
-        smsConfirmRequestREST.setHeader(header2);
-        smsConfirmRequestREST.setData(smsConfirmEntry);
-
         badRequestREST = new Request();
         ActionHeader header3 = new ActionHeader();
-        header3.setCommand("sms_conform");
-        header3.setType("auth");
-        header3.setVersion("0");
-        header3.setUuid("0000");
+        header3.setCommand("bad_command");
+        header3.setType("bad_type");
         badRequestREST.setHeader(header3);
 
     }
 
     @Test
-    public void traceRouteToLogin(){
+    public void traceRouteToLogin() {
         Response r = router.handle(loginRequestREST);
-        assertThat(r.getData(),is(instanceOf(LoginResponse.class)));
-        assertThat(r,is(instanceOf(Response.class)));
+        verify(loginHander).handle(loginRequestREST);
+        verify(registerHandler, never()).handle(loginRequestREST);
     }
 
     @Test
-    public void traceRouteToRegister(){
+    public void traceRouteToRegister() {
         Response r = router.handle(registerRequestREST);
-        assertThat(r.getData(),is(instanceOf(RegisterResponse.class)));
-        assertThat(r,is(instanceOf(Response.class)));
+        verify(registerHandler).handle(registerRequestREST);
+        verify(loginHander, never()).handle(registerRequestREST);
+
     }
 
-    @Test
-    public void traceRouteToSmsConfirm(){
-        Response r = router.handle(smsConfirmRequestREST);
-        assertThat(r.getData(),is(instanceOf(SmsConfirmResponse.class)));
-        assertThat(r,is(instanceOf(Response.class)));
-    }
-
-    @Test
-    public void traceRouteToErrorHandler(){
+    @Test(expected = NullPointerException.class)
+    public void traceRouteToErrorHandler() {
         Response r = router.handle(badRequestREST);
-        assertThat(r.getStatus().getCode(),is(422));
-        assertThat(r,is(instanceOf(Response.class)));
     }
+
+
+    @Configuration
+    public static class LessonRouterTestCfg {
+
+        @Bean
+        public AuthorizationRouter AuthorizationRouter() {
+            return new AuthorizationRouter();
+        }
+
+        @Bean(name = "register")
+        public AuthorizationRequestHandler handler() {
+            AuthorizationRequestHandler handler = Mockito.mock(AuthorizationRequestHandler.class);
+            when(handler.getName())
+                    .thenReturn("register");
+            return handler;
+        }
+
+        @Bean(name = "login")
+        public AuthorizationRequestHandler handler2() {
+            AuthorizationRequestHandler handler = Mockito.mock(AuthorizationRequestHandler.class);
+            when(handler.getName())
+                    .thenReturn("login");
+            return handler;
+        }
+
+    }
+
 }

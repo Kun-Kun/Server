@@ -18,12 +18,7 @@ import org.springframework.stereotype.Component;
             return "sms_confirm";
         }
 
-    @Override
-    public Response<SmsConfirmResponse> handle(Request<?> msg) {
-        Response<SmsConfirmResponse> response = new Response<SmsConfirmResponse>();
-        response.setData(new SmsConfirmResponse());
-        return response;
-    }
+
 
     }
 

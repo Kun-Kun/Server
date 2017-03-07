@@ -18,11 +18,6 @@ public class RegisterRequestHandler extends AbstractRequestHandler<RegisterReque
         return "register";
     }
 
-    @Override
-    public Response<RegisterResponse> handle(Request<?> msg) {
-        Response<RegisterResponse> response = new Response<RegisterResponse>();
-        response.setData(new RegisterResponse());
-        return response;
-    }
+
 
 }

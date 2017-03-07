@@ -17,11 +17,5 @@ public class LoginRequestHandler extends AbstractRequestHandler<LoginRequest,Log
         return "login";
     }
 
-    @Override
-    public Response<LoginResponse> handle(Request<?> msg) {
-        Response<LoginResponse> response = new Response<LoginResponse>();
-        response.setData(new LoginResponse());
-        return response;
-    }
 
 }
