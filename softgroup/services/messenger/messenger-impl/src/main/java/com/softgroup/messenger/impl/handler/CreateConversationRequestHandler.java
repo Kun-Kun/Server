@@ -18,11 +18,4 @@ public class CreateConversationRequestHandler extends AbstractRequestHandler<Cre
         return "create_conversation";
     }
 
-    @Override
-    public Response<CreateConversationResponse> handle(Request<?> msg) {
-        Response<CreateConversationResponse> response = new Response<CreateConversationResponse>();
-        response.setData(new CreateConversationResponse());
-        return response;
-    }
-
 }

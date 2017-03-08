@@ -7,13 +7,13 @@ public class Profile {
     //ключ
     private	String	id;
     //полный номер телефона
-    private	String	phone_number;
+    private	String phoneNumber;
     //дата регистрации
-    private	Long	create_date_time;
+    private	Long createDateTime;
     //дата изменения
-    private	Long	update_date_time;
+    private	Long updateDateTime;
     //ссылка на аватар пользователя
-    private	String	avatar_uri;
+    private	String avatarUri;
     //имя пользователя
     private	String	name;
     ///я на море
@@ -27,36 +27,36 @@ public class Profile {
         this.id = id;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public Long getCreate_date_time() {
-        return create_date_time;
+    public Long getCreateDateTime() {
+        return createDateTime;
     }
 
-    public void setCreate_date_time(Long create_date_time) {
-        this.create_date_time = create_date_time;
+    public void setCreateDateTime(Long createDateTime) {
+        this.createDateTime = createDateTime;
     }
 
-    public Long getUpdate_date_time() {
-        return update_date_time;
+    public Long getUpdateDateTime() {
+        return updateDateTime;
     }
 
-    public void setUpdate_date_time(Long update_date_time) {
-        this.update_date_time = update_date_time;
+    public void setUpdateDateTime(Long updateDateTime) {
+        this.updateDateTime = updateDateTime;
     }
 
-    public String getAvatar_uri() {
-        return avatar_uri;
+    public String getAvatarUri() {
+        return avatarUri;
     }
 
-    public void setAvatar_uri(String avatar_uri) {
-        this.avatar_uri = avatar_uri;
+    public void setAvatarUri(String avatarUri) {
+        this.avatarUri = avatarUri;
     }
 
     public String getName() {

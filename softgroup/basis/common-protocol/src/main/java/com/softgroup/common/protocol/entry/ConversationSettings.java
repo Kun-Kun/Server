@@ -7,11 +7,11 @@ public class ConversationSettings {
     //Conversation
     private String id;
     //id администратора группы
-    private String admin_id;
+    private String adminId;
     //название группы
     private String name;
     //логотип группы назначеный админом
-    private String logo_image_uri;
+    private String logoImageUri;
 
     public String getId() {
         return id;
@@ -21,12 +21,12 @@ public class ConversationSettings {
         this.id = id;
     }
 
-    public String getAdmin_id() {
-        return admin_id;
+    public String getAdminId() {
+        return adminId;
     }
 
-    public void setAdmin_id(String admin_id) {
-        this.admin_id = admin_id;
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
     }
 
     public String getName() {
@@ -37,12 +37,12 @@ public class ConversationSettings {
         this.name = name;
     }
 
-    public String getLogo_image_uri() {
-        return logo_image_uri;
+    public String getLogoImageUri() {
+        return logoImageUri;
     }
 
-    public void setLogo_image_uri(String logo_image_uri) {
-        this.logo_image_uri = logo_image_uri;
+    public void setLogoImageUri(String logoImageUri) {
+        this.logoImageUri = logoImageUri;
     }
 
 

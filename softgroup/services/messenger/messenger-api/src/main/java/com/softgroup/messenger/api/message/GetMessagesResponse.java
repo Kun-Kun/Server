@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class GetMessagesResponse implements ResponseData {
     private ArrayList<Message> messages;
-    private int total_unread;
+    private int totalUnread;
     private CursorResponse cursor;
 
     public ArrayList<Message> getMessages() {
@@ -22,12 +22,12 @@ public class GetMessagesResponse implements ResponseData {
         this.messages = messages;
     }
 
-    public int getTotal_unread() {
-        return total_unread;
+    public int getTotalUnread() {
+        return totalUnread;
     }
 
-    public void setTotal_unread(int total_unread) {
-        this.total_unread = total_unread;
+    public void setTotalUnread(int totalUnread) {
+        this.totalUnread = totalUnread;
     }
 
     public CursorResponse getCursor() {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class CreateConversationRequest implements RequestData {
     private int type;
-    private ArrayList<String> members_ids;
+    private ArrayList<String> membersIds;
 
     public int getType() {
         return type;
@@ -19,11 +19,11 @@ public class CreateConversationRequest implements RequestData {
         this.type = type;
     }
 
-    public ArrayList<String> getMembers_ids() {
-        return members_ids;
+    public ArrayList<String> getMembersIds() {
+        return membersIds;
     }
 
-    public void setMembers_ids(ArrayList<String> members_ids) {
-        this.members_ids = members_ids;
+    public void setMembersIds(ArrayList<String> membersIds) {
+        this.membersIds = membersIds;
     }
 }

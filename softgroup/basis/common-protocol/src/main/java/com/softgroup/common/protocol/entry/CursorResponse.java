@@ -5,13 +5,13 @@ package com.softgroup.common.protocol.entry;
  */
 public class CursorResponse {
     //наличие данных ещё
-    private	Boolean	is_more_exists;
+    private	Boolean isMoreExists;
 
-    public Boolean getIs_more_exists() {
-        return is_more_exists;
+    public Boolean getIsMoreExists() {
+        return isMoreExists;
     }
 
-    public void setIs_more_exists(Boolean is_more_exists) {
-        this.is_more_exists = is_more_exists;
+    public void setIsMoreExists(Boolean isMoreExists) {
+        this.isMoreExists = isMoreExists;
     }
 }

@@ -9,11 +9,11 @@ public class Conversation {
     //имя чата
     private String name;
     //Ссылка на логотип чата либо лого по умолчанию
-    private String logo_image_uri;
+    private String logoImageUri;
     //тип (0-индивидуальный, 1-групповой)
     private Integer type;
     //индекс последнего сообщения
-    private Long last_message_index;
+    private Long lastMessageIndex;
 
     public String getId() {
         return id;
@@ -31,12 +31,12 @@ public class Conversation {
         this.name = name;
     }
 
-    public String getLogo_image_uri() {
-        return logo_image_uri;
+    public String getLogoImageUri() {
+        return logoImageUri;
     }
 
-    public void setLogo_image_uri(String logo_image_uri) {
-        this.logo_image_uri = logo_image_uri;
+    public void setLogoImageUri(String logoImageUri) {
+        this.logoImageUri = logoImageUri;
     }
 
     public Integer getType() {
@@ -47,11 +47,11 @@ public class Conversation {
         this.type = type;
     }
 
-    public Long getLast_message_index() {
-        return last_message_index;
+    public Long getLastMessageIndex() {
+        return lastMessageIndex;
     }
 
-    public void setLast_message_index(Long last_message_index) {
-        this.last_message_index = last_message_index;
+    public void setLastMessageIndex(Long lastMessageIndex) {
+        this.lastMessageIndex = lastMessageIndex;
     }
 }

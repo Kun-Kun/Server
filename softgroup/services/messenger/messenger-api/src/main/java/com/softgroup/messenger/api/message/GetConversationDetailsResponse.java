@@ -7,13 +7,13 @@ import com.softgroup.common.protocol.entry.ConversationDetails;
  * Created by user on 26.02.2017.
  */
 public class GetConversationDetailsResponse implements ResponseData {
-    private ConversationDetails conversation_details;
+    private ConversationDetails conversationDetails;
 
-    public ConversationDetails getConversation_details() {
-        return conversation_details;
+    public ConversationDetails getConversationDetails() {
+        return conversationDetails;
     }
 
-    public void setConversation_details(ConversationDetails conversation_details) {
-        this.conversation_details = conversation_details;
+    public void setConversationDetails(ConversationDetails conversationDetails) {
+        this.conversationDetails = conversationDetails;
     }
 }

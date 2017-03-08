@@ -9,13 +9,13 @@ import java.util.ArrayList;
  * Created by user on 26.02.2017.
  */
 public class GetConversationsSettingsResponse implements ResponseData {
-    private ArrayList<ConversationSettings> conversations_settings;
+    private ArrayList<ConversationSettings> conversationSettingss;
 
-    public ArrayList<ConversationSettings> getConversations_settings() {
-        return conversations_settings;
+    public ArrayList<ConversationSettings> getConversationSettingss() {
+        return conversationSettingss;
     }
 
-    public void setConversations_settings(ArrayList<ConversationSettings> conversations_settings) {
-        this.conversations_settings = conversations_settings;
+    public void setConversationSettingss(ArrayList<ConversationSettings> conversationSettingss) {
+        this.conversationSettingss = conversationSettingss;
     }
 }

@@ -18,11 +18,5 @@ public class GetConversationsByIdsRequestHandler extends AbstractRequestHandler<
         return "get_conversations_by_ids";
     }
 
-    @Override
-    public Response<GetConversationsByIdsResponse> handle(Request<?> msg) {
-        Response<GetConversationsByIdsResponse> response = new Response<GetConversationsByIdsResponse>();
-        response.setData(new GetConversationsByIdsResponse());
-        return response;
-    }
 
 }

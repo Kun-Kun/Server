@@ -8,13 +8,12 @@ import com.softgroup.messenger.api.message.CreateConversationResponse;
 import com.softgroup.messenger.api.message.DeleteConversationRequest;
 import com.softgroup.messenger.api.message.DeleteConversationResponse;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
-import com.softgroup.messenger.impl.handler.CreateConversationRequestHandler;
-import com.softgroup.messenger.impl.handler.DeleteConversationRequestHandler;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -26,6 +25,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by user on 03.03.2017.
@@ -40,10 +40,10 @@ import static org.mockito.Mockito.verify;
         private ArrayList<MessengerRequestHandler> handlers;
         @Spy
         private HashMap<String,MessengerRequestHandler> handlersMap;
-        @Spy
-        private CreateConversationRequestHandler createConversationHandler;
-        @Spy
-        private DeleteConversationRequestHandler deleteConversationHandler;
+        @Mock
+        private MessengerRequestHandler createConversationHandler;
+        @Mock
+        private MessengerRequestHandler deleteConversationHandler;
 
         @Test
         public void isRouterExist(){
@@ -52,7 +52,8 @@ import static org.mockito.Mockito.verify;
 
         private Request<CreateConversationRequest> createConversationRequestREST;
         private Request<DeleteConversationRequest> deleteConversationRequestREST;
-
+        private Response createConversationResponseREST;
+        private Response deleteConversationResponseREST;
         @Before
         public void createRequestResponse(){
             createConversationRequestREST = new Request<CreateConversationRequest>();
@@ -63,6 +64,12 @@ import static org.mockito.Mockito.verify;
             createConversationRequestREST.setHeader(header);
             createConversationRequestREST.setData(createConversationEntry);
 
+            createConversationResponseREST = new Response<CreateConversationResponse>();
+            createConversationResponseREST.setData(new CreateConversationResponse());
+
+            when(createConversationHandler.handle(createConversationRequestREST)).thenReturn(createConversationResponseREST);
+            when(createConversationHandler.getName()).thenReturn("create_conversation");
+
             deleteConversationRequestREST = new Request<DeleteConversationRequest>();
             ActionHeader header1 = new ActionHeader();
             header1.setCommand("delete_conversation");
@@ -70,6 +77,12 @@ import static org.mockito.Mockito.verify;
             DeleteConversationRequest deleteConversationEntry = new DeleteConversationRequest();
             deleteConversationRequestREST.setHeader(header1);
             deleteConversationRequestREST.setData(deleteConversationEntry);
+
+            deleteConversationResponseREST = new Response<DeleteConversationResponse>();
+            deleteConversationResponseREST.setData(new DeleteConversationResponse());
+
+            when(deleteConversationHandler.handle(deleteConversationRequestREST)).thenReturn(deleteConversationResponseREST);
+            when(deleteConversationHandler.getName()).thenReturn("delete_conversation");
 
             handlers.add(createConversationHandler);
             handlers.add(deleteConversationHandler);

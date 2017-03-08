@@ -18,11 +18,4 @@ public class DeleteConversationRequestHandler extends AbstractRequestHandler<Del
         return "delete_conversation";
     }
 
-    @Override
-    public Response<DeleteConversationResponse> handle(Request<?> msg) {
-        Response<DeleteConversationResponse> response = new Response<DeleteConversationResponse>();
-        response.setData(new DeleteConversationResponse());
-        return response;
-    }
-
 }

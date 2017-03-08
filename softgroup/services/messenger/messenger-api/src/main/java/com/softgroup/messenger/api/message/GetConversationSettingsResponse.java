@@ -7,13 +7,13 @@ import com.softgroup.common.protocol.entry.ConversationSettings;
  * Created by user on 26.02.2017.
  */
 public class GetConversationSettingsResponse implements ResponseData {
-    private ConversationSettings conversation_settings;
+    private ConversationSettings conversationSettings;
 
-    public ConversationSettings getConversation_settings() {
-        return conversation_settings;
+    public ConversationSettings getConversationSettings() {
+        return conversationSettings;
     }
 
-    public void setConversation_settings(ConversationSettings conversation_settings) {
-        this.conversation_settings = conversation_settings;
+    public void setConversationSettings(ConversationSettings conversationSettings) {
+        this.conversationSettings = conversationSettings;
     }
 }

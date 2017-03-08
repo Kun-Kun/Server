@@ -8,13 +8,13 @@ import java.util.ArrayList;
  * Created by user on 26.02.2017.
  */
 public class GetConversationsSettingsRequest implements RequestData {
-    private ArrayList<String> conversations_ids;
+    private ArrayList<String> conversationsIds;
 
-    public ArrayList<String> getConversations_ids() {
-        return conversations_ids;
+    public ArrayList<String> getConversationsIds() {
+        return conversationsIds;
     }
 
-    public void setConversations_ids(ArrayList<String> conversations_ids) {
-        this.conversations_ids = conversations_ids;
+    public void setConversationsIds(ArrayList<String> conversationsIds) {
+        this.conversationsIds = conversationsIds;
     }
 }

@@ -7,21 +7,21 @@ public class Message {
     //ключ
     private String id;
     //id отправителя
-    private String sender_id;
+    private String senderId;
     //id Conversation
-    private String conversation_id;
+    private String conversationId;
     //Тип сообщения
-    private Integer message_type;
+    private Integer messageType;
     //текст сообщения
     private String payload;
     //состояние (выдаётся сервером)
     private Integer status;
     //создание на клиенте
-    private Long create_time;
+    private Long createTime;
     //время получения сервером
-    private Long server_receive_time;
+    private Long serverReceiveTime;
     //индекс сообщения
-    private Long message_index;
+    private Long messageIndex;
 
     public String getId() {
         return id;
@@ -31,28 +31,28 @@ public class Message {
         this.id = id;
     }
 
-    public String getSender_id() {
-        return sender_id;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setSender_id(String sender_id) {
-        this.sender_id = sender_id;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public String getConversation_id() {
-        return conversation_id;
+    public String getConversationId() {
+        return conversationId;
     }
 
-    public void setConversation_id(String conversation_id) {
-        this.conversation_id = conversation_id;
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 
-    public Integer getMessage_type() {
-        return message_type;
+    public Integer getMessageType() {
+        return messageType;
     }
 
-    public void setMessage_type(Integer message_type) {
-        this.message_type = message_type;
+    public void setMessageType(Integer messageType) {
+        this.messageType = messageType;
     }
 
     public String getPayload() {
@@ -71,27 +71,27 @@ public class Message {
         this.status = status;
     }
 
-    public Long getCreate_time() {
-        return create_time;
+    public Long getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Long create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 
-    public Long getServer_receive_time() {
-        return server_receive_time;
+    public Long getServerReceiveTime() {
+        return serverReceiveTime;
     }
 
-    public void setServer_receive_time(Long server_receive_time) {
-        this.server_receive_time = server_receive_time;
+    public void setServerReceiveTime(Long serverReceiveTime) {
+        this.serverReceiveTime = serverReceiveTime;
     }
 
-    public Long getMessage_index() {
-        return message_index;
+    public Long getMessageIndex() {
+        return messageIndex;
     }
 
-    public void setMessage_index(Long message_index) {
-        this.message_index = message_index;
+    public void setMessageIndex(Long messageIndex) {
+        this.messageIndex = messageIndex;
     }
 }

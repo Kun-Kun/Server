@@ -7,15 +7,15 @@ import com.softgroup.common.protocol.entry.CursorRequest;
  * Created by user on 26.02.2017.
  */
 public class GetMessagesRequest implements RequestData {
-    private String conversations_id;
+    private String conversationsId;
     private CursorRequest cursor;
 
-    public String getConversations_id() {
-        return conversations_id;
+    public String getConversationsId() {
+        return conversationsId;
     }
 
-    public void setConversations_id(String conversations_id) {
-        this.conversations_id = conversations_id;
+    public void setConversationsId(String conversationsId) {
+        this.conversationsId = conversationsId;
     }
 
     public CursorRequest getCursor() {

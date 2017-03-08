@@ -5,28 +5,28 @@ package com.softgroup.common.protocol.entry.DTO;
  */
 public class MessageRequestDTO {
     //id Conversation
-    private	String conversation_id;
+    private	String conversationId;
     //Тип сообщения
-    private	Integer message_type;
+    private	Integer messageType;
     //текст сообщения
     private	String payload;
     //создание на клиенте
-    private	Long create_time;
+    private	Long createTime;
 
-    public String getConversation_id() {
-        return conversation_id;
+    public String getConversationId() {
+        return conversationId;
     }
 
-    public void setConversation_id(String conversation_id) {
-        this.conversation_id = conversation_id;
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 
-    public Integer getMessage_type() {
-        return message_type;
+    public Integer getMessageType() {
+        return messageType;
     }
 
-    public void setMessage_type(Integer message_type) {
-        this.message_type = message_type;
+    public void setMessageType(Integer messageType) {
+        this.messageType = messageType;
     }
 
     public String getPayload() {
@@ -37,11 +37,11 @@ public class MessageRequestDTO {
         this.payload = payload;
     }
 
-    public Long getCreate_time() {
-        return create_time;
+    public Long getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Long create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 }
