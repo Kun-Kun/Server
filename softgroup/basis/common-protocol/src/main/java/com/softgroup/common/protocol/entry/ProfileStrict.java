@@ -7,7 +7,7 @@ public class ProfileStrict {
     //ключ
     private	String	id;
     //полный номер телефона
-    private	String	phone_number;
+    private	String phoneNumber;
     //имя пользователя
     private	String	name;
 
@@ -19,12 +19,12 @@ public class ProfileStrict {
         this.id = id;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {

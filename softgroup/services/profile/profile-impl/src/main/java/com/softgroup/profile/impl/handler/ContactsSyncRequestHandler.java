@@ -17,10 +17,4 @@ public class ContactsSyncRequestHandler extends AbstractRequestHandler<ContactsS
         return "contacts_sync";
     }
 
-    @Override
-    public Response<ContactsSyncResponse> handle(Request<?> msg) {
-        Response<ContactsSyncResponse> response = new Response<ContactsSyncResponse>();
-        response.setData(new ContactsSyncResponse());
-        return response;
-    }
 }

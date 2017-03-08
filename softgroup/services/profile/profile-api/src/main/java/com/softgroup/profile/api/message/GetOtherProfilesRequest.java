@@ -9,13 +9,13 @@ import java.util.ArrayList;
  */
 public class GetOtherProfilesRequest implements RequestData {
 
-    private ArrayList<String> user_id;
+    private ArrayList<String> userId;
 
-    public ArrayList<String> getUser_id() {
-        return user_id;
+    public ArrayList<String> getUserId() {
+        return userId;
     }
 
-    public void setUser_id(ArrayList<String> user_id) {
-        this.user_id = user_id;
+    public void setUserId(ArrayList<String> userId) {
+        this.userId = userId;
     }
 }

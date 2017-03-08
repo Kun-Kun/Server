@@ -17,10 +17,4 @@ public class GetLastTimeOnlineRequestHandler extends AbstractRequestHandler<GetL
         return "get_last_time_online";
     }
 
-    @Override
-    public Response<GetLastTimeOnlineResponse> handle(Request<?> msg) {
-        Response<GetLastTimeOnlineResponse> response = new Response<GetLastTimeOnlineResponse>();
-        response.setData(new GetLastTimeOnlineResponse());
-        return response;
-    }
 }

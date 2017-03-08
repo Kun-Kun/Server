@@ -23,17 +23,8 @@ public abstract class AbstractRouterHandler<T extends Handler> implements Router
 
 	@Override
 	public Response<?> handle(Request<?> msg) {
-		if(handlerMap.containsKey(getRouteKey(msg))) {
 			T handler = handlerMap.get(getRouteKey(msg));
 			return handler.handle(msg);
-		}else{
-			Response badResponse = new Response();
-			badResponse.setStatus(new ResponseStatus());
-			badResponse.getStatus().setCode(422);
-			badResponse.getStatus().setMessage("Bad request or not implemented");
-			return badResponse;
-		}
-
 	}
 
 

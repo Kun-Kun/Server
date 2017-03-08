@@ -10,8 +10,4 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(value = "com.softgroup.profile")
 public class ProfileRouterAppCfg {
 
-   /* @Bean
-    public ProfileRouter profileRouter(){
-        return new ProfileRouter();
-    }
-*/}
+}

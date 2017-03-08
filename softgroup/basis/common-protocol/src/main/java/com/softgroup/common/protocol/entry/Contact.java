@@ -7,16 +7,16 @@ import java.util.ArrayList;
  */
 public class Contact {
     //номера телефонов
-    private ArrayList<String> phone_number;
+    private ArrayList<String> phoneNumber;
     //имя контакта
     private	String name;
 
-    public ArrayList<String> getPhone_number() {
-        return phone_number;
+    public ArrayList<String> getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(ArrayList<String> phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(ArrayList<String> phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {

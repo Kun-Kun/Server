@@ -9,13 +9,13 @@ import java.util.ArrayList;
  * Created by user on 26.02.2017.
  */
 public class ContactsSyncRequest implements RequestData {
-    private ArrayList<Contact> added_contct;
+    private ArrayList<Contact> addedContact;
 
-    public ArrayList<Contact> getAdded_contct() {
-        return added_contct;
+    public ArrayList<Contact> getAddedContact() {
+        return addedContact;
     }
 
-    public void setAdded_contct(ArrayList<Contact> added_contct) {
-        this.added_contct = added_contct;
+    public void setAddedContact(ArrayList<Contact> addedConatct) {
+        this.addedContact = addedContact;
     }
 }

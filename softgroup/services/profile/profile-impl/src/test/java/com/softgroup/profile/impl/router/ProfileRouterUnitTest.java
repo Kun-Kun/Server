@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -26,6 +27,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by user on 03.03.2017.
@@ -40,10 +42,10 @@ public class ProfileRouterUnitTest {
     private ArrayList<ProfileRequestHandler> handlers;
     @Spy
     private HashMap<String,ProfileRequestHandler> handlersMap;
-    @Spy
-    private ContactsSyncRequestHandler contactsSyncHandler;
-    @Spy
-    private GetContactProfilesRequestHandler getContactProfilesHandler;
+    @Mock
+    private ProfileRequestHandler contactsSyncHandler;
+    @Mock
+    private ProfileRequestHandler getContactProfilesHandler;
 
     @Test
     public void isRouterExist(){
@@ -52,6 +54,8 @@ public class ProfileRouterUnitTest {
 
     private Request<ContactsSyncRequest> contactsSyncRequestREST;
     private Request<GetContactProfilesRequest> getContactProfilesRequestREST;
+    private Response contactsSyncResponse;
+    private Response getContactProfilesResponse;
 
     @Before
     public void createRequestResponse(){
@@ -63,6 +67,12 @@ public class ProfileRouterUnitTest {
         contactsSyncRequestREST.setHeader(header);
         contactsSyncRequestREST.setData(contactsSyncEntry);
 
+        contactsSyncResponse = new Response<ContactsSyncResponse>();
+        contactsSyncResponse.setData(new ContactsSyncResponse());
+
+        when(contactsSyncHandler.handle(contactsSyncRequestREST)).thenReturn(contactsSyncResponse);
+        when(contactsSyncHandler.getName()).thenReturn("contacts_sync");
+
         getContactProfilesRequestREST = new Request<GetContactProfilesRequest>();
         ActionHeader header1 = new ActionHeader();
         header1.setCommand("get_contact_profiles");
@@ -70,6 +80,12 @@ public class ProfileRouterUnitTest {
         GetContactProfilesRequest getContactProfilesEntry = new GetContactProfilesRequest();
         getContactProfilesRequestREST.setHeader(header1);
         getContactProfilesRequestREST.setData(getContactProfilesEntry);
+
+        getContactProfilesResponse = new Response<GetContactProfilesResponse>();
+        getContactProfilesResponse.setData(new GetContactProfilesResponse());
+
+        when(getContactProfilesHandler.handle(getContactProfilesRequestREST)).thenReturn(getContactProfilesResponse);
+        when(getContactProfilesHandler.getName()).thenReturn("get_contact_profiles");
 
         handlers.add(contactsSyncHandler);
         handlers.add(getContactProfilesHandler);
@@ -86,7 +102,7 @@ public class ProfileRouterUnitTest {
         assertThat(r.getData(),is(instanceOf(ContactsSyncResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
         verify(contactsSyncHandler).handle(contactsSyncRequestREST);
-        verify(contactsSyncHandler,never()).handle(getContactProfilesRequestREST);
+        verify(getContactProfilesHandler,never()).handle(contactsSyncRequestREST);
     }
 
     @Test
@@ -95,7 +111,7 @@ public class ProfileRouterUnitTest {
         assertThat(r.getData(),is(instanceOf(GetContactProfilesResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
         verify(getContactProfilesHandler).handle(getContactProfilesRequestREST);
-        verify(getContactProfilesHandler,never()).handle(contactsSyncRequestREST);
+        verify(contactsSyncHandler,never()).handle(getContactProfilesRequestREST);
     }
 
 

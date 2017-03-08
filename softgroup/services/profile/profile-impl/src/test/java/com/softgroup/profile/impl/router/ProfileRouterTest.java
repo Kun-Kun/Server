@@ -3,29 +3,44 @@ package com.softgroup.profile.impl.router;
 import com.softgroup.common.protocol.ActionHeader;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
+import com.softgroup.common.router.api.Handler;
 import com.softgroup.profile.api.message.*;
+import com.softgroup.profile.api.router.ProfileRequestHandler;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by maxim on 27.02.17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ProfileRouterAppCfg.class})
+@ContextConfiguration(classes = {ProfileRouterTest.LessonRouterTestCfg.class})
 
 public class ProfileRouterTest {
 
     @Autowired
     ProfileRouter router;
+
+    @Autowired
+    @Qualifier("contactsSync")
+    private Handler contactsSyncHandler;
+
+    @Autowired
+    @Qualifier("getContactProfiles")
+    private Handler getContactProfilesHandler;
 
     @Test
     public void isRouterExist(){
@@ -34,7 +49,6 @@ public class ProfileRouterTest {
 
     private Request<ContactsSyncRequest> contactsSyncRequestREST;
     private Request<GetContactProfilesRequest> getContactProfilesRequestREST;
-    private Request<GetLastTimeOnlineRequest> getLastTimeOnlineRequestREST;
     private Request badRequestREST;
 
     @Before
@@ -55,20 +69,11 @@ public class ProfileRouterTest {
         getContactProfilesRequestREST.setHeader(header1);
         getContactProfilesRequestREST.setData(getContactProfilesEntry);
 
-        getLastTimeOnlineRequestREST = new Request<GetLastTimeOnlineRequest>();
-        ActionHeader header2 = new ActionHeader();
-        header2.setCommand("get_last_time_online");
-        header2.setType("profile");
-        GetLastTimeOnlineRequest lastTimeoOnLineEntry = new GetLastTimeOnlineRequest();
-        getLastTimeOnlineRequestREST.setHeader(header2);
-        getLastTimeOnlineRequestREST.setData(lastTimeoOnLineEntry);
 
         badRequestREST = new Request();
         ActionHeader header3 = new ActionHeader();
         header3.setCommand("sms_conform");
         header3.setType("auth");
-        header3.setVersion("0");
-        header3.setUuid("0000");
         badRequestREST.setHeader(header3);
 
     }
@@ -76,28 +81,46 @@ public class ProfileRouterTest {
     @Test
     public void traceRouteToContactsSync(){
         Response r = router.handle(contactsSyncRequestREST);
-        assertThat(r.getData(),is(instanceOf(ContactsSyncResponse.class)));
-        assertThat(r,is(instanceOf(Response.class)));
+        verify(contactsSyncHandler).handle(contactsSyncRequestREST);
+        verify(getContactProfilesHandler, never()).handle(contactsSyncRequestREST);
     }
 
     @Test
     public void traceRouteToContactProfiles(){
         Response r = router.handle(getContactProfilesRequestREST);
-        assertThat(r.getData(),is(instanceOf(GetContactProfilesResponse.class)));
-        assertThat(r,is(instanceOf(Response.class)));
+        verify(getContactProfilesHandler).handle(getContactProfilesRequestREST);
+        verify(contactsSyncHandler, never()).handle(getContactProfilesRequestREST);
     }
 
-    @Test
-    public void traceRouteLastTimeOnline(){
-        Response r = router.handle(getLastTimeOnlineRequestREST);
-        assertThat(r.getData(),is(instanceOf(GetLastTimeOnlineResponse.class)));
-        assertThat(r,is(instanceOf(Response.class)));
-    }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void traceRouteToErrorHandler(){
-        Response r = router.handle(badRequestREST);
-        assertThat(r.getStatus().getCode(),is(422));
-        assertThat(r,is(instanceOf(Response.class)));
+        router.handle(badRequestREST);
+    }
+
+    @Configuration
+    public static class LessonRouterTestCfg {
+
+        @Bean
+        public ProfileRouter AuthorizationRouter() {
+            return new ProfileRouter();
+        }
+
+        @Bean(name = "contactsSync")
+        public ProfileRequestHandler handler() {
+            ProfileRequestHandler handler = Mockito.mock(ProfileRequestHandler.class);
+            when(handler.getName())
+                    .thenReturn("contacts_sync");
+            return handler;
+        }
+
+        @Bean(name = "getContactProfiles")
+        public ProfileRequestHandler handler2() {
+            ProfileRequestHandler handler = Mockito.mock(ProfileRequestHandler.class);
+            when(handler.getName())
+                    .thenReturn("get_contact_profiles");
+            return handler;
+        }
+
     }
 }

@@ -17,10 +17,4 @@ public class GetContactProfilesRequestHandler extends AbstractRequestHandler<Get
         return "get_contact_profiles";
     }
 
-    @Override
-    public Response<GetContactProfilesResponse> handle(Request<?> msg) {
-        Response<GetContactProfilesResponse> response = new Response<GetContactProfilesResponse>();
-        response.setData(new GetContactProfilesResponse());
-        return response;
-    }
 }

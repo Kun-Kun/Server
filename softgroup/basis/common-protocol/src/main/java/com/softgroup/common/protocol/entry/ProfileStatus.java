@@ -7,9 +7,9 @@ public class ProfileStatus {
     //ключ <Profile>
     private	String id;
     //Или в онлайне
-    private	Boolean is_online;
+    private	Boolean isOnline;
     //Последний раз в онлайне
-    private	Long last_time_online;
+    private	Long lastTimeOnline;
 
     public String getId() {
         return id;
@@ -19,19 +19,19 @@ public class ProfileStatus {
         this.id = id;
     }
 
-    public Boolean getIs_online() {
-        return is_online;
+    public Boolean getIsOnline() {
+        return isOnline;
     }
 
-    public void setIs_online(Boolean is_online) {
-        this.is_online = is_online;
+    public void setIsOnline(Boolean isOnline) {
+        this.isOnline = isOnline;
     }
 
-    public Long getLast_time_online() {
-        return last_time_online;
+    public Long getLastTimeOnline() {
+        return lastTimeOnline;
     }
 
-    public void setLast_time_online(Long last_time_online) {
-        this.last_time_online = last_time_online;
+    public void setLastTimeOnline(Long lastTimeOnline) {
+        this.lastTimeOnline = lastTimeOnline;
     }
 }
