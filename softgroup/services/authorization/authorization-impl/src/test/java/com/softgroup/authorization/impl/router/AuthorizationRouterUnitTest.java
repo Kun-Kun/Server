@@ -98,7 +98,7 @@ public class AuthorizationRouterUnitTest {
         assertThat(r.getData(),is(instanceOf(LoginResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
         verify(loginHandler,times(1)).handle(loginRequestREST);
-        verify(loginHandler,never()).handle(registerRequestREST);
+        verify(registerHandler,never()).handle(loginRequestREST);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class AuthorizationRouterUnitTest {
         assertThat(r.getData(),is(instanceOf(RegisterResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
         verify(registerHandler,times(1)).handle(registerRequestREST);
-        verify(registerHandler,never()).handle(loginRequestREST);
+        verify(loginHandler,never()).handle(registerRequestREST);
     }
 
 }
