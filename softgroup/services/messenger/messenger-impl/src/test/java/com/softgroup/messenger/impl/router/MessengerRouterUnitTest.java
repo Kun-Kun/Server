@@ -99,7 +99,7 @@ import static org.mockito.Mockito.when;
             assertThat(r.getData(),is(instanceOf(CreateConversationResponse.class)));
             assertThat(r,is(instanceOf(Response.class)));
             verify(createConversationHandler).handle(createConversationRequestREST);
-            verify(createConversationHandler,never()).handle(deleteConversationRequestREST);
+            verify(deleteConversationHandler,never()).handle(createConversationRequestREST);
         }
 
         @Test
@@ -108,7 +108,7 @@ import static org.mockito.Mockito.when;
             assertThat(r.getData(),is(instanceOf(DeleteConversationResponse.class)));
             assertThat(r,is(instanceOf(Response.class)));
             verify(deleteConversationHandler).handle(deleteConversationRequestREST);
-            verify(deleteConversationHandler,never()).handle(createConversationRequestREST);
+            verify(createConversationHandler,never()).handle(deleteConversationRequestREST);
         }
 
 

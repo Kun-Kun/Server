@@ -80,14 +80,14 @@ public class MessengerRouterTest {
     public void traceRouteToCreateConversation(){
         Response r = router.handle(createConversationRequestREST);
         verify(createConversation).handle(createConversationRequestREST);
-        verify(createConversation, never()).handle(deleteConversationRequestREST);
+        verify(deleteConversation, never()).handle(createConversationRequestREST);
     }
 
     @Test
     public void traceRouteToDeleteConversation(){
         Response r = router.handle(deleteConversationRequestREST);
         verify(deleteConversation).handle(deleteConversationRequestREST);
-        verify(deleteConversation, never()).handle(createConversationRequestREST);
+        verify(createConversation, never()).handle(deleteConversationRequestREST);
     }
 
     @Test(expected = NullPointerException.class)
