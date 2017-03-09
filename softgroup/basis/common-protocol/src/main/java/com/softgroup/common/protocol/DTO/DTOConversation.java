@@ -1,18 +1,18 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class Conversation {
-    //ключ
+public class DTOConversation {
+    //key
     private String id;
-    //имя чата
+    //Conversation name
     private String name;
-    //Ссылка на логотип чата либо лого по умолчанию
+    //Logo
     private String logoImageUri;
-    //тип (0-индивидуальный, 1-групповой)
+    //type (0-individual, 1-group)
     private Integer type;
-    //индекс последнего сообщения
+    //last message index
     private Long lastMessageIndex;
 
     public String getId() {

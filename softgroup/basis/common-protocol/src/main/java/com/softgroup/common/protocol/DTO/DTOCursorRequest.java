@@ -1,12 +1,12 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class CursorRequest {
-    //колличество
+public class DTOCursorRequest {
+    //amount
     private	Integer	count;
-    //количество в выборке
+    //messages offset
     private	Integer	offset;
 
     public Integer getCount() {

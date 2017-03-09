@@ -1,19 +1,19 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.entry.Message;
+import com.softgroup.common.protocol.DTO.DTOMessage;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class SendMessageResponse implements ResponseData {
-    private Message message;
+    private DTOMessage message;
 
-    public Message getMessage() {
+    public DTOMessage getMessage() {
         return message;
     }
 
-    public void setMessage(Message message) {
+    public void setMessage(DTOMessage message) {
         this.message = message;
     }
 }

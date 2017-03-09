@@ -1,19 +1,19 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.entry.ConversationDetails;
+import com.softgroup.common.protocol.DTO.DTOConversationDetails;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class GetConversationDetailsResponse implements ResponseData {
-    private ConversationDetails conversationDetails;
+    private DTOConversationDetails conversationDetails;
 
-    public ConversationDetails getConversationDetails() {
+    public DTOConversationDetails getConversationDetails() {
         return conversationDetails;
     }
 
-    public void setConversationDetails(ConversationDetails conversationDetails) {
+    public void setConversationDetails(DTOConversationDetails conversationDetails) {
         this.conversationDetails = conversationDetails;
     }
 }

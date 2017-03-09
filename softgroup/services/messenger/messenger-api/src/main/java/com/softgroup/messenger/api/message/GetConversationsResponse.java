@@ -1,7 +1,7 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.entry.Conversation;
+import com.softgroup.common.protocol.DTO.DTOConversation;
 
 import java.util.ArrayList;
 
@@ -10,13 +10,13 @@ import java.util.ArrayList;
  */
 public class GetConversationsResponse implements ResponseData {
 
-    private ArrayList<Conversation> conversations;
+    private ArrayList<DTOConversation> conversations;
 
-    public ArrayList<Conversation> getConversations() {
+    public ArrayList<DTOConversation> getConversations() {
         return conversations;
     }
 
-    public void setConversations(ArrayList<Conversation> conversations) {
+    public void setConversations(ArrayList<DTOConversation> conversations) {
         this.conversations = conversations;
     }
 }

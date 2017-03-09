@@ -1,22 +1,22 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class Profile {
-    //ключ
+public class DTOProfile {
+    //key
     private	String	id;
-    //полный номер телефона
+    //ful phone number
     private	String phoneNumber;
-    //дата регистрации
+    //registration time
     private	Long createDateTime;
-    //дата изменения
+    //change time
     private	Long updateDateTime;
-    //ссылка на аватар пользователя
+    //link to avatar
     private	String avatarUri;
-    //имя пользователя
+    //username
     private	String	name;
-    ///я на море
+    ///profile status
     private	String	status;
 
     public String getId() {

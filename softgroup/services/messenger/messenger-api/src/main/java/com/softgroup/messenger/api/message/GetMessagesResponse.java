@@ -1,8 +1,8 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.entry.CursorResponse;
-import com.softgroup.common.protocol.entry.Message;
+import com.softgroup.common.protocol.DTO.DTOCursorResponse;
+import com.softgroup.common.protocol.DTO.DTOMessage;
 
 import java.util.ArrayList;
 
@@ -10,15 +10,15 @@ import java.util.ArrayList;
  * Created by user on 26.02.2017.
  */
 public class GetMessagesResponse implements ResponseData {
-    private ArrayList<Message> messages;
+    private ArrayList<DTOMessage> messages;
     private int totalUnread;
-    private CursorResponse cursor;
+    private DTOCursorResponse cursor;
 
-    public ArrayList<Message> getMessages() {
+    public ArrayList<DTOMessage> getMessages() {
         return messages;
     }
 
-    public void setMessages(ArrayList<Message> messages) {
+    public void setMessages(ArrayList<DTOMessage> messages) {
         this.messages = messages;
     }
 
@@ -30,11 +30,11 @@ public class GetMessagesResponse implements ResponseData {
         this.totalUnread = totalUnread;
     }
 
-    public CursorResponse getCursor() {
+    public DTOCursorResponse getCursor() {
         return cursor;
     }
 
-    public void setCursor(CursorResponse cursor) {
+    public void setCursor(DTOCursorResponse cursor) {
         this.cursor = cursor;
     }
 }

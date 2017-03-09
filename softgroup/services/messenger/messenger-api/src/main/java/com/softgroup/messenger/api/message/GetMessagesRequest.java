@@ -1,14 +1,14 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.RequestData;
-import com.softgroup.common.protocol.entry.CursorRequest;
+import com.softgroup.common.protocol.DTO.DTOCursorRequest;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class GetMessagesRequest implements RequestData {
     private String conversationsId;
-    private CursorRequest cursor;
+    private DTOCursorRequest cursor;
 
     public String getConversationsId() {
         return conversationsId;
@@ -18,11 +18,11 @@ public class GetMessagesRequest implements RequestData {
         this.conversationsId = conversationsId;
     }
 
-    public CursorRequest getCursor() {
+    public DTOCursorRequest getCursor() {
         return cursor;
     }
 
-    public void setCursor(CursorRequest cursor) {
+    public void setCursor(DTOCursorRequest cursor) {
         this.cursor = cursor;
     }
 }

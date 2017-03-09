@@ -1,15 +1,15 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 import java.util.ArrayList;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class ConversationDetails {
+public class DTOConversationDetails {
     // Conversation
     private String id ;
-    //список учасников
-    private ArrayList<Profile> members;
+    //member list
+    private ArrayList<DTOProfile> members;
 
     public String getId() {
         return id;
@@ -19,11 +19,11 @@ public class ConversationDetails {
         this.id = id;
     }
 
-    public ArrayList<Profile> getMembers() {
+    public ArrayList<DTOProfile> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<Profile> members) {
+    public void setMembers(ArrayList<DTOProfile> members) {
         this.members = members;
     }
 }

@@ -1,10 +1,10 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class CursorResponse {
-    //наличие данных ещё
+public class DTOCursorResponse {
+    //is any message exist to load
     private	Boolean isMoreExists;
 
     public Boolean getIsMoreExists() {

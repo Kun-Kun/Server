@@ -1,16 +1,16 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class ConversationSettings {
+public class DTOConversationSettings {
     //Conversation
     private String id;
-    //id администратора группы
+    //id admin user
     private String adminId;
-    //название группы
+    //conversation name
     private String name;
-    //логотип группы назначеный админом
+    //conversation logo
     private String logoImageUri;
 
     public String getId() {
