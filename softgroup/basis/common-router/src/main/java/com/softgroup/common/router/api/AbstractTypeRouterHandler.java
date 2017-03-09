@@ -8,9 +8,6 @@ import com.softgroup.common.protocol.Request;
 public abstract class AbstractTypeRouterHandler<T extends Handler> extends AbstractRouterHandler<T>{
 
     @Override
-    public abstract String getName();
-
-    @Override
     public String getRouteKey(Request<?> msg) {
         return msg.getHeader().getType();
     }
