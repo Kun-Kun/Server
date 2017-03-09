@@ -1,14 +1,14 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 import java.util.ArrayList;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class Contact {
-    //номера телефонов
+public class DTOContact {
+    //phone number
     private ArrayList<String> phoneNumber;
-    //имя контакта
+    //contact name
     private	String name;
 
     public ArrayList<String> getPhoneNumber() {

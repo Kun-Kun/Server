@@ -1,19 +1,19 @@
 package com.softgroup.profile.api.message;
 
 import com.softgroup.common.protocol.RequestData;
-import com.softgroup.common.protocol.entry.Profile;
+import com.softgroup.common.protocol.DTO.DTOProfile;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class SetMyProfileRequest implements RequestData {
-    private Profile profile;
+    private DTOProfile profile;
 
-    public Profile getProfile() {
+    public DTOProfile getProfile() {
         return profile;
     }
 
-    public void setProfile(Profile profile) {
+    public void setProfile(DTOProfile profile) {
         this.profile = profile;
     }
 }

@@ -1,14 +1,14 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class ProfileStrict {
-    //ключ
+public class DTOProfileStrict {
+    //key
     private	String	id;
-    //полный номер телефона
+    //full phone number
     private	String phoneNumber;
-    //имя пользователя
+    //username
     private	String	name;
 
     public String getId() {

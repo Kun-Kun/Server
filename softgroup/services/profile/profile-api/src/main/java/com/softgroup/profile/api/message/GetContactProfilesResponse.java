@@ -1,7 +1,7 @@
 package com.softgroup.profile.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.entry.Profile;
+import com.softgroup.common.protocol.DTO.DTOProfile;
 
 import java.util.ArrayList;
 
@@ -10,13 +10,13 @@ import java.util.ArrayList;
  */
 public class GetContactProfilesResponse implements ResponseData {
 
-    private ArrayList<Profile> profiles;
+    private ArrayList<DTOProfile> profiles;
 
-    public ArrayList<Profile> getProfiles() {
+    public ArrayList<DTOProfile> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(ArrayList<Profile> profiles) {
+    public void setProfiles(ArrayList<DTOProfile> profiles) {
         this.profiles = profiles;
     }
 }

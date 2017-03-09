@@ -1,7 +1,7 @@
 package com.softgroup.profile.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.entry.ProfileStatus;
+import com.softgroup.common.protocol.DTO.DTOProfileStatus;
 
 import java.util.ArrayList;
 
@@ -10,5 +10,5 @@ import java.util.ArrayList;
  */
 public class GetLastTimeOnlineResponse  implements ResponseData {
 
-    private ArrayList<ProfileStatus> profiles;
+    private ArrayList<DTOProfileStatus> profiles;
 }

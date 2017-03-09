@@ -1,14 +1,14 @@
-package com.softgroup.common.protocol.entry;
+package com.softgroup.common.protocol.DTO;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class ProfileStatus {
-    //ключ <Profile>
+public class DTOProfileStatus {
+    //key <Profile>
     private	String id;
-    //Или в онлайне
+    //is user online
     private	Boolean isOnline;
-    //Последний раз в онлайне
+    //last time online
     private	Long lastTimeOnline;
 
     public String getId() {
