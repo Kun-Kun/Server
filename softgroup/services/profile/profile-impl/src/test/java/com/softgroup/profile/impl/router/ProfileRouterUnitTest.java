@@ -1,15 +1,7 @@
 package com.softgroup.profile.impl.router;
 
-import com.softgroup.common.protocol.ActionHeader;
-import com.softgroup.common.protocol.Request;
-import com.softgroup.common.protocol.Response;
-import com.softgroup.profile.api.message.ContactsSyncRequest;
-import com.softgroup.profile.api.message.ContactsSyncResponse;
-import com.softgroup.profile.api.message.GetContactProfilesRequest;
-import com.softgroup.profile.api.message.GetContactProfilesResponse;
+import com.softgroup.common.protocol.*;
 import com.softgroup.profile.api.router.ProfileRequestHandler;
-import com.softgroup.profile.impl.handler.ContactsSyncRequestHandler;
-import com.softgroup.profile.impl.handler.GetContactProfilesRequestHandler;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,37 +44,31 @@ public class ProfileRouterUnitTest {
         assertThat(router, CoreMatchers.notNullValue());
     }
 
-    private Request<ContactsSyncRequest> contactsSyncRequestREST;
-    private Request<GetContactProfilesRequest> getContactProfilesRequestREST;
+    private Request<RequestData> contactsSyncRequestREST;
+    private Request<RequestData> getContactProfilesRequestREST;
     private Response contactsSyncResponse;
     private Response getContactProfilesResponse;
 
     @Before
     public void createRequestResponse(){
-        contactsSyncRequestREST = new Request<ContactsSyncRequest>();
+        contactsSyncRequestREST = new Request<RequestData>();
         ActionHeader header = new ActionHeader();
         header.setCommand("contacts_sync");
         header.setType("profile");
-        ContactsSyncRequest contactsSyncEntry = new ContactsSyncRequest();
         contactsSyncRequestREST.setHeader(header);
-        contactsSyncRequestREST.setData(contactsSyncEntry);
 
-        contactsSyncResponse = new Response<ContactsSyncResponse>();
-        contactsSyncResponse.setData(new ContactsSyncResponse());
+        contactsSyncResponse = new Response<ResponseData>();
 
         when(contactsSyncHandler.handle(contactsSyncRequestREST)).thenReturn(contactsSyncResponse);
         when(contactsSyncHandler.getName()).thenReturn("contacts_sync");
 
-        getContactProfilesRequestREST = new Request<GetContactProfilesRequest>();
+        getContactProfilesRequestREST = new Request<RequestData>();
         ActionHeader header1 = new ActionHeader();
         header1.setCommand("get_contact_profiles");
         header1.setType("profile");
-        GetContactProfilesRequest getContactProfilesEntry = new GetContactProfilesRequest();
         getContactProfilesRequestREST.setHeader(header1);
-        getContactProfilesRequestREST.setData(getContactProfilesEntry);
 
-        getContactProfilesResponse = new Response<GetContactProfilesResponse>();
-        getContactProfilesResponse.setData(new GetContactProfilesResponse());
+        getContactProfilesResponse = new Response<ResponseData>();
 
         when(getContactProfilesHandler.handle(getContactProfilesRequestREST)).thenReturn(getContactProfilesResponse);
         when(getContactProfilesHandler.getName()).thenReturn("get_contact_profiles");
@@ -99,7 +85,6 @@ public class ProfileRouterUnitTest {
     @Test
     public void traceRouteToContactsSync(){
         Response r = router.handle(contactsSyncRequestREST);
-        assertThat(r.getData(),is(instanceOf(ContactsSyncResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
         verify(contactsSyncHandler).handle(contactsSyncRequestREST);
         verify(getContactProfilesHandler,never()).handle(contactsSyncRequestREST);
@@ -108,7 +93,6 @@ public class ProfileRouterUnitTest {
     @Test
     public void traceRouteToGetContactProfiles(){
         Response r = router.handle(getContactProfilesRequestREST);
-        assertThat(r.getData(),is(instanceOf(GetContactProfilesResponse.class)));
         assertThat(r,is(instanceOf(Response.class)));
         verify(getContactProfilesHandler).handle(getContactProfilesRequestREST);
         verify(contactsSyncHandler,never()).handle(getContactProfilesRequestREST);
