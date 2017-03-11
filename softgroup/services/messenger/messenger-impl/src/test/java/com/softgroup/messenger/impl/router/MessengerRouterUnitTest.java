@@ -1,8 +1,6 @@
 package com.softgroup.messenger.impl.router;
 
-import com.softgroup.common.protocol.ActionHeader;
-import com.softgroup.common.protocol.Request;
-import com.softgroup.common.protocol.Response;
+import com.softgroup.common.protocol.*;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
@@ -46,36 +44,31 @@ import static org.mockito.Mockito.when;
             assertThat(router, CoreMatchers.notNullValue());
         }
 
-        private Request<CreateConversationRequest> createConversationRequestREST;
-        private Request<DeleteConversationRequest> deleteConversationRequestREST;
+        private Request<RequestData> createConversationRequestREST;
+        private Request<RequestData> deleteConversationRequestREST;
         private Response createConversationResponseREST;
         private Response deleteConversationResponseREST;
         @Before
         public void createRequestResponse(){
-            createConversationRequestREST = new Request<CreateConversationRequest>();
+            createConversationRequestREST = new Request<RequestData>();
             ActionHeader header = new ActionHeader();
             header.setCommand("create_conversation");
             header.setType("messenger");
-            CreateConversationRequest createConversationEntry = new CreateConversationRequest();
             createConversationRequestREST.setHeader(header);
-            createConversationRequestREST.setData(createConversationEntry);
 
-            createConversationResponseREST = new Response<CreateConversationResponse>();
-            createConversationResponseREST.setData(new CreateConversationResponse());
+
+            createConversationResponseREST = new Response<ResponseData>();
 
             when(createConversationHandler.handle(createConversationRequestREST)).thenReturn(createConversationResponseREST);
             when(createConversationHandler.getName()).thenReturn("create_conversation");
 
-            deleteConversationRequestREST = new Request<DeleteConversationRequest>();
+            deleteConversationRequestREST = new Request<RequestData>();
             ActionHeader header1 = new ActionHeader();
             header1.setCommand("delete_conversation");
             header1.setType("messenger");
-            DeleteConversationRequest deleteConversationEntry = new DeleteConversationRequest();
             deleteConversationRequestREST.setHeader(header1);
-            deleteConversationRequestREST.setData(deleteConversationEntry);
 
-            deleteConversationResponseREST = new Response<DeleteConversationResponse>();
-            deleteConversationResponseREST.setData(new DeleteConversationResponse());
+            deleteConversationResponseREST = new Response<ResponseData>();
 
             when(deleteConversationHandler.handle(deleteConversationRequestREST)).thenReturn(deleteConversationResponseREST);
             when(deleteConversationHandler.getName()).thenReturn("delete_conversation");
@@ -92,7 +85,6 @@ import static org.mockito.Mockito.when;
         @Test
         public void traceRouteToCreateConversation(){
             Response r = router.handle(createConversationRequestREST);
-            assertThat(r.getData(),is(instanceOf(CreateConversationResponse.class)));
             assertThat(r,is(instanceOf(Response.class)));
             verify(createConversationHandler).handle(createConversationRequestREST);
             verify(deleteConversationHandler,never()).handle(createConversationRequestREST);
@@ -101,7 +93,6 @@ import static org.mockito.Mockito.when;
         @Test
         public void traceRouteToDeleteConversation(){
             Response r = router.handle(deleteConversationRequestREST);
-            assertThat(r.getData(),is(instanceOf(DeleteConversationResponse.class)));
             assertThat(r,is(instanceOf(Response.class)));
             verify(deleteConversationHandler).handle(deleteConversationRequestREST);
             verify(createConversationHandler,never()).handle(deleteConversationRequestREST);
