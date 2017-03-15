@@ -1,8 +1,6 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.DTO.DTOCursorResponse;
-import com.softgroup.common.protocol.DTO.DTOMessage;
 
 import java.util.ArrayList;
 

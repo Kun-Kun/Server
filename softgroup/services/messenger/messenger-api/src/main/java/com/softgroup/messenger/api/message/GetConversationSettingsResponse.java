@@ -1,7 +1,6 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.common.protocol.DTO.DTOConversationSettings;
 
 /**
  * Created by user on 26.02.2017.

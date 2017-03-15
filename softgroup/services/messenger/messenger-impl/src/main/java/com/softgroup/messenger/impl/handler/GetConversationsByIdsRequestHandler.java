@@ -3,6 +3,8 @@ package com.softgroup.messenger.impl.handler;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
+import com.softgroup.messenger.api.message.DeleteConversationRequest;
+import com.softgroup.messenger.api.message.DeleteConversationResponse;
 import com.softgroup.messenger.api.message.GetConversationsByIdsRequest;
 import com.softgroup.messenger.api.message.GetConversationsByIdsResponse;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
@@ -18,5 +20,9 @@ public class GetConversationsByIdsRequestHandler extends AbstractRequestHandler<
         return "get_conversations_by_ids";
     }
 
+    @Override
+    public Response<GetConversationsByIdsResponse> processRequest(Request<GetConversationsByIdsRequest> msg){
+        return null;
+    }
 
 }

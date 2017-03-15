@@ -1,6 +1,10 @@
 package com.softgroup.messenger.impl.handler;
 
+import com.softgroup.common.protocol.Request;
+import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
+import com.softgroup.messenger.api.message.DeleteConversationRequest;
+import com.softgroup.messenger.api.message.DeleteConversationResponse;
 import com.softgroup.messenger.api.message.UpdateConversationSettingsRequest;
 import com.softgroup.messenger.api.message.UpdateConversationSettingsResponse;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
@@ -16,4 +20,8 @@ public class UpdateConversationSettingsRequestHandler extends AbstractRequestHan
         return "update_conversation_settings";
     }
 
+    @Override
+    public Response<UpdateConversationSettingsResponse> processRequest(Request<UpdateConversationSettingsRequest> msg){
+        return null;
+    }
 }

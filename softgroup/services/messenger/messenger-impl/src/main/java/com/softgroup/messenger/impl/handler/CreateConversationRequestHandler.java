@@ -18,4 +18,9 @@ public class CreateConversationRequestHandler extends AbstractRequestHandler<Cre
         return "create_conversation";
     }
 
+    @Override
+    public Response<CreateConversationResponse> processRequest(Request<CreateConversationRequest> msg){
+        return null;
+    }
+
 }

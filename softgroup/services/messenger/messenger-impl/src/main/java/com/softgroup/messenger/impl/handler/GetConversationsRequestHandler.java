@@ -1,7 +1,11 @@
 package com.softgroup.messenger.impl.handler;
 
+import com.softgroup.common.protocol.Request;
+import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
 
+import com.softgroup.messenger.api.message.DeleteConversationRequest;
+import com.softgroup.messenger.api.message.DeleteConversationResponse;
 import com.softgroup.messenger.api.message.GetConversationsRequest;
 import com.softgroup.messenger.api.message.GetConversationsResponse;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
@@ -17,4 +21,8 @@ public class GetConversationsRequestHandler extends AbstractRequestHandler<GetCo
         return "get_conversations";
     }
 
+    @Override
+    public Response<GetConversationsResponse> processRequest(Request<GetConversationsRequest> msg){
+        return null;
+    }
 }
