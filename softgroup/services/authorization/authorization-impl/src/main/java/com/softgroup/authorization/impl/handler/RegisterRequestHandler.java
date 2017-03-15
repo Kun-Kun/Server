@@ -1,5 +1,7 @@
 package com.softgroup.authorization.impl.handler;
 
+import com.softgroup.authorization.api.message.LoginRequest;
+import com.softgroup.authorization.api.message.LoginResponse;
 import com.softgroup.authorization.api.message.RegisterRequest;
 import com.softgroup.authorization.api.message.RegisterResponse;
 import com.softgroup.authorization.api.router.AuthorizationRequestHandler;
@@ -18,6 +20,9 @@ public class RegisterRequestHandler extends AbstractRequestHandler<RegisterReque
         return "register";
     }
 
-
+    @Override
+    public Response<RegisterResponse> processRequest(Request<RegisterRequest> msg){
+        return null;
+    }
 
 }

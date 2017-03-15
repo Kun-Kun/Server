@@ -17,5 +17,8 @@ public class LoginRequestHandler extends AbstractRequestHandler<LoginRequest,Log
         return "login";
     }
 
-
+    @Override
+    public Response<LoginResponse> processRequest(Request<LoginRequest> msg){
+        return null;
+    }
 }

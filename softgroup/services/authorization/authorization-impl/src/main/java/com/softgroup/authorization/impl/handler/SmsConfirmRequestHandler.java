@@ -1,5 +1,7 @@
 package com.softgroup.authorization.impl.handler;
 
+import com.softgroup.authorization.api.message.LoginRequest;
+import com.softgroup.authorization.api.message.LoginResponse;
 import com.softgroup.authorization.api.message.SmsConfirmRequest;
 import com.softgroup.authorization.api.message.SmsConfirmResponse;
 import com.softgroup.authorization.api.router.AuthorizationRequestHandler;
@@ -18,7 +20,10 @@ import org.springframework.stereotype.Component;
             return "sms_confirm";
         }
 
-
+    @Override
+    public Response<SmsConfirmResponse> processRequest(Request<SmsConfirmRequest> msg){
+        return null;
+    }
 
     }
 
