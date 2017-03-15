@@ -1,4 +1,4 @@
-package com.softgroup.profile.impl.router;
+package com.softgroup.profile.impl.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan(value = "com.softgroup.profile")
-public class ProfileRouterAppCfg {
+public class ProfileAppCfg {
 
 }
