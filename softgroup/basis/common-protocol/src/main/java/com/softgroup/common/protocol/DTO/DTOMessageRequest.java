@@ -1,9 +1,11 @@
 package com.softgroup.common.protocol.DTO;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 26.02.2017.
  */
-public class DTOMessageRequest {
+public class DTOMessageRequest implements Serializable{
     //id Conversation
     private	String conversationId;
     //type of the message

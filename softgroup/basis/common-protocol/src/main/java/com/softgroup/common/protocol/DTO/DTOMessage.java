@@ -1,9 +1,11 @@
 package com.softgroup.common.protocol.DTO;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 26.02.2017.
  */
-public class DTOMessage {
+public class DTOMessage implements Serializable {
     //key
     private String id;
     //sender id

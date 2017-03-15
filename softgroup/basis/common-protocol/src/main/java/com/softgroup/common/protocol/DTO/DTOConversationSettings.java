@@ -1,9 +1,11 @@
 package com.softgroup.common.protocol.DTO;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 26.02.2017.
  */
-public class DTOConversationSettings {
+public class DTOConversationSettings implements Serializable {
     //Conversation
     private String id;
     //id admin user

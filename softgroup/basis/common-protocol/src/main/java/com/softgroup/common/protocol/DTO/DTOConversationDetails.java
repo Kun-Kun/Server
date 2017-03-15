@@ -1,11 +1,12 @@
 package com.softgroup.common.protocol.DTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class DTOConversationDetails {
+public class DTOConversationDetails implements Serializable {
     // Conversation
     private String id ;
     //member list

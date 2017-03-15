@@ -1,9 +1,11 @@
 package com.softgroup.common.protocol.DTO;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 26.02.2017.
  */
-public class DTOCursorRequest {
+public class DTOCursorRequest implements Serializable {
     //amount
     private	Integer	count;
     //messages offset
