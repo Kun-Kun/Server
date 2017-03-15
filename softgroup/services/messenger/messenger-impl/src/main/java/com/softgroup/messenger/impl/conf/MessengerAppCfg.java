@@ -1,4 +1,4 @@
-package com.softgroup.messenger.impl.router;
+package com.softgroup.messenger.impl.conf;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(value = "com.softgroup.messenger")
-public class MessengerRouterAppCfg {
+public class MessengerAppCfg {
 
 }
 
