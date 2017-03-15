@@ -13,13 +13,13 @@ public abstract class AbstractRequestHandler<RQ extends RequestData, RS extends 
 	@Autowired
 	DataMapper dataMapper;
 
-
 	@Override
 	public Response<RS> handle(Request<?> msg) {
 		Request<RQ> typedRequest = toType(msg);
 		Response<RS> response = processRequest(typedRequest);
 		return response;
 	}
+
 
 	private  Request<RQ> toType(Request<?> msg ){
 		Object dataObject = msg.getData();
