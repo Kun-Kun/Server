@@ -13,7 +13,8 @@
 
 	<modules>
 
-	</modules>
+        <module>rest-server</module>
+    </modules>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
