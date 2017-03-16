@@ -21,5 +21,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>com.softgroup</groupId>
+			<artifactId>common-protocol</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.softgroup</groupId>
+			<artifactId>common-datamapper</artifactId>
+		</dependency>
+	</dependencies>
+
 
 </project>

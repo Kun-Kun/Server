@@ -1,19 +1,26 @@
 package com.softgroup.server.rest.controller;
 
+import com.softgroup.common.datamapper.configuration.DataMapperAppCfg;
+import com.softgroup.common.protocol.Response;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @Controller
-@RequestMapping(value = "/myservice")
+@RequestMapping(value = "/api")
+@Import(DataMapperAppCfg.class)
 public class MainController {
 
-    @RequestMapping(method = RequestMethod.GET,consumes="application/json",produces="application/json")
+    @RequestMapping(value = "/private",method = RequestMethod.POST,consumes="application/json",produces = "application/json")
     @ResponseBody
-    public Response getMyDataGet(@RequestParam String data) {
-        return "Test with header: "+header +"\r\n</br>And parameters" + param;
+    public Response privateController(@RequestParam String data) {
+        return new Response();
     }
 
+    @RequestMapping(value = "/public",method = RequestMethod.POST,consumes="application/json",produces = "application/json")
+    @ResponseBody
+    public Response publicController(@RequestParam String data) {
+        return new Response();
+    }
 
 }

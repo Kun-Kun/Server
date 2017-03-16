@@ -12,8 +12,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
-
 		<module>authorization</module>
+		<module>messenger</module>
 	</modules>
 
 	<properties>
