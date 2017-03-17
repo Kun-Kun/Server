@@ -5,7 +5,8 @@ package com.sofrgroup.token.api;
  */
 public interface TokenGeneratorService {
 
-    String createToken(String deviceId, String userId);
-    String createTempToken(String token);
-    boolean validateToken(String token);
+    String createLTToken(String deviceId, String userId);
+    String createSTToken(String token);
+    boolean validateLTToken(String token);
+    boolean validateSTToken(String token);
 }

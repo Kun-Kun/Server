@@ -31,15 +31,15 @@ public class TokenServiceTest {
     }
 
     @Test
-    public void createToken() throws Exception {
+    public void createLTToken() throws Exception {
         assertNotNull(firstLTToken);
-        String secondLTToken = tokenGenerator.createToken("1234567890","0987654321");
+        String secondLTToken = tokenGenerator.createLTToken("1234567890","0987654321");
         assertNotNull(secondLTToken);
         assertNotEquals(firstLTToken,secondLTToken);
 
-        assertThat(tokenGenerator.createToken(null,"0987654321"),null);
-        assertThat(tokenGenerator.createToken("123456789",null),null);
-        assertThat(tokenGenerator.createToken(null,null),null);
+        assertThat(tokenGenerator.createLTToken(null,"0987654321"),null);
+        assertThat(tokenGenerator.createLTToken("123456789",null),null);
+        assertThat(tokenGenerator.createLTToken(null,null),null);
     }
 
     @Test
@@ -54,8 +54,8 @@ public class TokenServiceTest {
 
     @Before
     public void generateTokens(){
-        firstLTToken = tokenGenerator.createToken("1234567890","0987654321");
-        firstSTToken = tokenGenerator.createTempToken(firstLTToken);
+        firstLTToken = tokenGenerator.createLTToken("1234567890","0987654321");
+        firstSTToken = tokenGenerator.createSTToken(firstLTToken);
     }
 
 }

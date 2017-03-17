@@ -24,7 +24,7 @@ public class TokenService implements TokenGeneratorService {
     //Short term token lifetime in minute
     private int lifetimeTokenST = 10;
 
-    public String createToken(String deviceId, String userId) {
+    public String createLTToken(String deviceId, String userId) {
         if (deviceId == null || userId == null)
             return null;
         Map<String, Object> tokenData = new HashMap<>();
@@ -43,9 +43,9 @@ public class TokenService implements TokenGeneratorService {
         return jwtBuilder.signWith(SignatureAlgorithm.RS256, keyLT).compact();
     }
 
-    public String createTempToken(String token) {
+    public String createSTToken(String token) {
         //validate token
-        if (token == null||!validateToken(token))
+        if (token == null||!validateLTToken(token))
             return null;
         //Parse token
         Jwt<Header,Claims> jws = Jwts.parser().parseClaimsJwt(token);
@@ -72,31 +72,50 @@ public class TokenService implements TokenGeneratorService {
     }
 
 
-    public boolean validateToken(String token) {
-        //Parse token
-        Jwt<Header,Claims> jws = Jwts.parser().parseClaimsJwt(token);
+    public boolean validateSTToken(String token) {
+        //Parse and validate token
+        Jwt<Header,Claims> jws = validateTokenSignature(token,keyST);
+
+        if(jws==null){
+            return false;
+        }
+
         //Validate expiration date
         if(jws.getBody().getExpiration().before(new Date())){
             return false;
         }
-        //parse type of token and validate signature
-        switch ((String)jws.getHeader().get("tokenType")){
-            case "longTerm":
-                return validateTokenSignature(token, keyLT);
-            case "shortTerm":
-                return validateTokenSignature(token, keyST);
-        }
-        return false;
+
+        //parse type of token
+        return jws.getHeader().get("tokenType").equals("shortTerm");
     }
 
 
-    //method check signature of the token according to key
-    private boolean validateTokenSignature(String token,String key) {
-        try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(token);
-            return true;
-        } catch (SignatureException e) {
+
+    public boolean validateLTToken(String token) {
+        //Parse and validate token
+        Jwt<Header,Claims> jws = validateTokenSignature(token,keyLT);
+
+        if(jws==null){
             return false;
+        }
+
+        //Validate expiration date
+        if(jws.getBody().getExpiration().before(new Date())){
+            return false;
+        }
+
+        //parse type of token
+        return jws.getHeader().get("tokenType").equals("longTerm");
+    }
+
+
+    //method check signature of the token according to key and return token body+header
+    private Jwt<Header,Claims> validateTokenSignature(String token,String key) {
+        try {
+            return Jwts.parser().setSigningKey(key).parseClaimsJwt(token);
+
+        } catch (SignatureException e) {
+            return null;
         }
     }
 }
