@@ -1,17 +1,19 @@
 package com.softgroup.token.impl;
 
 import com.sofrgroup.token.api.TokenGeneratorService;
+import com.sofrgroup.token.api.TokenType;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
+import static com.sofrgroup.token.api.TokenType.*;
 
 /**
  * Created by user on 17.03.2017.
  */
+
 
 @Service
 public class TokenService implements TokenGeneratorService {
@@ -34,7 +36,7 @@ public class TokenService implements TokenGeneratorService {
         Claims tokenData = Jwts.claims()
                 .setExpiration(calendar.getTime())
                 .setIssuedAt(new Date());
-        tokenData.put("tokenType", "longTerm");
+        tokenData.put("tokenType", LONG_TERM);
         tokenData.put("userID", userId);
         tokenData.put("deviceID", deviceId);
         jwtBuilder.setClaims(tokenData);
@@ -49,7 +51,7 @@ public class TokenService implements TokenGeneratorService {
         Jws<Claims> jws = Jwts.parser().setSigningKey(keyLT).parseClaimsJws(token);
 
         //token can be generated only from long term token
-        if(jws.getBody().get("tokenType").equals("shortTerm")){
+        if(jws.getBody().get("tokenType").equals(SHORT_TERM.name())){
             return null;
         }
 
@@ -57,7 +59,7 @@ public class TokenService implements TokenGeneratorService {
         Claims body = jws.getBody();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, lifetimeTokenST);
-        body.replace("tokenType", "shortTerm");
+        body.replace("tokenType", SHORT_TERM);
         body.setIssuedAt(new Date());
         body.setExpiration(calendar.getTime());
 
@@ -83,8 +85,12 @@ public class TokenService implements TokenGeneratorService {
             return false;
         }
 
+        if(jws.getBody().getIssuedAt().after(new Date())){
+            return false;
+        }
+
         //parse type of token
-        return jws.getBody().get("tokenType").equals("shortTerm");
+        return jws.getBody().get("tokenType").equals(SHORT_TERM.name());
     }
 
 
@@ -102,22 +108,30 @@ public class TokenService implements TokenGeneratorService {
             return false;
         }
 
+        if(jws.getBody().getIssuedAt().after(new Date())){
+            return false;
+        }
+
         //parse type of token
-        return jws.getBody().get("tokenType").equals("longTerm");
+        return jws.getBody().get("tokenType").equals(LONG_TERM.name());
     }
 
 
     //method check signature of the token according to key and return token body
-    public Jws<Claims> validateTokenSignature(String token, String key){
+    private Jws<Claims> validateTokenSignature(String token, String key){
         try {
             return Jwts.parser().setSigningKey(key).parseClaimsJws(token);
 
         } catch (SignatureException se) {
-            //log
+            //log this signature error
             return null;
         }
         catch (ExpiredJwtException eje){
-            //log
+            //log this token date not valid
+            return null;
+        }
+        catch (MalformedJwtException mje){
+            //log this parsing key error
             return null;
         }
     }
