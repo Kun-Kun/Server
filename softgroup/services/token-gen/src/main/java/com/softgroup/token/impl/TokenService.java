@@ -112,7 +112,12 @@ public class TokenService implements TokenGeneratorService {
         try {
             return Jwts.parser().setSigningKey(key).parseClaimsJws(token);
 
-        } catch (SignatureException e) {
+        } catch (SignatureException se) {
+            //log
+            return null;
+        }
+        catch (ExpiredJwtException eje){
+            //log
             return null;
         }
     }
