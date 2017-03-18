@@ -27,20 +27,18 @@ public class TokenService implements TokenGeneratorService {
     public String createLTToken(String deviceId, String userId) {
         if (deviceId == null || userId == null)
             return null;
-        Map<String, Object> tokenData = new HashMap<>();
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, lifetimeTokenLT);
+        JwtBuilder jwtBuilder = Jwts.builder();
+        Claims tokenData = Jwts.claims()
+                .setExpiration(calendar.getTime())
+                .setIssuedAt(new Date());
         tokenData.put("tokenType", "longTerm");
         tokenData.put("userID", userId);
         tokenData.put("deviceID", deviceId);
-        tokenData.put("createDate", new Date().getTime());
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, lifetimeTokenLT);
-        tokenData.put("expirationDate", calendar.getTime());
-        JwtBuilder jwtBuilder = Jwts.builder();
-        jwtBuilder.setExpiration(calendar.getTime());
         jwtBuilder.setClaims(tokenData);
-
-        return jwtBuilder.signWith(SignatureAlgorithm.RS256, keyLT).compact();
+        return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyLT).compact();
     }
 
     public String createSTToken(String token) {
@@ -48,10 +46,10 @@ public class TokenService implements TokenGeneratorService {
         if (token == null||!validateLTToken(token))
             return null;
         //Parse token
-        Jwt<Header,Claims> jws = Jwts.parser().parseClaimsJwt(token);
+        Jws<Claims> jws = Jwts.parser().setSigningKey(keyLT).parseClaimsJws(token);
 
         //token can be generated only from long term token
-        if(jws.getHeader().get("tokenType").equals("shortTerm")){
+        if(jws.getBody().get("tokenType").equals("shortTerm")){
             return null;
         }
 
@@ -60,21 +58,21 @@ public class TokenService implements TokenGeneratorService {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, lifetimeTokenST);
         body.replace("tokenType", "shortTerm");
-        body.replace("createDate", new Date().getTime());
-        body.replace("expirationDate", calendar.getTime());
+        body.setIssuedAt(new Date());
+        body.setExpiration(calendar.getTime());
 
         //generate new token
         JwtBuilder jwtBuilder = Jwts.builder();
         jwtBuilder.setExpiration(calendar.getTime());
         jwtBuilder.setClaims(body);
 
-        return jwtBuilder.signWith(SignatureAlgorithm.RS256, keyST).compact();
+        return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyST).compact();
     }
 
 
     public boolean validateSTToken(String token) {
         //Parse and validate token
-        Jwt<Header,Claims> jws = validateTokenSignature(token,keyST);
+        Jws<Claims> jws = validateTokenSignature(token,keyST);
 
         if(jws==null){
             return false;
@@ -86,14 +84,14 @@ public class TokenService implements TokenGeneratorService {
         }
 
         //parse type of token
-        return jws.getHeader().get("tokenType").equals("shortTerm");
+        return jws.getBody().get("tokenType").equals("shortTerm");
     }
 
 
 
     public boolean validateLTToken(String token) {
         //Parse and validate token
-        Jwt<Header,Claims> jws = validateTokenSignature(token,keyLT);
+        Jws<Claims> jws = validateTokenSignature(token,keyLT);
 
         if(jws==null){
             return false;
@@ -105,14 +103,14 @@ public class TokenService implements TokenGeneratorService {
         }
 
         //parse type of token
-        return jws.getHeader().get("tokenType").equals("longTerm");
+        return jws.getBody().get("tokenType").equals("longTerm");
     }
 
 
-    //method check signature of the token according to key and return token body+header
-    private Jwt<Header,Claims> validateTokenSignature(String token,String key) {
+    //method check signature of the token according to key and return token body
+    public Jws<Claims> validateTokenSignature(String token, String key){
         try {
-            return Jwts.parser().setSigningKey(key).parseClaimsJwt(token);
+            return Jwts.parser().setSigningKey(key).parseClaimsJws(token);
 
         } catch (SignatureException e) {
             return null;

@@ -5,13 +5,11 @@ import com.softgroup.token.config.TokenServiceAppCfg;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -35,6 +33,8 @@ public class TokenServiceTest {
         assertNotNull(firstLTToken);
         String secondLTToken = tokenGenerator.createLTToken("1234567890","0987654321");
         assertNotNull(secondLTToken);
+        System.out.println(firstLTToken);
+        System.out.println(secondLTToken);
         assertNotEquals(firstLTToken,secondLTToken);
 
         assertThat(tokenGenerator.createLTToken(null,"0987654321"),null);
@@ -49,7 +49,8 @@ public class TokenServiceTest {
 
     @Test
     public void validateToken() throws Exception {
-
+        assertThat(tokenGenerator.validateLTToken(firstLTToken),is(true));
+        assertThat(tokenGenerator.validateSTToken(firstSTToken),is(true));
     }
 
     @Before
