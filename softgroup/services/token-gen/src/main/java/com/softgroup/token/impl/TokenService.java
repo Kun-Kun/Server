@@ -17,10 +17,9 @@ import static com.sofrgroup.token.api.TokenType.*;
 
 @Service
 public class TokenService implements TokenGeneratorService {
-    //key for long term token
-    private String keyLT = "kHv4PXv0OiM4V9U0mgwXD58Mq8ooVZJ9";
-    //key for short term token
-    private String keyST = "AMVvu8OMlipxmr8l73Eo9NXlA5AVNJr1";
+
+    private KeyFactory keyFactory = new KeyFactory();
+
     //Long term token lifetime in month
     private int lifetimeTokenLT = 12;
     //Short term token lifetime in minute
@@ -40,16 +39,19 @@ public class TokenService implements TokenGeneratorService {
         tokenData.put("userID", userId);
         tokenData.put("deviceID", deviceId);
         jwtBuilder.setClaims(tokenData);
-        return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyLT).compact();
+        return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyFactory.getKey(LONG_TERM)).compact();
     }
 
     public String createSTToken(String token) {
         //validate token
-        if (token == null||!validateLTToken(token))
+        if (token == null||!validateToken(token,LONG_TERM))
             return null;
         //Parse token
-        Jws<Claims> jws = Jwts.parser().setSigningKey(keyLT).parseClaimsJws(token);
+        Jws<Claims> jws = parseTokenBody(token,keyFactory.getKey(LONG_TERM));
 
+        if(jws==null){
+            return null;
+        }
         //token can be generated only from long term token
         if(jws.getBody().get("tokenType").equals(SHORT_TERM.name())){
             return null;
@@ -68,13 +70,13 @@ public class TokenService implements TokenGeneratorService {
         jwtBuilder.setExpiration(calendar.getTime());
         jwtBuilder.setClaims(body);
 
-        return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyST).compact();
+        return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyFactory.getKey(SHORT_TERM)).compact();
     }
 
 
-    public boolean validateSTToken(String token) {
+    public boolean validateToken(String token,TokenType type) {
         //Parse and validate token
-        Jws<Claims> jws = validateTokenSignature(token,keyST);
+        Jws<Claims> jws = parseTokenBody(token,keyFactory.getKey(type));
 
         if(jws==null){
             return false;
@@ -90,48 +92,30 @@ public class TokenService implements TokenGeneratorService {
         }
 
         //parse type of token
-        return jws.getBody().get("tokenType").equals(SHORT_TERM.name());
+        return jws.getBody().get("tokenType").equals(type.name());
     }
 
 
-
-    public boolean validateLTToken(String token) {
-        //Parse and validate token
-        Jws<Claims> jws = validateTokenSignature(token,keyLT);
-
-        if(jws==null){
-            return false;
-        }
-
-        //Validate expiration date
-        if(jws.getBody().getExpiration().before(new Date())){
-            return false;
-        }
-
-        if(jws.getBody().getIssuedAt().after(new Date())){
-            return false;
-        }
-
-        //parse type of token
-        return jws.getBody().get("tokenType").equals(LONG_TERM.name());
-    }
 
 
     //method check signature of the token according to key and return token body
-    private Jws<Claims> validateTokenSignature(String token, String key){
+    private Jws<Claims> parseTokenBody(String token, String key){
         try {
             return Jwts.parser().setSigningKey(key).parseClaimsJws(token);
 
         } catch (SignatureException se) {
             //log this signature error
+            se.printStackTrace();
             return null;
         }
         catch (ExpiredJwtException eje){
             //log this token date not valid
+            eje.printStackTrace();
             return null;
         }
         catch (MalformedJwtException mje){
             //log this parsing key error
+            mje.printStackTrace();
             return null;
         }
     }

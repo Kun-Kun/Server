@@ -7,6 +7,5 @@ public interface TokenGeneratorService {
 
     String createLTToken(String deviceId, String userId);
     String createSTToken(String token);
-    boolean validateLTToken(String token);
-    boolean validateSTToken(String token);
+    boolean validateToken(String token,TokenType type);
 }
