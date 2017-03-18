@@ -1,6 +1,7 @@
 package com.softgroup.token.impl;
 
 import com.sofrgroup.token.api.TokenGeneratorService;
+import com.sofrgroup.token.api.TokenType;
 import com.softgroup.token.config.TokenServiceAppCfg;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -16,6 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.sofrgroup.token.api.TokenType.LONG_TERM;
+import static com.sofrgroup.token.api.TokenType.SHORT_TERM;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -31,10 +34,12 @@ public class TokenServiceTest {
     private String firstLTToken;
     private String expiredLTToken;
     private String futureLTToken;
+    private String badLTToken;
 
     private String firstSTToken;
     private String expiredSTToken;
     private String futureSTToken;
+    private String badSTToken;
 
     @Test
     public void isTokenGeneratorExist(){
@@ -70,34 +75,41 @@ public class TokenServiceTest {
 
     @Test
     public void validateTokens() throws Exception {
-       /* assertThat(tokenGenerator.validateLTToken(firstLTToken),is(true));
-        assertThat(tokenGenerator.validateLTToken(expiredLTToken),is(false));
-        assertThat(tokenGenerator.validateLTToken(futureLTToken),is(false));
+        assertThat(tokenGenerator.validateToken(firstLTToken, LONG_TERM),is(true));
+        assertThat(tokenGenerator.validateToken(expiredLTToken,LONG_TERM),is(false));
+        assertThat(tokenGenerator.validateToken(futureLTToken,LONG_TERM),is(false));
 
-        assertThat(tokenGenerator.validateSTToken(firstSTToken),is(true));
-        assertThat(tokenGenerator.validateSTToken(expiredSTToken),is(false));
-        assertThat(tokenGenerator.validateSTToken(futureSTToken),is(false));*/
+        assertThat(tokenGenerator.validateToken(firstSTToken,SHORT_TERM),is(true));
+        assertThat(tokenGenerator.validateToken(expiredSTToken,SHORT_TERM),is(false));
+        assertThat(tokenGenerator.validateToken(futureSTToken,SHORT_TERM),is(false));
+
+        assertThat(tokenGenerator.validateToken(badSTToken,SHORT_TERM),is(false));
+        assertThat(tokenGenerator.validateToken(badLTToken,LONG_TERM),is(false));
     }
 
     @Before
     public void generateTokens(){
+        KeyFactory keyFactory = new KeyFactory();
         //generate normal long/short term tokens
         firstLTToken = tokenGenerator.createLTToken("1234567890","0987654321");
         firstSTToken = tokenGenerator.createSTToken(firstLTToken);
         //01/01/2015 @ 12:00am (UTC)
-        expiredLTToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321","kHv4PXv0OiM4V9U0mgwXD58Mq8ooVZJ9","longTerm");
+        expiredLTToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321",keyFactory.getKey(LONG_TERM),LONG_TERM);
         //Thu, 02 Jan 2420 00:00:00 GMT
-        futureLTToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321","kHv4PXv0OiM4V9U0mgwXD58Mq8ooVZJ9","longTerm");
+        futureLTToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321",keyFactory.getKey(LONG_TERM),LONG_TERM);
 
         //01/01/2015 @ 12:00am (UTC)
-        expiredSTToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321","AMVvu8OMlipxmr8l73Eo9NXlA5AVNJr1","shortTerm");
+        expiredSTToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321",keyFactory.getKey(SHORT_TERM),SHORT_TERM);
         //Thu, 02 Jan 2420 00:00:00 GMT
-        futureSTToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321","AMVvu8OMlipxmr8l73Eo9NXlA5AVNJr1","shortTerm");
+        futureSTToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321",keyFactory.getKey(SHORT_TERM),SHORT_TERM);
+        //generate bad token signed with bad key
+        badLTToken = generateTokenAnyDate(new Date(),"1234567890","0987654321","bad key",LONG_TERM);
+        badSTToken = generateTokenAnyDate(new Date(),"1234567890","0987654321","bad key",SHORT_TERM);
 
     }
 
     //Generate valid tokens from date for a month
-    private String generateTokenAnyDate(Date date,String deviceId,String userId, String key,String type){
+    private String generateTokenAnyDate(Date date,String deviceId,String userId, String key,TokenType type){
 
         if (deviceId == null || userId == null)
             return null;
