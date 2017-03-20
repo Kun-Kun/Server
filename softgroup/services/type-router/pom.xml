@@ -9,10 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common</artifactId>
+    <artifactId>type-router</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>common-impl</module>
+        <module>type-router-api</module>
+        <module>type-router-impl</module>
     </modules>
 
     <dependencyManagement>

@@ -11,6 +11,7 @@ import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.CommandTypeRouter;
 
 
+import com.softgroup.router.type.impl.router.TypeRouter;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,10 +36,10 @@ import org.mockito.Spy;
  * Created by user on 03.03.2017.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CommonTypeRouterUnitTest {
+public class TypeRouterUnitTest {
 
     @InjectMocks
-    private CommonTypeRouter router;
+    private TypeRouter router;
 
     @Spy
     private ArrayList<CommandTypeRouter> handlers;

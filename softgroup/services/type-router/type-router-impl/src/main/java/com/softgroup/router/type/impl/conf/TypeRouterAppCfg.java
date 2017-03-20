@@ -1,4 +1,4 @@
-package com.softgroup.common.impl.router;
+package com.softgroup.router.type.impl.conf;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(value = "com.softgroup.common")
-public class CommonTypeRouterAppCfg {
+public class TypeRouterAppCfg {
 
 }
 
