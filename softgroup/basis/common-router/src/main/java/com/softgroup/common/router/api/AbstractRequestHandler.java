@@ -11,19 +11,17 @@ import java.util.Map;
 public abstract class AbstractRequestHandler<RQ extends RequestData, RS extends ResponseData> implements RequestHandler {
 
 	@Autowired
-	DataMapper dataMapper;
+	private DataMapper dataMapper;
 
 	@Override
 	public Response<RS> handle(Request<?> msg) {
 		Request<RQ> typedRequest = toType(msg);
-		Response<RS> response = processRequest(typedRequest);
-		return response;
+		return processRequest(typedRequest);
 	}
 
 
 	private  Request<RQ> toType(Request<?> msg ){
-		Object dataObject = msg.getData();
-		Map<String,Object> map =  dataMapper.convertToMap(dataObject);
+		Map<String,Object> map = (Map<String,Object>) msg.getData();
 		RQ requestData = dataMapper.convert(map, new TypeReference<RQ>() {});
 		return new RequestBuilder<RQ>().setData(requestData).setHeader(msg.getHeader()).build();
 	}

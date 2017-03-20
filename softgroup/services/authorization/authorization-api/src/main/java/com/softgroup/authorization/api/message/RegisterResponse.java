@@ -10,7 +10,7 @@ public class RegisterResponse implements ResponseData {
 	private static final long serialVersionUID = -5146888202653750948L;
 
 	private String registrationRequestUuid;
-	private String registrationTimeoutSec;
+	private Integer registrationTimeoutSec;
 	private String authCode;
 
 	public String getRegistrationRequestUuid() {
@@ -21,11 +21,11 @@ public class RegisterResponse implements ResponseData {
 		this.registrationRequestUuid = registrationRequestUuid;
 	}
 
-	public String getRegistrationTimeoutSec() {
+	public Integer getRegistrationTimeoutSec() {
 		return registrationTimeoutSec;
 	}
 
-	public void setRegistrationTimeoutSec(String registrationTimeoutSec) {
+	public void setRegistrationTimeoutSec(Integer registrationTimeoutSec) {
 		this.registrationTimeoutSec = registrationTimeoutSec;
 	}
 
