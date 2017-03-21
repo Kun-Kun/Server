@@ -20,6 +20,7 @@
         <module>common-datamapper</module>
         <module>common-router</module>
         <module>common-protocol</module>
+        <module>common-token</module>
         <module>common-dao</module>
 
     </modules>
