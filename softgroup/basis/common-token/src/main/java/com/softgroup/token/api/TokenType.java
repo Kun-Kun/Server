@@ -1,4 +1,4 @@
-package com.sofrgroup.token.api;
+package com.softgroup.token.api;
 
 /**
  * Created by user on 18.03.2017.

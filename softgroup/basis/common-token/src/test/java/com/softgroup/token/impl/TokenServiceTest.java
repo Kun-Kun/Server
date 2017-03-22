@@ -1,7 +1,7 @@
 package com.softgroup.token.impl;
 
-import com.sofrgroup.token.api.TokenGeneratorService;
-import com.sofrgroup.token.api.TokenType;
+import com.softgroup.token.api.TokenGeneratorService;
+import com.softgroup.token.api.TokenType;
 import com.softgroup.token.config.TokenServiceAppCfg;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.sofrgroup.token.api.TokenType.LONG_TERM;
-import static com.sofrgroup.token.api.TokenType.SHORT_TERM;
+import static com.softgroup.token.api.TokenType.LONG_TERM;
+import static com.softgroup.token.api.TokenType.SHORT_TERM;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -55,7 +55,6 @@ public class TokenServiceTest {
         assertNull(tokenGenerator.createLTToken(null,"0987654321"));
         assertNull(tokenGenerator.createLTToken("123456789",null));
         assertNull(tokenGenerator.createLTToken(null,null));
-
     }
 
     @Test

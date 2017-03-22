@@ -1,14 +1,16 @@
 package com.softgroup.token.impl;
 
-import com.sofrgroup.token.api.TokenGeneratorService;
-import com.sofrgroup.token.api.TokenType;
+import com.softgroup.token.api.JwtUserIdentifier;
+import com.softgroup.token.api.TokenGeneratorService;
+import com.softgroup.token.api.TokenType;
+import com.softgroup.token.api.UserIdentifier;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.sofrgroup.token.api.TokenType.*;
+import static com.softgroup.token.api.TokenType.*;
 
 /**
  * Created by user on 17.03.2017.
@@ -75,27 +77,40 @@ public class TokenService implements TokenGeneratorService {
 
 
     public boolean validateToken(String token,TokenType type) {
+        return getUserIdentifier(token,type)!=null;
+    }
+
+    @Override
+    public JwtUserIdentifier getUserIdentifier(String token, TokenType type) {
         //Parse and validate token
+
+        if(token==null){
+            return null;
+        }
+
         Jws<Claims> jws = parseTokenBody(token,keyFactory.getKey(type));
 
         if(jws==null){
-            return false;
+            return null;
         }
 
         //Validate expiration date
         if(jws.getBody().getExpiration().before(new Date())){
-            return false;
+            return null;
         }
 
         if(jws.getBody().getIssuedAt().after(new Date())){
-            return false;
+            return null;
         }
 
         //parse type of token
-        return jws.getBody().get("tokenType").equals(type.name());
+
+        if (!jws.getBody().get("tokenType").equals(type.name())){
+            return null;
+        }
+
+        return new JwtUserIdentifier(jws.getBody().get("userID",String.class),jws.getBody().get("deviceID",String.class));
     }
-
-
 
 
     //method check signature of the token according to key and return token body

@@ -1,6 +1,6 @@
 package com.softgroup.token.impl;
 
-import com.sofrgroup.token.api.TokenType;
+import com.softgroup.token.api.TokenType;
 
 /**
  * Created by user on 18.03.2017.
