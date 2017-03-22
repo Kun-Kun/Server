@@ -14,6 +14,7 @@
         <module>common-datamapper</module>
         <module>common-router</module>
         <module>common-protocol</module>
+        <module>common-dao</module>
 
     </modules>
 
