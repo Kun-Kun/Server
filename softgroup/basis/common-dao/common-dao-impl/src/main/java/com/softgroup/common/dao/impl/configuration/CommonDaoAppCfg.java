@@ -1,5 +1,6 @@
 package com.softgroup.common.dao.impl.configuration;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -62,6 +63,17 @@ public class CommonDaoAppCfg {
 
         return transactionManager;
     }
+    @Bean
+    public SpringLiquibase liquibase()  {
+        SpringLiquibase liquibase = new SpringLiquibase();
+
+        liquibase.setDataSource(dataSource());
+        liquibase.setChangeLog("classpath:db.changelog.xml");
+
+        return liquibase;
+    }
+
+
     private AbstractJpaVendorAdapter createJpaVendorAdapter() {
         return new HibernateJpaVendorAdapter();
     }

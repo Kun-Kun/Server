@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+    <changeSet id="1490299782" author="Kun-Kun">
+        <createTable tableName="contacts">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(128)" >
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1490301479" author="Kun-Kun">
+        <createTable tableName="devices">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="device_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_confirm" type="long" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1490301927" author="Kun-Kun">
+        <createTable tableName="messages">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="sender_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversation_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_type" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payload" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="long" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="server_receive_time" type="long" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_index" type="int" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1490303231" author="Kun-Kun">
+        <createTable tableName="conversations">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logo_image_uri" type="varchar(128)">
+                <constraints nullable="false" />
+            </column>
+            <column name="type" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_message_index" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="admin_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exists" type="boolean" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1490304219" author="Kun-Kun">
+        <createTable tableName="profiles_1">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(14)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date_time" type="long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date_time" type="long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar_uri" type="varchar(128)">
+                <constraints nullable="false" />
+            </column>
+            <column name="status" type="varchar(128)"/>
+            <column name="is_online" type="boolean" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_time_online" type="long" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="locale" type="varchar(8)" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1490304780" author="Kun-Kun">
+        <createTable tableName="conversation_member_list">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"  />
+            </column>
+            <column name="conversation_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="member_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_read_message_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1490305241" author="Kun-Kun">
+        <createTable tableName="profile_settings">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="profile_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
