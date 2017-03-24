@@ -1,0 +1,37 @@
+package com.softgroup.common.dao.api.entities;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+/**
+ * Created by user on 24.03.2017.
+ */
+@Entity
+@Table(name = "profile_settings")
+public class ProfileSettingsEntity implements Serializable {
+    private static final long serialVersionUID = 4649233715071591523L;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    private String id;
+
+    @Column(name = "profile_id",unique = true)
+    private String profileId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
+    }
+}
