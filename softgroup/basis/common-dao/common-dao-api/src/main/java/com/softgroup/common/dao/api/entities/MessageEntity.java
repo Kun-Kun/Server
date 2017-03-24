@@ -100,4 +100,38 @@ public class MessageEntity implements Serializable {
     public void setServerReceiveTime(Long serverReceiveTime) {
         this.serverReceiveTime = serverReceiveTime;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MessageEntity that = (MessageEntity) o;
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getSenderId() != null ? !getSenderId().equals(that.getSenderId()) : that.getSenderId() != null)
+            return false;
+        if (getConversationId() != null ? !getConversationId().equals(that.getConversationId()) : that.getConversationId() != null)
+            return false;
+        if (getMessageType() != null ? !getMessageType().equals(that.getMessageType()) : that.getMessageType() != null)
+            return false;
+        if (getPayload() != null ? !getPayload().equals(that.getPayload()) : that.getPayload() != null) return false;
+        if (getStatus() != null ? !getStatus().equals(that.getStatus()) : that.getStatus() != null) return false;
+        if (getCreateTime() != null ? !getCreateTime().equals(that.getCreateTime()) : that.getCreateTime() != null)
+            return false;
+        return getServerReceiveTime() != null ? getServerReceiveTime().equals(that.getServerReceiveTime()) : that.getServerReceiveTime() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getSenderId() != null ? getSenderId().hashCode() : 0);
+        result = 31 * result + (getConversationId() != null ? getConversationId().hashCode() : 0);
+        result = 31 * result + (getMessageType() != null ? getMessageType().hashCode() : 0);
+        result = 31 * result + (getPayload() != null ? getPayload().hashCode() : 0);
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+        result = 31 * result + (getCreateTime() != null ? getCreateTime().hashCode() : 0);
+        result = 31 * result + (getServerReceiveTime() != null ? getServerReceiveTime().hashCode() : 0);
+        return result;
+    }
 }

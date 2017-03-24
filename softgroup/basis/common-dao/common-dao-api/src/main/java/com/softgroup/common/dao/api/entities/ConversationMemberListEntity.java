@@ -56,4 +56,28 @@ public class ConversationMemberListEntity implements Serializable{
     public void setLastReadMessageId(String lastReadMessageId) {
         this.lastReadMessageId = lastReadMessageId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ConversationMemberListEntity that = (ConversationMemberListEntity) o;
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getConversationId() != null ? !getConversationId().equals(that.getConversationId()) : that.getConversationId() != null)
+            return false;
+        if (getMemberId() != null ? !getMemberId().equals(that.getMemberId()) : that.getMemberId() != null)
+            return false;
+        return getLastReadMessageId() != null ? getLastReadMessageId().equals(that.getLastReadMessageId()) : that.getLastReadMessageId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getConversationId() != null ? getConversationId().hashCode() : 0);
+        result = 31 * result + (getMemberId() != null ? getMemberId().hashCode() : 0);
+        result = 31 * result + (getLastReadMessageId() != null ? getLastReadMessageId().hashCode() : 0);
+        return result;
+    }
 }

@@ -57,4 +57,27 @@ public class DeviceEntity implements Serializable{
     public void setLastConfirm(Long lastConfirm) {
         this.lastConfirm = lastConfirm;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeviceEntity that = (DeviceEntity) o;
+
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getDeviceId() != null ? !getDeviceId().equals(that.getDeviceId()) : that.getDeviceId() != null)
+            return false;
+        if (getUserId() != null ? !getUserId().equals(that.getUserId()) : that.getUserId() != null) return false;
+        return getLastConfirm() != null ? getLastConfirm().equals(that.getLastConfirm()) : that.getLastConfirm() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getDeviceId() != null ? getDeviceId().hashCode() : 0);
+        result = 31 * result + (getUserId() != null ? getUserId().hashCode() : 0);
+        result = 31 * result + (getLastConfirm() != null ? getLastConfirm().hashCode() : 0);
+        return result;
+    }
 }
