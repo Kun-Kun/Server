@@ -64,9 +64,6 @@
             <column name="server_receive_time" type="long" >
                 <constraints nullable="false"/>
             </column>
-            <column name="message_index" type="int" >
-                <!--<constraints nullable="false"/>-->
-            </column>
         </createTable>
     </changeSet>
 
@@ -83,9 +80,6 @@
             </column>
             <column name="type" type="int">
                 <constraints nullable="false"/>
-            </column>
-            <column name="last_message_index" type="int">
-              <!--  <constraints nullable="false"/>-->
             </column>
             <column name="admin_id" type="int">
                 <constraints nullable="false"/>
