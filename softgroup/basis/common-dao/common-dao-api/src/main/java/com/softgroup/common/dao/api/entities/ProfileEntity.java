@@ -15,10 +15,11 @@ public class ProfileEntity implements Serializable{
     private static final long serialVersionUID = 2645460488213358603L;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private String id;
 
-	@Column(name = "phone_number")
+	@Column(name = "phone_number",unique = true)
     private String phoneNumber;
 
 	@Column(name = "create_date_time")
@@ -35,6 +36,15 @@ public class ProfileEntity implements Serializable{
 
 	@Column(name = "avatar_uri")
     private String avatarUri;
+
+    @Column(name = "is_online")
+    private Boolean isOnline;
+
+    @Column(name = "last_time_online")
+    private Long lastTimeOnline;
+
+    @Column(name = "locale")
+    private String locale;
 
     public String getId() {
         return id;
@@ -92,7 +102,29 @@ public class ProfileEntity implements Serializable{
         this.avatarUri = avatarUri;
     }
 
+    public Boolean getOnline() {
+        return isOnline;
+    }
 
+    public void setOnline(Boolean online) {
+        isOnline = online;
+    }
+
+    public Long getLastTimeOnline() {
+        return lastTimeOnline;
+    }
+
+    public void setLastTimeOnline(Long lastTimeOnline) {
+        this.lastTimeOnline = lastTimeOnline;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -101,24 +133,35 @@ public class ProfileEntity implements Serializable{
 
         ProfileEntity that = (ProfileEntity) o;
 
-        if (!id.equals(that.id)) return false;
-        if (!phoneNumber.equals(that.phoneNumber)) return false;
-        if (!createDateTime.equals(that.createDateTime)) return false;
-        if (!updateDateTime.equals(that.updateDateTime)) return false;
-        if (!name.equals(that.name)) return false;
-        if (!status.equals(that.status)) return false;
-        return avatarUri.equals(that.avatarUri);
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getPhoneNumber() != null ? !getPhoneNumber().equals(that.getPhoneNumber()) : that.getPhoneNumber() != null)
+            return false;
+        if (getCreateDateTime() != null ? !getCreateDateTime().equals(that.getCreateDateTime()) : that.getCreateDateTime() != null)
+            return false;
+        if (getUpdateDateTime() != null ? !getUpdateDateTime().equals(that.getUpdateDateTime()) : that.getUpdateDateTime() != null)
+            return false;
+        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
+        if (getStatus() != null ? !getStatus().equals(that.getStatus()) : that.getStatus() != null) return false;
+        if (getAvatarUri() != null ? !getAvatarUri().equals(that.getAvatarUri()) : that.getAvatarUri() != null)
+            return false;
+        if (isOnline != null ? !isOnline.equals(that.isOnline) : that.isOnline != null) return false;
+        if (getLastTimeOnline() != null ? !getLastTimeOnline().equals(that.getLastTimeOnline()) : that.getLastTimeOnline() != null)
+            return false;
+        return getLocale() != null ? getLocale().equals(that.getLocale()) : that.getLocale() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + phoneNumber.hashCode();
-        result = 31 * result + createDateTime.hashCode();
-        result = 31 * result + updateDateTime.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + status.hashCode();
-        result = 31 * result + avatarUri.hashCode();
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getPhoneNumber() != null ? getPhoneNumber().hashCode() : 0);
+        result = 31 * result + (getCreateDateTime() != null ? getCreateDateTime().hashCode() : 0);
+        result = 31 * result + (getUpdateDateTime() != null ? getUpdateDateTime().hashCode() : 0);
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+        result = 31 * result + (getAvatarUri() != null ? getAvatarUri().hashCode() : 0);
+        result = 31 * result + (isOnline != null ? isOnline.hashCode() : 0);
+        result = 31 * result + (getLastTimeOnline() != null ? getLastTimeOnline().hashCode() : 0);
+        result = 31 * result + (getLocale() != null ? getLocale().hashCode() : 0);
         return result;
     }
 }

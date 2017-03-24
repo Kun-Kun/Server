@@ -97,7 +97,7 @@
     </changeSet>
 
     <changeSet id="1490304219" author="Kun-Kun">
-        <createTable tableName="profiles_1">
+        <createTable tableName="profiles">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -105,7 +105,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="phone_number" type="varchar(14)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="create_date_time" type="long">
                 <constraints nullable="false"/>

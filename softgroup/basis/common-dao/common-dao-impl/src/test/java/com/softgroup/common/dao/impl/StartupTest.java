@@ -24,14 +24,21 @@ public class StartupTest {
     @Test
     public void test(){
         ProfileEntity profileEntity = new ProfileEntity();
-        profileEntity.setId("id");
+      //  profileEntity.setId("1");
         profileEntity.setName("test_name");
+        profileEntity.setAvatarUri("uri");
+        profileEntity.setCreateDateTime(123141241L);
+        profileEntity.setLastTimeOnline(134123516L);
+        profileEntity.setLocale("ua_ua");
+        profileEntity.setOnline(true);
+        profileEntity.setPhoneNumber("1234568");
+        profileEntity.setUpdateDateTime(2342342362L);
 
         profileEntity = profileRepository.save(profileEntity);
 
         profileEntity = profileRepository.save(profileEntity);
 
-        ProfileEntity profile = profileRepository.findOne("id");
+        ProfileEntity profile = profileRepository.findOne("1");
 
         List<ProfileEntity> profileEntities = profileRepository.findByName("name_2");
 
