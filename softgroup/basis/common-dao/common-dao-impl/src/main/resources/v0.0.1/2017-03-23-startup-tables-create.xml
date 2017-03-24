@@ -65,7 +65,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="message_index" type="int" >
-                <constraints nullable="false"/>
+                <!--<constraints nullable="false"/>-->
             </column>
         </createTable>
     </changeSet>
@@ -85,7 +85,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="last_message_index" type="int">
-                <constraints nullable="false"/>
+              <!--  <constraints nullable="false"/>-->
             </column>
             <column name="admin_id" type="int">
                 <constraints nullable="false"/>
