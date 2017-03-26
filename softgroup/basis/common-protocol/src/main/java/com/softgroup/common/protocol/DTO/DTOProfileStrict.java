@@ -1,9 +1,13 @@
 package com.softgroup.common.protocol.DTO;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 26.02.2017.
  */
-public class DTOProfileStrict {
+public class DTOProfileStrict implements Serializable{
+
+    private static final long serialVersionUID = -929487802895351475L;
     //key
     private	String	id;
     //full phone number

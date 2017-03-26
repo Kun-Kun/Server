@@ -1,21 +1,24 @@
 package com.softgroup.common.protocol.DTO;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by user on 26.02.2017.
  */
-public class DTOContact {
+public class DTOContact implements Serializable{
+
+    private static final long serialVersionUID = 2910456215250546254L;
     //phone number
-    private ArrayList<String> phoneNumber;
+    private List<String> phoneNumber;
     //contact name
     private	String name;
 
-    public ArrayList<String> getPhoneNumber() {
+    public List<String> getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(ArrayList<String> phoneNumber) {
+    public void setPhoneNumber(List<String> phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
