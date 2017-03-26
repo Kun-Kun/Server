@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by user on 26.02.2017.
  */
 public class DTOConversationSettings implements Serializable {
+
+    private static final long serialVersionUID = -4957502370055743930L;
     //Conversation
     private String id;
     //id admin user

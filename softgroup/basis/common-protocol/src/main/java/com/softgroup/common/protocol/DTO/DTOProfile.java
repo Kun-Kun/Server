@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by user on 26.02.2017.
  */
 public class DTOProfile implements Serializable {
+
+    private static final long serialVersionUID = -6540825380103826313L;
     //key
     private	String	id;
     //ful phone number

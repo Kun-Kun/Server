@@ -7,6 +7,8 @@ import java.util.List;
  * Created by user on 26.02.2017.
  */
 public class DTOConversationDetails implements Serializable {
+
+    private static final long serialVersionUID = 5123808540773839864L;
     // Conversation
     private String id ;
     //member list

@@ -9,6 +9,8 @@ import java.io.Serializable;
  * Created by user on 26.02.2017.
  */
 public class DTOMessage implements Serializable {
+
+    private static final long serialVersionUID = 6425236962275442227L;
     //key
     private String id;
     //sender id

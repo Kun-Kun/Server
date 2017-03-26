@@ -8,6 +8,8 @@ import java.io.Serializable;
  * Created by user on 26.02.2017.
  */
 public class DTOConversation implements Serializable{
+
+    private static final long serialVersionUID = 6160947423785685929L;
     //key
     private String id;
     //Conversation name
