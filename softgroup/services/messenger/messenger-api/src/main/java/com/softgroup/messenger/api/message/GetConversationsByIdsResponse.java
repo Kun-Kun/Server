@@ -1,20 +1,24 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
+import com.softgroup.messenger.api.dto.DTOConversation;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class GetConversationsByIdsResponse implements ResponseData {
-    private ArrayList<DTOConversation> conversations;
 
-    public ArrayList<DTOConversation> getConversations() {
+    private static final long serialVersionUID = -7342909748251250889L;
+
+    private List<DTOConversation> conversations;
+
+    public List<DTOConversation> getConversations() {
         return conversations;
     }
 
-    public void setConversations(ArrayList<DTOConversation> conversations) {
+    public void setConversations(List<DTOConversation> conversations) {
         this.conversations = conversations;
     }
 }

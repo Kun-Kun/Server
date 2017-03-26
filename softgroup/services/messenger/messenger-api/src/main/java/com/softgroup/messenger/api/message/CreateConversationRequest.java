@@ -1,31 +1,34 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.RequestData;
+import com.softgroup.messenger.api.dto.enumeration.ConversationType;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class CreateConversationRequest implements RequestData {
 
-    private int type;
+    private static final long serialVersionUID = 1822049685804584140L;
 
-    private ArrayList<String> membersIds;
+    private ConversationType type;
 
-    public int getType() {
+    private List<String> membersIds;
+
+    public ConversationType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(ConversationType type) {
         this.type = type;
     }
 
-    public ArrayList<String> getMembersIds() {
+    public List<String> getMembersIds() {
         return membersIds;
     }
 
-    public void setMembersIds(ArrayList<String> membersIds) {
+    public void setMembersIds(List<String> membersIds) {
         this.membersIds = membersIds;
     }
 }

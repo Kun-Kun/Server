@@ -1,20 +1,24 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
+import com.softgroup.messenger.api.dto.DTOConversationDetails;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class GetConversationsDetailsResponse implements ResponseData {
-    private ArrayList<DTOConversationDetails> conversationDetailss;
 
-    public ArrayList<DTOConversationDetails> getConversationDetailss() {
-        return conversationDetailss;
+    private static final long serialVersionUID = -5260520479959572755L;
+
+    private List<DTOConversationDetails> conversationDetails;
+
+    public List<DTOConversationDetails> getConversationDetails() {
+        return conversationDetails;
     }
 
-    public void setConversationDetailss(ArrayList<DTOConversationDetails> conversationDetailss) {
-        this.conversationDetailss = conversationDetailss;
+    public void setConversationDetails(List<DTOConversationDetails> conversationDetailss) {
+        this.conversationDetails = conversationDetailss;
     }
 }

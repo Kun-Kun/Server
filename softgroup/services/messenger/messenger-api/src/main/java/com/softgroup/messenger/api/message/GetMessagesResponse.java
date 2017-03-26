@@ -1,22 +1,29 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.ResponseData;
+import com.softgroup.messenger.api.dto.DTOCursorResponse;
+import com.softgroup.messenger.api.dto.DTOMessage;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 26.02.2017.
  */
 public class GetMessagesResponse implements ResponseData {
-    private ArrayList<DTOMessage> messages;
+
+    private static final long serialVersionUID = 1724108710604498423L;
+
+    private List<DTOMessage> messages;
+
     private int totalUnread;
+
     private DTOCursorResponse cursor;
 
-    public ArrayList<DTOMessage> getMessages() {
+    public List<DTOMessage> getMessages() {
         return messages;
     }
 
-    public void setMessages(ArrayList<DTOMessage> messages) {
+    public void setMessages(List<DTOMessage> messages) {
         this.messages = messages;
     }
 
