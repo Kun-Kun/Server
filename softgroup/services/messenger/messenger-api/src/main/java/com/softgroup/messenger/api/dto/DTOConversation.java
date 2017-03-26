@@ -1,6 +1,6 @@
-package com.softgroup.common.protocol.DTO;
+package com.softgroup.messenger.api.dto;
 
-import com.softgroup.common.protocol.DTO.enumeration.ConversationType;
+import com.softgroup.messenger.api.dto.enumeration.ConversationType;
 
 import java.io.Serializable;
 

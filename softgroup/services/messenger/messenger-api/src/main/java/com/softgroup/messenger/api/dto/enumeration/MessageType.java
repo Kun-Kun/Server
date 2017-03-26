@@ -1,4 +1,4 @@
-package com.softgroup.common.protocol.DTO.enumeration;
+package com.softgroup.messenger.api.dto.enumeration;
 
 /**
  * Created by user on 26.03.2017.
