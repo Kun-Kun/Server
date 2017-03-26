@@ -1,7 +1,7 @@
 package com.softgroup.profile.api.message;
 
 import com.softgroup.common.protocol.RequestData;
-import com.softgroup.common.protocol.DTO.DTOProfile;
+import com.softgroup.profile.api.message.dto.DTOProfile;
 
 /**
  * Created by user on 26.02.2017.
