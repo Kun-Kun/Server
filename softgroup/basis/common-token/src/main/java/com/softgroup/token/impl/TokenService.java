@@ -23,16 +23,16 @@ public class TokenService implements TokenGeneratorService {
     private KeyFactory keyFactory = new KeyFactory();
 
     //Long term token lifetime in month
-    private int lifetimeTokenLT = 12;
+    private int longTermTokenLifetime = 12;
     //Short term token lifetime in minute
-    private int lifetimeTokenST = 10;
+    private int shortTermTokenLifetime = 10;
 
-    public String createLTToken(String deviceId, String userId) {
+    public String createLongTermToken(String deviceId, String userId) {
         if (deviceId == null || userId == null)
             return null;
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, lifetimeTokenLT);
+        calendar.add(Calendar.MONTH, longTermTokenLifetime);
         JwtBuilder jwtBuilder = Jwts.builder();
         Claims tokenData = Jwts.claims()
                 .setExpiration(calendar.getTime())
@@ -44,7 +44,7 @@ public class TokenService implements TokenGeneratorService {
         return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyFactory.getKey(LONG_TERM)).compact();
     }
 
-    public String createSTToken(String token) {
+    public String createShortTermToken(String token) {
         //validate token
         if (token == null||!validateToken(token,LONG_TERM))
             return null;
@@ -62,7 +62,7 @@ public class TokenService implements TokenGeneratorService {
         //get body and replace date with new value
         Claims body = jws.getBody();
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, lifetimeTokenST);
+        calendar.add(Calendar.MINUTE, shortTermTokenLifetime);
         body.replace("tokenType", SHORT_TERM);
         body.setIssuedAt(new Date());
         body.setExpiration(calendar.getTime());

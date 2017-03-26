@@ -49,26 +49,26 @@ public class TokenServiceTest {
     @Test
     public void createLTToken() throws Exception {
         assertNotNull(firstLTToken);
-        String secondLTToken = tokenGenerator.createLTToken("1234567890","0987654321");
+        String secondLTToken = tokenGenerator.createLongTermToken("1234567890","0987654321");
         assertNotNull(secondLTToken);
 
-        assertNull(tokenGenerator.createLTToken(null,"0987654321"));
-        assertNull(tokenGenerator.createLTToken("123456789",null));
-        assertNull(tokenGenerator.createLTToken(null,null));
+        assertNull(tokenGenerator.createLongTermToken(null,"0987654321"));
+        assertNull(tokenGenerator.createLongTermToken("123456789",null));
+        assertNull(tokenGenerator.createLongTermToken(null,null));
     }
 
     @Test
     public void createSTToken() throws Exception {
         assertNotNull(firstSTToken);
-        String secondSTToken = tokenGenerator.createSTToken(firstLTToken);
+        String secondSTToken = tokenGenerator.createShortTermToken(firstLTToken);
         assertNotNull(secondSTToken);
 
-        assertNull(tokenGenerator.createSTToken(null));
-        assertNull(tokenGenerator.createSTToken("very.wrong.token"));
+        assertNull(tokenGenerator.createShortTermToken(null));
+        assertNull(tokenGenerator.createShortTermToken("very.wrong.token"));
         //verify that short term token can't be generated from outdated token or other short term token
-        assertNull(tokenGenerator.createSTToken(expiredLTToken));
-        assertNull(tokenGenerator.createSTToken(futureLTToken));
-        assertNull(tokenGenerator.createSTToken(secondSTToken));
+        assertNull(tokenGenerator.createShortTermToken(expiredLTToken));
+        assertNull(tokenGenerator.createShortTermToken(futureLTToken));
+        assertNull(tokenGenerator.createShortTermToken(secondSTToken));
 
     }
 
@@ -90,8 +90,8 @@ public class TokenServiceTest {
     public void generateTokens(){
         KeyFactory keyFactory = new KeyFactory();
         //generate normal long/short term tokens
-        firstLTToken = tokenGenerator.createLTToken("1234567890","0987654321");
-        firstSTToken = tokenGenerator.createSTToken(firstLTToken);
+        firstLTToken = tokenGenerator.createLongTermToken("1234567890","0987654321");
+        firstSTToken = tokenGenerator.createShortTermToken(firstLTToken);
         //01/01/2015 @ 12:00am (UTC)
         expiredLTToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321",keyFactory.getKey(LONG_TERM),LONG_TERM);
         //Thu, 02 Jan 2420 00:00:00 GMT
