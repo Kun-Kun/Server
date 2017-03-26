@@ -1,30 +1,24 @@
 package com.softgroup.server.rest.config;
 
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
-
-public class Initializer implements WebApplicationInitializer {
+public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(WebAppConfig.class);
-        servletContext.addListener(new ContextLoaderListener(ctx));
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
 
-        ctx.setServletContext(servletContext);
+    @Override
+    public Class<?>[] getRootConfigClasses() {
+        return new Class<?>[]{RestApplicationConfig.class};
+    }
 
-        ServletRegistration.Dynamic servlet =
-                servletContext.addServlet(DISPATCHER_SERVLET_NAME, new DispatcherServlet(ctx));
-        servlet.addMapping("/");
-        servlet.setLoadOnStartup(1);
+    @Override
+    public Class<?>[] getServletConfigClasses() {
+        return new Class<?>[]{WebApplicationConfig.class};
     }
 
 }
