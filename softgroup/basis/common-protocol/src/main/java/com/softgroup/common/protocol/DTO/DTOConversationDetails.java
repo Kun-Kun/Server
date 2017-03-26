@@ -1,7 +1,7 @@
 package com.softgroup.common.protocol.DTO;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 26.02.2017.
@@ -10,7 +10,7 @@ public class DTOConversationDetails implements Serializable {
     // Conversation
     private String id ;
     //member list
-    private ArrayList<DTOProfile> members;
+    private List<DTOProfile> members;
 
     public String getId() {
         return id;
@@ -20,11 +20,11 @@ public class DTOConversationDetails implements Serializable {
         this.id = id;
     }
 
-    public ArrayList<DTOProfile> getMembers() {
+    public List<DTOProfile> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<DTOProfile> members) {
+    public void setMembers(List<DTOProfile> members) {
         this.members = members;
     }
 }

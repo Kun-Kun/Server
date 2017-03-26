@@ -1,5 +1,7 @@
 package com.softgroup.common.protocol.DTO;
 
+import com.softgroup.common.protocol.DTO.enumeration.ConversationType;
+
 import java.io.Serializable;
 
 /**
@@ -13,7 +15,7 @@ public class DTOConversation implements Serializable{
     //Logo
     private String logoImageUri;
     //type (0-individual, 1-group)
-    private Integer type;
+    private ConversationType type;
     //last message index
     private Long lastMessageIndex;
 
@@ -41,11 +43,11 @@ public class DTOConversation implements Serializable{
         this.logoImageUri = logoImageUri;
     }
 
-    public Integer getType() {
+    public ConversationType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ConversationType type) {
         this.type = type;
     }
 
