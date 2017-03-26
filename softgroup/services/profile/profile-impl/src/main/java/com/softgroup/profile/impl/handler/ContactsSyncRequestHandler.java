@@ -17,4 +17,7 @@ public class ContactsSyncRequestHandler extends AbstractRequestHandler<ContactsS
         return "contacts_sync";
     }
 
+    public Response<ContactsSyncResponse> processRequest(Request<ContactsSyncRequest> msg){
+       	        return null;
+    }
 }

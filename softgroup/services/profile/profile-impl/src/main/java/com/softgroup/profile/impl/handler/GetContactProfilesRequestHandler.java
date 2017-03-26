@@ -17,4 +17,7 @@ public class GetContactProfilesRequestHandler extends AbstractRequestHandler<Get
         return "get_contact_profiles";
     }
 
+    public Response<GetContactProfilesResponse> processRequest(Request<GetContactProfilesRequest> msg){
+        return null;
+    }
 }
