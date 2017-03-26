@@ -8,6 +8,8 @@ import com.softgroup.common.protocol.DTO.DTOProfileSettings;
  */
 public class GetProfileSettingsResponse implements ResponseData {
 
+    private static final long serialVersionUID = 3892069631319913897L;
+
     private DTOProfileSettings settings;
 
     public DTOProfileSettings getSettings() {

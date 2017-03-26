@@ -8,4 +8,5 @@ import com.softgroup.common.protocol.RequestData;
  */
 public class GetContactProfilesRequest implements RequestData {
 
+    private static final long serialVersionUID = -4833252146694364717L;
 }

@@ -8,6 +8,8 @@ import com.softgroup.common.protocol.DTO.DTOProfileSettings;
  */
 public class SetProfileSettingsRequest implements RequestData {
 
+    private static final long serialVersionUID = -5409999120966847151L;
+
     private DTOProfileSettings settings;
 
     public DTOProfileSettings getSettings() {
