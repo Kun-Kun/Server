@@ -7,10 +7,10 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
     <changeSet id="1490299782" author="Kun-Kun">
         <createTable tableName="contacts">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="char(36)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="user_id" type="int">
+            <column name="user_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="phone_number" type="varchar(14)">
@@ -23,13 +23,13 @@
 
     <changeSet id="1490301479" author="Kun-Kun">
         <createTable tableName="devices">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="char(36)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="device_id" type="int">
+            <column name="device_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="int">
+            <column name="user_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="last_confirm" type="long" >
@@ -40,13 +40,13 @@
 
     <changeSet id="1490301927" author="Kun-Kun">
         <createTable tableName="messages">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="char(36)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="sender_id" type="int">
+            <column name="sender_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="conversation_id" type="int">
+            <column name="conversation_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="message_type" type="int">
@@ -69,11 +69,10 @@
 
     <changeSet id="1490303231" author="Kun-Kun">
         <createTable tableName="conversations">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="char(36)" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="name" type="varchar(128)">
-                <constraints nullable="false"/>
             </column>
             <column name="logo_image_uri" type="varchar(128)">
                 <constraints nullable="false" />
@@ -81,7 +80,7 @@
             <column name="type" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="admin_id" type="int">
+            <column name="admin_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="exists" type="boolean" >
@@ -92,11 +91,10 @@
 
     <changeSet id="1490304219" author="Kun-Kun">
         <createTable tableName="profiles">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="char(36)" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="name" type="varchar(128)">
-                <constraints nullable="false"/>
             </column>
             <column name="phone_number" type="varchar(14)">
                 <constraints nullable="false" unique="true"/>
@@ -111,9 +109,6 @@
                 <constraints nullable="false" />
             </column>
             <column name="status" type="varchar(128)"/>
-            <column name="is_online" type="boolean" >
-                <constraints nullable="false"/>
-            </column>
             <column name="last_time_online" type="long" >
                 <constraints nullable="false"/>
             </column>
@@ -124,17 +119,17 @@
     </changeSet>
 
     <changeSet id="1490304780" author="Kun-Kun">
-        <createTable tableName="conversation_member_list">
-            <column name="id" type="int" autoIncrement="true">
+        <createTable tableName="conversation_member">
+            <column name="id" type="char(36)">
                 <constraints primaryKey="true" nullable="false"  />
             </column>
-            <column name="conversation_id" type="int">
+            <column name="conversation_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="member_id" type="int">
+            <column name="member_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_read_message_id" type="int">
+            <column name="last_read_message_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -142,10 +137,10 @@
 
     <changeSet id="1490305241" author="Kun-Kun">
         <createTable tableName="profile_settings">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="char(36)" >
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="profile_id" type="int">
+            <column name="profile_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
