@@ -8,14 +8,11 @@ import java.io.Serializable;
  * Created by user on 24.03.2017.
  */
 @Entity
+@PrimaryKeyJoinColumn
 @Table(name = "devices")
-public class DeviceEntity implements Serializable{
+public class DeviceEntity extends BaseEntity{
     private static final long serialVersionUID = -506229924089552354L;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
-    private String id;
 
     @Column(name = "device_id",unique = true)
     private String deviceId;
@@ -25,14 +22,6 @@ public class DeviceEntity implements Serializable{
 
     @Column(name = "last_confirm")
     private Long lastConfirm;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getDeviceId() {
         return deviceId;

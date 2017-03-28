@@ -12,8 +12,6 @@ public interface ConversationRepository extends PagingAndSortingRepository<Conve
 
     ConversationEntity findById(String id);
 
-    List<ConversationEntity> findByUserId(String userId);
-
     List<ConversationEntity> findByName(String name);
 
     List<ConversationEntity> findByAdminId(String adminId);

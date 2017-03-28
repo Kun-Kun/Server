@@ -7,14 +7,10 @@ import java.io.Serializable;
  * Created by user on 24.03.2017.
  */
 @Entity
+@PrimaryKeyJoinColumn
 @Table(name = "messages")
-public class MessageEntity implements Serializable {
+public class MessageEntity extends BaseEntity{
     private static final long serialVersionUID = -6779438608811972046L;
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
-    private String id;
 
     @Column(name = "sender_id")
     private String senderId;
@@ -23,27 +19,19 @@ public class MessageEntity implements Serializable {
     private String conversationId;
 
     @Column(name = "message_type")
-    private Integer messageType;
+    private MessgeType messageType;
 
     @Column(name = "payload")
     private String payload;
 
     @Column(name = "status")
-    private Integer status;
+    private MessageStatus status;
 
     @Column(name = "create_time")
     private Long createTime;
 
     @Column(name = "server_receive_time")
     private Long serverReceiveTime;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getSenderId() {
         return senderId;
@@ -61,11 +49,11 @@ public class MessageEntity implements Serializable {
         this.conversationId = conversationId;
     }
 
-    public Integer getMessageType() {
+    public MessgeType getMessageType() {
         return messageType;
     }
 
-    public void setMessageType(Integer messageType) {
+    public void setMessageType(MessgeType messageType) {
         this.messageType = messageType;
     }
 
@@ -77,11 +65,11 @@ public class MessageEntity implements Serializable {
         this.payload = payload;
     }
 
-    public Integer getStatus() {
+    public MessageStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(MessageStatus status) {
         this.status = status;
     }
 

@@ -7,25 +7,14 @@ import java.io.Serializable;
  * Created by user on 24.03.2017.
  */
 @Entity
+@PrimaryKeyJoinColumn
 @Table(name = "profile_settings")
-public class ProfileSettingsEntity implements Serializable {
-    private static final long serialVersionUID = 4649233715071591523L;
+public class ProfileSettingsEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
-    private String id;
+    private static final long serialVersionUID = 4649233715071591523L;
 
     @Column(name = "profile_id",unique = true)
     private String profileId;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getProfileId() {
         return profileId;

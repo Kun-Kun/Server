@@ -7,15 +7,11 @@ import java.io.Serializable;
  * Created by user on 24.03.2017.
  */
 @Entity
+@PrimaryKeyJoinColumn
 @Table(name = "contacts")
-public class ContactEntity implements Serializable{
+public class ContactEntity extends BaseEntity{
 
-    private static final long serialVersionUID = 3442338683584269763L;
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
-    private String id;
+    private static final long serialVersionUID = -9200905802959489917L;
 
     @Column(name = "user_id")
     private String userId;
@@ -25,14 +21,6 @@ public class ContactEntity implements Serializable{
 
     @Column(name = "name")
     private String name;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUserId() {
         return userId;

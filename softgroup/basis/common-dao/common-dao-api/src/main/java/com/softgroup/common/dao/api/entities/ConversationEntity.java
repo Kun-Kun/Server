@@ -8,13 +8,9 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "conversations")
-public class ConversationEntity implements Serializable {
-    private static final long serialVersionUID = -8700529675793334330L;
+public class ConversationEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
-    private String id;
+    private static final long serialVersionUID = -8700529675793334330L;
 
     @Column(name = "name")
     private String name;
@@ -23,21 +19,13 @@ public class ConversationEntity implements Serializable {
     private String logoImageUri;
 
     @Column(name = "type")
-    private Integer type;
+    private ConversationType type;
 
     @Column(name = "admin_id")
     private String adminId;
 
     @Column(name = "exists")
     private Boolean exists;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -55,11 +43,11 @@ public class ConversationEntity implements Serializable {
         this.logoImageUri = logoImageUri;
     }
 
-    public Integer getType() {
+    public ConversationType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ConversationType type) {
         this.type = type;
     }
 

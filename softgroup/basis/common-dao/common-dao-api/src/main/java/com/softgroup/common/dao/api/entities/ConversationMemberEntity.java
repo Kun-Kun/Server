@@ -1,20 +1,15 @@
 package com.softgroup.common.dao.api.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by user on 24.03.2017.
  */
 @Entity
-@Table(name = "conversation_member_list")
-public class ConversationMemberListEntity implements Serializable{
+@PrimaryKeyJoinColumn
+@Table(name = "conversation_members")
+public class ConversationMemberEntity extends BaseEntity{
     private static final long serialVersionUID = -2537713759067626591L;
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
-    private String id;
 
     @Column(name = "conversation_id")
     private String conversationId;
@@ -24,14 +19,6 @@ public class ConversationMemberListEntity implements Serializable{
 
     @Column(name = "last_read_message_id")
     private String lastReadMessageId;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getConversationId() {
         return conversationId;
@@ -62,7 +49,7 @@ public class ConversationMemberListEntity implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ConversationMemberListEntity that = (ConversationMemberListEntity) o;
+        ConversationMemberEntity that = (ConversationMemberEntity) o;
 
         if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
         if (getConversationId() != null ? !getConversationId().equals(that.getConversationId()) : that.getConversationId() != null)
