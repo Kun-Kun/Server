@@ -119,7 +119,7 @@
     </changeSet>
 
     <changeSet id="1490304780" author="Kun-Kun">
-        <createTable tableName="conversation_member">
+        <createTable tableName="conversation_members">
             <column name="id" type="char(36)">
                 <constraints primaryKey="true" nullable="false"  />
             </column>
