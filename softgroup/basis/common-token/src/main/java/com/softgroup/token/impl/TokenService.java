@@ -3,7 +3,6 @@ package com.softgroup.token.impl;
 import com.softgroup.token.api.JwtUserIdentifier;
 import com.softgroup.token.api.TokenGeneratorService;
 import com.softgroup.token.api.TokenType;
-import com.softgroup.token.api.UserIdentifier;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ public class TokenService implements TokenGeneratorService {
 
     public String createLongTermToken(String deviceId, String userId) {
         if (deviceId == null || userId == null)
-            return null;
+            throw new IllegalArgumentException("Device ID or user ID cannot be null. ");
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, longTermTokenLifetime);
@@ -45,34 +44,39 @@ public class TokenService implements TokenGeneratorService {
     }
 
     public String createShortTermToken(String token) {
-        //validate token
-        if (token == null||!validateToken(token,LONG_TERM))
-            return null;
-        //Parse token
-        Jws<Claims> jws = parseTokenBody(token,keyFactory.getKey(LONG_TERM));
+        try {
+            //validate token
+            validateToken(token,LONG_TERM);
 
-        if(jws==null){
+            //Parse token
+            Jws<Claims> jws = parseTokenBody(token,keyFactory.getKey(LONG_TERM));
+
+            //token can be generated only from long term token
+            if(jws.getBody().get("tokenType").equals(SHORT_TERM.name())){
+                throw new JwtException("Token can be generated only from long term token");
+            }
+
+            //get body and replace date with new value
+            Claims body = jws.getBody();
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MINUTE, shortTermTokenLifetime);
+            body.replace("tokenType", SHORT_TERM);
+            body.setIssuedAt(new Date());
+            body.setExpiration(calendar.getTime());
+
+            //generate new token
+            JwtBuilder jwtBuilder = Jwts.builder();
+            jwtBuilder.setExpiration(calendar.getTime());
+            jwtBuilder.setClaims(body);
+
+            return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyFactory.getKey(SHORT_TERM)).compact();
+
+        } catch (JwtException exception) {
+            //log this jwt error
+            exception.printStackTrace();
+            // throw exception;
             return null;
         }
-        //token can be generated only from long term token
-        if(jws.getBody().get("tokenType").equals(SHORT_TERM.name())){
-            return null;
-        }
-
-        //get body and replace date with new value
-        Claims body = jws.getBody();
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, shortTermTokenLifetime);
-        body.replace("tokenType", SHORT_TERM);
-        body.setIssuedAt(new Date());
-        body.setExpiration(calendar.getTime());
-
-        //generate new token
-        JwtBuilder jwtBuilder = Jwts.builder();
-        jwtBuilder.setExpiration(calendar.getTime());
-        jwtBuilder.setClaims(body);
-
-        return jwtBuilder.signWith(SignatureAlgorithm.HS512, keyFactory.getKey(SHORT_TERM)).compact();
     }
 
 
@@ -83,55 +87,32 @@ public class TokenService implements TokenGeneratorService {
     @Override
     public JwtUserIdentifier getUserIdentifier(String token, TokenType type) {
         //Parse and validate token
+        try {
+            if(token==null){
+                throw new IllegalArgumentException("Token cannot be null. ");
+            }
 
-        if(token==null){
+            Jws<Claims> jws = parseTokenBody(token,keyFactory.getKey(type));
+
+            if(jws.getBody().getIssuedAt().after(new Date())){
+                throw new JwtException("Error.This token created in future");
+            }
+
+            return new JwtUserIdentifier(jws.getBody().get("userID",String.class),jws.getBody().get("deviceID",String.class));
+
+        } catch (JwtException exception) {
+            //log this jwt error
+            exception.printStackTrace();
+           // throw exception;
             return null;
         }
-
-        Jws<Claims> jws = parseTokenBody(token,keyFactory.getKey(type));
-
-        if(jws==null){
-            return null;
-        }
-
-        //Validate expiration date
-        if(jws.getBody().getExpiration().before(new Date())){
-            return null;
-        }
-
-        if(jws.getBody().getIssuedAt().after(new Date())){
-            return null;
-        }
-
-        //parse type of token
-
-        if (!jws.getBody().get("tokenType").equals(type.name())){
-            return null;
-        }
-
-        return new JwtUserIdentifier(jws.getBody().get("userID",String.class),jws.getBody().get("deviceID",String.class));
     }
 
 
     //method check signature of the token according to key and return token body
     private Jws<Claims> parseTokenBody(String token, String key){
-        try {
-            return Jwts.parser().setSigningKey(key).parseClaimsJws(token);
 
-        } catch (SignatureException se) {
-            //log this signature error
-            se.printStackTrace();
-            return null;
-        }
-        catch (ExpiredJwtException eje){
-            //log this token date not valid
-            eje.printStackTrace();
-            return null;
-        }
-        catch (MalformedJwtException mje){
-            //log this parsing key error
-            mje.printStackTrace();
-            return null;
-        }
+        return Jwts.parser().setSigningKey(key).parseClaimsJws(token);
+
     }
 }

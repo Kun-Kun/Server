@@ -3,10 +3,7 @@ package com.softgroup.token.impl;
 import com.softgroup.token.api.TokenGeneratorService;
 import com.softgroup.token.api.TokenType;
 import com.softgroup.token.config.TokenServiceAppCfg;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,24 +49,53 @@ public class TokenServiceTest {
         String secondLTToken = tokenGenerator.createLongTermToken("1234567890","0987654321");
         assertNotNull(secondLTToken);
 
-        assertNull(tokenGenerator.createLongTermToken(null,"0987654321"));
-        assertNull(tokenGenerator.createLongTermToken("123456789",null));
-        assertNull(tokenGenerator.createLongTermToken(null,null));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void nullDeviceArgumentCreateLT(){
+        assertNull(tokenGenerator.createLongTermToken(null,"0987654321"));
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void nullUserArgumentCreateLT() {
+        assertNull(tokenGenerator.createLongTermToken("123456789", null));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void nullArgumentCreateLT() {
+        assertNull(tokenGenerator.createLongTermToken(null, null));
+    }
     @Test
     public void createSTToken() throws Exception {
         assertNotNull(firstSTToken);
         String secondSTToken = tokenGenerator.createShortTermToken(firstLTToken);
         assertNotNull(secondSTToken);
 
-        assertNull(tokenGenerator.createShortTermToken(null));
-        assertNull(tokenGenerator.createShortTermToken("very.wrong.token"));
         //verify that short term token can't be generated from outdated token or other short term token
-        assertNull(tokenGenerator.createShortTermToken(expiredLTToken));
-        assertNull(tokenGenerator.createShortTermToken(futureLTToken));
-        assertNull(tokenGenerator.createShortTermToken(secondSTToken));
+    }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void nullArgumentCreateST() {
+        assertNull(tokenGenerator.createShortTermToken(null));
+    }
+    //@Test(expected = JwtException.class)
+    public void wrongTokenCreateST() {
+        assertNull(tokenGenerator.createShortTermToken("very.wrong.token"));
+    }
+
+    //@Test(expected = JwtException.class)
+    public void expiredTokenCreateST() {
+        assertNull(tokenGenerator.createShortTermToken(expiredLTToken));
+    }
+
+    //@Test(expected = JwtException.class)
+    public void futureTokenCreateST() {
+        assertNull(tokenGenerator.createShortTermToken(futureLTToken));
+    }
+
+    //@Test(expected = JwtException.class)
+    public void shortTokenCreateST() {
+        String secondSTToken = tokenGenerator.createShortTermToken(firstLTToken);
+        assertNull(tokenGenerator.createShortTermToken(secondSTToken));
     }
 
     @Test
