@@ -14,8 +14,6 @@ public interface ProfileRepository extends PagingAndSortingRepository<ProfileEnt
 
     List<ProfileEntity> findByNameAndPhoneNumber(String s, String number);
 
-    ProfileEntity findById(String id);
-
     ProfileEntity findByPhoneNumber(String number);
 
 }
