@@ -17,8 +17,14 @@ public class ConversationMemberEntity extends BaseEntity{
     @Column(name = "member_id")
     private String memberId;
 
-    @Column(name = "last_read_message_id")
-    private String lastReadMessageId;
+    @Column(name = "last_message_id")
+    private String lastMessageId;
+
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
+    @Column(name = "join_date")
+    private Long joinDate;
 
     public String getConversationId() {
         return conversationId;
@@ -36,35 +42,57 @@ public class ConversationMemberEntity extends BaseEntity{
         this.memberId = memberId;
     }
 
-    public String getLastReadMessageId() {
-        return lastReadMessageId;
+    public String getLastMessageId() {
+        return lastMessageId;
     }
 
-    public void setLastReadMessageId(String lastReadMessageId) {
-        this.lastReadMessageId = lastReadMessageId;
+    public void setLastMessageId(String lastMessageId) {
+        this.lastMessageId = lastMessageId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
 
-        ConversationMemberEntity that = (ConversationMemberEntity) o;
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
 
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+    public Long getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(Long joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+
+        ConversationMemberEntity that = (ConversationMemberEntity) object;
+
         if (getConversationId() != null ? !getConversationId().equals(that.getConversationId()) : that.getConversationId() != null)
             return false;
         if (getMemberId() != null ? !getMemberId().equals(that.getMemberId()) : that.getMemberId() != null)
             return false;
-        return getLastReadMessageId() != null ? getLastReadMessageId().equals(that.getLastReadMessageId()) : that.getLastReadMessageId() == null;
+        if (getLastMessageId() != null ? !getLastMessageId().equals(that.getLastMessageId()) : that.getLastMessageId() != null)
+            return false;
+        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
+        if (getJoinDate() != null ? !getJoinDate().equals(that.getJoinDate()) : that.getJoinDate() != null)
+            return false;
+
+        return true;
     }
 
-    @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
+        int result = super.hashCode();
         result = 31 * result + (getConversationId() != null ? getConversationId().hashCode() : 0);
         result = 31 * result + (getMemberId() != null ? getMemberId().hashCode() : 0);
-        result = 31 * result + (getLastReadMessageId() != null ? getLastReadMessageId().hashCode() : 0);
+        result = 31 * result + (getLastMessageId() != null ? getLastMessageId().hashCode() : 0);
+        result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
+        result = 31 * result + (getJoinDate() != null ? getJoinDate().hashCode() : 0);
         return result;
     }
 }

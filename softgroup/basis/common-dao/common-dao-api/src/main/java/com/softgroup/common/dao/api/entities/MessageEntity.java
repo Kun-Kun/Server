@@ -24,9 +24,6 @@ public class MessageEntity extends BaseEntity{
     @Column(name = "payload")
     private String payload;
 
-    @Column(name = "status")
-    private MessageStatus status;
-
     @Column(name = "create_time")
     private Long createTime;
 
@@ -65,14 +62,6 @@ public class MessageEntity extends BaseEntity{
         this.payload = payload;
     }
 
-    public MessageStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(MessageStatus status) {
-        this.status = status;
-    }
-
     public Long getCreateTime() {
         return createTime;
     }
@@ -104,7 +93,6 @@ public class MessageEntity extends BaseEntity{
         if (getMessageType() != null ? !getMessageType().equals(that.getMessageType()) : that.getMessageType() != null)
             return false;
         if (getPayload() != null ? !getPayload().equals(that.getPayload()) : that.getPayload() != null) return false;
-        if (getStatus() != null ? !getStatus().equals(that.getStatus()) : that.getStatus() != null) return false;
         if (getCreateTime() != null ? !getCreateTime().equals(that.getCreateTime()) : that.getCreateTime() != null)
             return false;
         return getServerReceiveTime() != null ? getServerReceiveTime().equals(that.getServerReceiveTime()) : that.getServerReceiveTime() == null;
@@ -117,7 +105,6 @@ public class MessageEntity extends BaseEntity{
         result = 31 * result + (getConversationId() != null ? getConversationId().hashCode() : 0);
         result = 31 * result + (getMessageType() != null ? getMessageType().hashCode() : 0);
         result = 31 * result + (getPayload() != null ? getPayload().hashCode() : 0);
-        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
         result = 31 * result + (getCreateTime() != null ? getCreateTime().hashCode() : 0);
         result = 31 * result + (getServerReceiveTime() != null ? getServerReceiveTime().hashCode() : 0);
         return result;

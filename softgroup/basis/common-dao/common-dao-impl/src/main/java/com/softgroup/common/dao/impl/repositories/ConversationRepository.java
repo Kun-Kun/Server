@@ -10,13 +10,11 @@ import java.util.List;
  */
 public interface ConversationRepository extends PagingAndSortingRepository<ConversationEntity, String> {
 
-    ConversationEntity findById(String id);
-
     List<ConversationEntity> findByName(String name);
 
     List<ConversationEntity> findByAdminId(String adminId);
 
-    List<ConversationEntity> findByType(Integer type);
+    List<ConversationEntity> findByType(ConversationType type);
 
 
 }
