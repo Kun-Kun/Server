@@ -2,7 +2,7 @@ package com.softgroup.common.dao.api.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+import com.softgroup.messenger.api.dto.enumeration.*;
 /**
  * Created by user on 24.03.2017.
  */
@@ -19,7 +19,7 @@ public class MessageEntity extends BaseEntity{
     private String conversationId;
 
     @Column(name = "message_type")
-    private MessgeType messageType;
+    private MessageType messageType;
 
     @Column(name = "payload")
     private String payload;
