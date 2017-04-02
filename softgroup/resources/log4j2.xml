@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <properties>
+        <!-- Format of the data written to log files. -->
+        <property name="format">%d{yyyy-MMM-dd HH:mm:ss:sss} %p [%t] %c %m%n</property>
+        <property name="log_root">C:/Users/user/IdeaProjects/Server/log</property>
+    </properties>
+
+    <Appenders>
+        <!-- Create a log file to hold info/warn log level details. -->
+        <RollingRandomAccessFile name="courses-server-info-log"
+                                 fileName="${log_root}/core.server.info.log"
+                                 filePattern="${log_root}/demo.info.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${format}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- Roll over the file next day. -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- Maximum file size for the log file. Data will move to a new file after exceeding this limit. -->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!-- Maximum number of files to keep. -->
+            <DefaultRolloverStrategy max="200"/>
+            <!-- Data of error/fatal log levels will be opted out when writing to the file. -->
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+        </RollingRandomAccessFile>
+
+        <!-- Create a log file to hold error/fatal log level details. -->
+        <RollingRandomAccessFile name="courses-server-error-log"
+                                 fileName="${log_root}/core.server.error.log"
+                                 filePattern="${log_root}/demo.info.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${format}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- Roll over the file next day. -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- Maximum file size for the log file. Data will move to a new file after exceeding this limit. -->
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!-- Maximum number of files to keep. -->
+            <DefaultRolloverStrategy max="200"/>
+        </RollingRandomAccessFile>
+
+        <!-- Standard console output. -->
+        <Console name="courses-server-console-log" target="SYSTEM_OUT">
+            <PatternLayout pattern="${format}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="courses-server-info-log" level="info"/>
+            <AppenderRef ref="courses-server-error-log" level="error"/>
+            <AppenderRef ref="courses-server-console-log" level="info"/>
+        </Root>
+    </Loggers>
+</Configuration>

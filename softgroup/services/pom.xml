@@ -14,6 +14,8 @@
 	<modules>
 		<module>authorization</module>
 		<module>messenger</module>
+		<module>profile</module>
+		<module>type-router</module>
 	</modules>
 
 	<properties>
