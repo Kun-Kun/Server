@@ -19,6 +19,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-exceptions</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
         </dependency>

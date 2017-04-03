@@ -1,5 +1,6 @@
 package com.softgroup.token.impl;
 
+import com.softgroup.common.exceptions.TokenException;
 import com.softgroup.token.api.TokenGeneratorService;
 import com.softgroup.token.api.TokenType;
 import com.softgroup.token.config.TokenServiceAppCfg;
@@ -28,15 +29,15 @@ public class TokenServiceTest {
     @Autowired
     private TokenGeneratorService tokenGenerator;
 
-    private String firstLTToken;
-    private String expiredLTToken;
-    private String futureLTToken;
-    private String badLTToken;
+    private String firstLongTermToken;
+    private String expiredLongTermToken;
+    private String futureLongTermToken;
+    private String badLongTermToken;
 
-    private String firstSTToken;
-    private String expiredSTToken;
-    private String futureSTToken;
-    private String badSTToken;
+    private String firstShortTermToken;
+    private String expiredShortTermToken;
+    private String futureShortTermToken;
+    private String badShortTermToken;
 
     @Test
     public void isTokenGeneratorExist(){
@@ -44,92 +45,114 @@ public class TokenServiceTest {
     }
 
     @Test
-    public void createLTToken() throws Exception {
-        assertNotNull(firstLTToken);
-        String secondLTToken = tokenGenerator.createLongTermToken("1234567890","0987654321");
-        assertNotNull(secondLTToken);
-
+    public void createLongTermToken() throws Exception {
+        assertNotNull(firstLongTermToken);
+        String secondLongTermToken = tokenGenerator.createLongTermToken("1234567890","0987654321");
+        assertNotNull(secondLongTermToken);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void nullDeviceArgumentCreateLT(){
+    public void nullDeviceArgumentCreateLongTerm(){
         assertNull(tokenGenerator.createLongTermToken(null,"0987654321"));
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void nullUserArgumentCreateLT() {
+    public void nullUserArgumentCreateLongTerm() {
         assertNull(tokenGenerator.createLongTermToken("123456789", null));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void nullArgumentCreateLT() {
+    public void nullArgumentCreateLongTerm() {
         assertNull(tokenGenerator.createLongTermToken(null, null));
     }
+
     @Test
-    public void createSTToken() throws Exception {
-        assertNotNull(firstSTToken);
-        String secondSTToken = tokenGenerator.createShortTermToken(firstLTToken);
-        assertNotNull(secondSTToken);
+    public void createShortTermToken() throws Exception {
+        assertNotNull(firstShortTermToken);
+        String secondShortTermToken = tokenGenerator.createShortTermToken(firstLongTermToken);
+        assertNotNull(secondShortTermToken);
 
         //verify that short term token can't be generated from outdated token or other short term token
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void nullArgumentCreateST() {
+    public void nullArgumentCreateShortTerm() {
         assertNull(tokenGenerator.createShortTermToken(null));
     }
     //@Test(expected = JwtException.class)
-    public void wrongTokenCreateST() {
+    public void wrongTokenCreateShortTerm() {
         assertNull(tokenGenerator.createShortTermToken("very.wrong.token"));
     }
 
     //@Test(expected = JwtException.class)
-    public void expiredTokenCreateST() {
-        assertNull(tokenGenerator.createShortTermToken(expiredLTToken));
+    public void expiredTokenCreateShortTerm() {
+        assertNull(tokenGenerator.createShortTermToken(expiredLongTermToken));
     }
 
     //@Test(expected = JwtException.class)
-    public void futureTokenCreateST() {
-        assertNull(tokenGenerator.createShortTermToken(futureLTToken));
+    public void futureTokenCreateShortTerm() {
+        assertNull(tokenGenerator.createShortTermToken(futureLongTermToken));
     }
 
     //@Test(expected = JwtException.class)
-    public void shortTokenCreateST() {
-        String secondSTToken = tokenGenerator.createShortTermToken(firstLTToken);
-        assertNull(tokenGenerator.createShortTermToken(secondSTToken));
+    public void shortTokenCreateShortTerm() {
+        String secondShortTermToken = tokenGenerator.createShortTermToken(firstLongTermToken);
+        assertNull(tokenGenerator.createShortTermToken(secondShortTermToken));
     }
 
-    @Test
-    public void validateTokens() throws Exception {
-        assertThat(tokenGenerator.validateToken(firstLTToken, LONG_TERM),is(true));
-        assertThat(tokenGenerator.validateToken(expiredLTToken,LONG_TERM),is(false));
-        assertThat(tokenGenerator.validateToken(futureLTToken,LONG_TERM),is(false));
+    public void validateRightTokens() throws Exception {
+        assertThat(tokenGenerator.validateToken(firstLongTermToken, LONG_TERM),is(true));
+        assertThat(tokenGenerator.validateToken(firstShortTermToken,SHORT_TERM),is(true));
+    }
 
-        assertThat(tokenGenerator.validateToken(firstSTToken,SHORT_TERM),is(true));
-        assertThat(tokenGenerator.validateToken(expiredSTToken,SHORT_TERM),is(false));
-        assertThat(tokenGenerator.validateToken(futureSTToken,SHORT_TERM),is(false));
+    @Test(expected = TokenException.class)
+    public void validateExpiredLongTermToken() throws Exception {
+        assertThat(tokenGenerator.validateToken(expiredLongTermToken,LONG_TERM),is(false));
+    }
 
-        assertThat(tokenGenerator.validateToken(badSTToken,SHORT_TERM),is(false));
-        assertThat(tokenGenerator.validateToken(badLTToken,LONG_TERM),is(false));
+    @Test(expected = TokenException.class)
+    public void validateFutureLongTermToken() throws Exception {
+        assertThat(tokenGenerator.validateToken(futureLongTermToken,LONG_TERM),is(false));
+    }
+
+    @Test(expected = TokenException.class)
+    public void validateExpiredShortTermToken() throws Exception {
+        assertThat(tokenGenerator.validateToken(expiredShortTermToken,SHORT_TERM),is(false));
+    }
+
+    @Test(expected = TokenException.class)
+    public void validateFutureShortTermToken() throws Exception {
+        assertThat(tokenGenerator.validateToken(futureShortTermToken,SHORT_TERM),is(false));
+    }
+
+    @Test(expected = TokenException.class)
+    public void validateBadLongTermToken() throws Exception {
+        assertThat(tokenGenerator.validateToken(badLongTermToken,LONG_TERM),is(false));
+    }
+
+    @Test(expected = TokenException.class)
+    public void validateBadShortTermToken() throws Exception {
+        assertThat(tokenGenerator.validateToken(badShortTermToken,SHORT_TERM),is(false));
     }
 
     @Before
     public void generateTokens(){
         KeyFactory keyFactory = new KeyFactory();
         //generate normal long/short term tokens
-        firstLTToken = tokenGenerator.createLongTermToken("1234567890","0987654321");
-        firstSTToken = tokenGenerator.createShortTermToken(firstLTToken);
+        firstLongTermToken = tokenGenerator.createLongTermToken("1234567890","0987654321");
+        firstShortTermToken = tokenGenerator.createShortTermToken(firstLongTermToken);
         //01/01/2015 @ 12:00am (UTC)
-        expiredLTToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321",keyFactory.getKey(LONG_TERM),LONG_TERM);
+        expiredLongTermToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321",keyFactory.getKey(LONG_TERM),LONG_TERM);
         //Thu, 02 Jan 2420 00:00:00 GMT
-        futureLTToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321",keyFactory.getKey(LONG_TERM),LONG_TERM);
+        futureLongTermToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321",keyFactory.getKey(LONG_TERM),LONG_TERM);
 
         //01/01/2015 @ 12:00am (UTC)
-        expiredSTToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321",keyFactory.getKey(SHORT_TERM),SHORT_TERM);
+        expiredShortTermToken = generateTokenAnyDate(new Date(1420070400000L),"1234567890","0987654321",keyFactory.getKey(SHORT_TERM),SHORT_TERM);
         //Thu, 02 Jan 2420 00:00:00 GMT
-        futureSTToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321",keyFactory.getKey(SHORT_TERM),SHORT_TERM);
+        futureShortTermToken = generateTokenAnyDate(new Date(14200704000000L),"1234567890","0987654321",keyFactory.getKey(SHORT_TERM),SHORT_TERM);
         //generate bad token signed with bad key
-        badLTToken = generateTokenAnyDate(new Date(),"1234567890","0987654321","bad key",LONG_TERM);
-        badSTToken = generateTokenAnyDate(new Date(),"1234567890","0987654321","bad key",SHORT_TERM);
+        badLongTermToken = generateTokenAnyDate(new Date(),"1234567890","0987654321","bad key",LONG_TERM);
+        badShortTermToken = generateTokenAnyDate(new Date(),"1234567890","0987654321","bad key",SHORT_TERM);
 
     }
 
