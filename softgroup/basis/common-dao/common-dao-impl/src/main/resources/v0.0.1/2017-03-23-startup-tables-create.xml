@@ -55,9 +55,6 @@
             <column name="payload" type="varchar(1024)">
                 <constraints nullable="false"/>
             </column>
-            <column name="status" type="int">
-                <constraints nullable="false"/>
-            </column>
             <column name="create_time" type="long" >
                 <constraints nullable="false"/>
             </column>
@@ -84,6 +81,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="exists" type="boolean" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="long" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -129,7 +129,13 @@
             <column name="member_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_read_message_id" type="char(36)">
+            <column name="last_message_id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_deleted" type="boolean" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="join_date" type="long" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -141,6 +147,29 @@
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="profile_id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1490315241" author="Kun-Kun">
+        <createTable tableName="message_status">
+            <column name="id" type="char(36)" >
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="message_id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sender_id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_date" type="long" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
