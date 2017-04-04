@@ -5,13 +5,13 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 
-import static javax.persistence.InheritanceType.JOINED;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 
 /**
  * Created by user on 27.03.2017.
  */
-@Inheritance(strategy=JOINED)
 @MappedSuperclass
+@Inheritance(strategy=SINGLE_TABLE)
 public abstract class BaseEntity implements Serializable{
 
     private static final long serialVersionUID = -7623698971499767165L;

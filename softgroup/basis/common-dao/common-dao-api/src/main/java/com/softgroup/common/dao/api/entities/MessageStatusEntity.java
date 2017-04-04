@@ -1,13 +1,11 @@
 package com.softgroup.common.dao.api.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import com.softgroup.messenger.api.dto.enumeration.*;
 /**
  * Created by user on 03.04.2017.
  */
 @Entity
-@PrimaryKeyJoinColumn
 @Table(name = "message_status")
 public class MessageStatusEntity extends BaseEntity{
 

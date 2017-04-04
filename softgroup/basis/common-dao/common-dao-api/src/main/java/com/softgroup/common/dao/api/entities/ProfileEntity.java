@@ -2,14 +2,10 @@ package com.softgroup.common.dao.api.entities;
 
 import javax.persistence.*;
 
-import java.io.Serializable;
-import java.util.List;
-
 /**
  * Created by Odin on 29.02.2016.
  */
 @Entity
-@PrimaryKeyJoinColumn
 @Table(name = "profiles")
 public class ProfileEntity extends BaseEntity{
 

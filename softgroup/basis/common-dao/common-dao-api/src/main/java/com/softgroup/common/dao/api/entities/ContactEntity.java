@@ -1,13 +1,11 @@
 package com.softgroup.common.dao.api.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by user on 24.03.2017.
  */
 @Entity
-@PrimaryKeyJoinColumn
 @Table(name = "contacts")
 public class ContactEntity extends BaseEntity{
 

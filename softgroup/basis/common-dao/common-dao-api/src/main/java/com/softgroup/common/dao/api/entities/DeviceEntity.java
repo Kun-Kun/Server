@@ -1,14 +1,11 @@
 package com.softgroup.common.dao.api.entities;
 
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by user on 24.03.2017.
  */
 @Entity
-@PrimaryKeyJoinColumn
 @Table(name = "devices")
 public class DeviceEntity extends BaseEntity{
     private static final long serialVersionUID = -506229924089552354L;

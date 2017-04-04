@@ -1,7 +1,6 @@
 package com.softgroup.common.dao.api.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import com.softgroup.messenger.api.dto.enumeration.*;
 
 /**
@@ -16,7 +15,7 @@ public class ConversationEntity extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "logo_immage_uri")
+    @Column(name = "logo_image_uri")
     private String logoImageUri;
 
     @Column(name = "type")
@@ -25,38 +24,8 @@ public class ConversationEntity extends BaseEntity {
     @Column(name = "admin_id")
     private String adminId;
 
-    @Column(name = "exists")
+    @Column(name = "is_exists")
     private Boolean exists;
-
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-
-        ConversationEntity that = (ConversationEntity) object;
-
-        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
-        if (getLogoImageUri() != null ? !getLogoImageUri().equals(that.getLogoImageUri()) : that.getLogoImageUri() != null)
-            return false;
-        if (getType() != null ? !getType().equals(that.getType()) : that.getType() != null) return false;
-        if (getAdminId() != null ? !getAdminId().equals(that.getAdminId()) : that.getAdminId() != null) return false;
-        if (getExists() != null ? !getExists().equals(that.getExists()) : that.getExists() != null) return false;
-        if (getCreateTime() != null ? !getCreateTime().equals(that.getCreateTime()) : that.getCreateTime() != null)
-            return false;
-
-        return true;
-    }
-
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getLogoImageUri() != null ? getLogoImageUri().hashCode() : 0);
-        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
-        result = 31 * result + (getAdminId() != null ? getAdminId().hashCode() : 0);
-        result = 31 * result + (getExists() != null ? getExists().hashCode() : 0);
-        result = 31 * result + (getCreateTime() != null ? getCreateTime().hashCode() : 0);
-        return result;
-    }
 
     @Column(name = "create_time")
     private Long createTime;
@@ -109,5 +78,30 @@ public class ConversationEntity extends BaseEntity {
         this.createTime = createTime;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        ConversationEntity that = (ConversationEntity) o;
+
+        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
+        if (getLogoImageUri() != null ? !getLogoImageUri().equals(that.getLogoImageUri()) : that.getLogoImageUri() != null)
+            return false;
+        if (getType() != that.getType()) return false;
+        if (getAdminId() != null ? !getAdminId().equals(that.getAdminId()) : that.getAdminId() != null) return false;
+        if (getExists() != null ? !getExists().equals(that.getExists()) : that.getExists() != null) return false;
+        return getCreateTime() != null ? getCreateTime().equals(that.getCreateTime()) : that.getCreateTime() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getLogoImageUri() != null ? getLogoImageUri().hashCode() : 0);
+        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
+        result = 31 * result + (getAdminId() != null ? getAdminId().hashCode() : 0);
+        result = 31 * result + (getExists() != null ? getExists().hashCode() : 0);
+        result = 31 * result + (getCreateTime() != null ? getCreateTime().hashCode() : 0);
+        return result;
+    }
 }

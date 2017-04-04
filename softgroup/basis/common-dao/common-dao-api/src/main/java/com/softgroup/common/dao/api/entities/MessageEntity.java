@@ -7,7 +7,6 @@ import com.softgroup.messenger.api.dto.enumeration.*;
  * Created by user on 24.03.2017.
  */
 @Entity
-@PrimaryKeyJoinColumn
 @Table(name = "messages")
 public class MessageEntity extends BaseEntity{
     private static final long serialVersionUID = -6779438608811972046L;
@@ -46,11 +45,11 @@ public class MessageEntity extends BaseEntity{
         this.conversationId = conversationId;
     }
 
-    public MessgeType getMessageType() {
+    public MessageType getMessageType() {
         return messageType;
     }
 
-    public void setMessageType(MessgeType messageType) {
+    public void setMessageType(MessageType messageType) {
         this.messageType = messageType;
     }
 
