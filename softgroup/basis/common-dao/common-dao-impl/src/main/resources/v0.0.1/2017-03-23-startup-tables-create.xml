@@ -80,7 +80,7 @@
             <column name="admin_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="exists" type="boolean" >
+            <column name="is_exists" type="boolean" >
                 <constraints nullable="false"/>
             </column>
             <column name="create_time" type="long" >
