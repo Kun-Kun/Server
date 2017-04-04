@@ -11,6 +11,10 @@
 
     <artifactId>profile</artifactId>
     <packaging>pom</packaging>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
     <modules>
         <module>profile-api</module>
         <module>profile-impl</module>
