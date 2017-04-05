@@ -11,5 +11,5 @@ public interface TokenGeneratorService {
 
     boolean validateToken(String token,TokenType type);
 
-    UserIdentifier getUserIdentifier(String token,TokenType type);
+    JwtUserIdentifier getUserIdentifier(String token,TokenType type);
 }
