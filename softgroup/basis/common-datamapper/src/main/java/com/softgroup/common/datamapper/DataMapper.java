@@ -1,6 +1,7 @@
 package com.softgroup.common.datamapper;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -9,6 +10,8 @@ import java.util.Map;
  * @author vlischyshyn
  */
 public interface DataMapper {
+
+	ObjectMapper getMapper();
 
 	Map<String, Object> convertToMap(Object value);
 
