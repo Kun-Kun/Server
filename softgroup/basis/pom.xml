@@ -9,6 +9,12 @@
     </parent>
     <artifactId>basis</artifactId>
     <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    
     <modules>
         <module>common-exceptions</module>
         <module>common-datamapper</module>
