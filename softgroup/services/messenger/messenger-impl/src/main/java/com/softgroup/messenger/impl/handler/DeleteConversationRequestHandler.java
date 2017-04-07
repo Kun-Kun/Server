@@ -19,6 +19,11 @@ public class DeleteConversationRequestHandler extends AbstractRequestHandler<Del
     }
 
     @Override
+    public Class<DeleteConversationRequest> getRequestDataClass() {
+       return DeleteConversationRequest.class;
+    }
+
+    @Override
     public Response<DeleteConversationResponse> processRequest(Request<DeleteConversationRequest> msg){
         return null;
     }

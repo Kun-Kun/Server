@@ -17,6 +17,11 @@ public class GetContactProfilesRequestHandler extends AbstractRequestHandler<Get
         return "get_contact_profiles";
     }
 
+    @Override
+    public Class<GetContactProfilesRequest> getRequestDataClass() {
+        return GetContactProfilesRequest.class;
+    }
+
     public Response<GetContactProfilesResponse> processRequest(Request<GetContactProfilesRequest> msg){
         return null;
     }

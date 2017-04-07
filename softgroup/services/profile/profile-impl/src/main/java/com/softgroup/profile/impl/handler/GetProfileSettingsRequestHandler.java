@@ -17,6 +17,11 @@ public class GetProfileSettingsRequestHandler extends AbstractRequestHandler<Get
         return " get_profile_settings";
     }
 
+    @Override
+    public Class<GetProfileSettingsRequest> getRequestDataClass() {
+        return GetProfileSettingsRequest.class;
+    }
+
     public Response<GetProfileSettingsResponse> processRequest(Request<GetProfileSettingsRequest> msg){
         return null;
     }

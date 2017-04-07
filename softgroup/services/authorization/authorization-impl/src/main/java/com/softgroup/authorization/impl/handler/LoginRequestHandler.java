@@ -18,6 +18,11 @@ public class LoginRequestHandler extends AbstractRequestHandler<LoginRequest,Log
     }
 
     @Override
+    public Class<LoginRequest> getRequestDataClass() {
+        return LoginRequest.class;
+    }
+
+    @Override
     public Response<LoginResponse> processRequest(Request<LoginRequest> msg){
         return null;
     }
