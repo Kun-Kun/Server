@@ -16,7 +16,10 @@ public class ContactsSyncRequestHandler extends AbstractRequestHandler<ContactsS
     public String getName(){
         return "contacts_sync";
     }
-
+    @Override
+    public Class<ContactsSyncRequest> getRequestDataClass() {
+        return ContactsSyncRequest.class;
+    }
     public Response<ContactsSyncResponse> processRequest(Request<ContactsSyncRequest> msg){
        	        return null;
     }

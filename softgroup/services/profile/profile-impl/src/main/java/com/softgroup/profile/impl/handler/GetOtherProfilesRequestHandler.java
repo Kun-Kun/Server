@@ -17,6 +17,11 @@ public class GetOtherProfilesRequestHandler extends AbstractRequestHandler<GetOt
         return "get_other_profiles";
     }
 
+    @Override
+    public Class<GetOtherProfilesRequest> getRequestDataClass() {
+        return GetOtherProfilesRequest.class;
+    }
+
     public Response<GetOtherProfilesResponse> processRequest(Request<GetOtherProfilesRequest> msg){
         return null;
     }

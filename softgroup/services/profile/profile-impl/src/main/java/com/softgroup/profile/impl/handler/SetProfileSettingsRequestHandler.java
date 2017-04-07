@@ -17,6 +17,11 @@ public class SetProfileSettingsRequestHandler extends AbstractRequestHandler<Set
         return "set_profile_settings";
     }
 
+    @Override
+    public Class<SetProfileSettingsRequest> getRequestDataClass() {
+        return SetProfileSettingsRequest.class;
+    }
+
     public Response<SetProfileSettingsResponse> processRequest(Request<SetProfileSettingsRequest> msg){
         return null;
     }

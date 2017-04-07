@@ -17,6 +17,11 @@ public class GetMyProfileRequestHandler extends AbstractRequestHandler<GetMyProf
         return "get_my_profile";
     }
 
+    @Override
+    public Class<GetMyProfileRequest> getRequestDataClass() {
+        return GetMyProfileRequest.class;
+    }
+
     public Response<GetMyProfileResponse> processRequest(Request<GetMyProfileRequest> msg){
         return null;
     }
