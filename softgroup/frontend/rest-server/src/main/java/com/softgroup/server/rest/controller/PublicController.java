@@ -25,12 +25,12 @@ public class PublicController {
     private TypeRouterHandler router;
 
     @Autowired
-    private ControllerToolService restService;
+    private ControllerToolService controllerTool;
 
     @RequestMapping(value = "/public",method = RequestMethod.POST,consumes="application/json",produces = "application/json")
     @ResponseBody
     public Response publicController(@RequestParam String data) {
-       Request<LinkedHashMap> request = restService.parseRequestFromJson(data);
+       Request<LinkedHashMap> request = controllerTool.parseRequestFromJson(data);
        return router.handle(request);
     }
 

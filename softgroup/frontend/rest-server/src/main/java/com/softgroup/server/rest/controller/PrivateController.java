@@ -18,13 +18,13 @@ public class PrivateController {
     private TypeRouterHandler router;
 
     @Autowired
-    private ControllerToolService restService;
+    private ControllerToolService controllerTool;
 
     @RequestMapping(value = "/private",method = RequestMethod.POST,consumes="application/json",produces = "application/json")
     @ResponseBody
     public Response privateController(@RequestParam String data) {
-        Request<LinkedHashMap> request = restService.parseRequestFromJson(data);
-        request = restService.setRoutingData(request);
+        Request<LinkedHashMap> request = controllerTool.parseRequestFromJson(data);
+        request = controllerTool.setRoutingData(request);
         return router.handle(request);
     }
 
