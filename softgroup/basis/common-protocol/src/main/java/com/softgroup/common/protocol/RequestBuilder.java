@@ -1,13 +1,11 @@
 package com.softgroup.common.protocol;
 
-import java.io.Serializable;
-
 /**
  * Created by user on 12.03.2017.
  */
 public class RequestBuilder<T extends RequestData> {
 
-    private Request<T> request = new Request<T>();
+    private Request<T> request = new Request<>();
 
     public RequestBuilder<T> setHeader(ActionHeader header){
         request.setHeader(header);

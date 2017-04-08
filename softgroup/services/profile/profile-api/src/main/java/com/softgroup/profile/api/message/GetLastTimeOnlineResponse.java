@@ -13,4 +13,12 @@ public class GetLastTimeOnlineResponse  implements ResponseData {
     private static final long serialVersionUID = -1241805632783921307L;
 
     private List<DTOProfileStatus> profiles;
+
+    public List<DTOProfileStatus> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<DTOProfileStatus> profiles) {
+        this.profiles = profiles;
+    }
 }

@@ -8,8 +8,7 @@ import com.softgroup.common.protocol.ActionHeader;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.RequestData;
 import com.softgroup.common.protocol.Response;
-import com.softgroup.common.router.api.CommandTypeRouter;
-
+import com.softgroup.common.router.api.CommandRouterHandler;
 
 import com.softgroup.router.type.impl.router.TypeRouter;
 import org.hamcrest.CoreMatchers;
@@ -42,13 +41,13 @@ public class TypeRouterUnitTest {
     private TypeRouter router;
 
     @Spy
-    private ArrayList<CommandTypeRouter> handlers;
+    private ArrayList<CommandRouterHandler> handlers;
     @Spy
-    private HashMap<String,CommandTypeRouter> handlersMap;
+    private HashMap<String,CommandRouterHandler> handlersMap;
     @Mock
-    private CommandTypeRouter authorizationRouter;
+    private CommandRouterHandler authorizationRouter;
     @Mock
-    private CommandTypeRouter profileRouter;
+    private CommandRouterHandler profileRouter;
 
     @Test
     public void isRouterExist(){
@@ -77,7 +76,7 @@ public class TypeRouterUnitTest {
         handlers.add(authorizationRouter);
         handlers.add(profileRouter);
 
-        for(CommandTypeRouter h:handlers){
+        for(CommandRouterHandler h:handlers){
             handlersMap.put(h.getName(),h);
         }
 

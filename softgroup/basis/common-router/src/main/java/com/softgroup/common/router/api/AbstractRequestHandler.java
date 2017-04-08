@@ -1,15 +1,11 @@
 package com.softgroup.common.router.api;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.softgroup.common.datamapper.DataMapper;
 import com.softgroup.common.protocol.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public abstract class AbstractRequestHandler<RQ extends RequestData, RS extends ResponseData> implements RequestHandler {
 
