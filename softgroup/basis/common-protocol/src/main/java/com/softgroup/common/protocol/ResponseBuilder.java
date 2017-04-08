@@ -1,11 +1,10 @@
 package com.softgroup.common.protocol;
 
-import java.io.Serializable;
 
 /**
  * Created by user on 12.03.2017.
  */
-public class ResponseBuilder<T extends Serializable> {
+public class ResponseBuilder<T extends ResponseData> {
 
     private Response<T> response = new Response<>();
 
@@ -21,6 +20,11 @@ public class ResponseBuilder<T extends Serializable> {
 
     public ResponseBuilder<T> setStatus(ResponseStatus status){
         response.setStatus(status);
+        return this;
+    }
+
+    public ResponseBuilder<T> setRoutingData(RoutingData data){
+        response.setRoutingData(data);
         return this;
     }
 
