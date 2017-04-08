@@ -11,8 +11,6 @@ import java.util.Map;
  */
 public interface DataMapper {
 
-	ObjectMapper getMapper();
-
 	Map<String, Object> convertToMap(Object value);
 
 	<T> T convert(Map<String, Object> map, Class<T> dataType);

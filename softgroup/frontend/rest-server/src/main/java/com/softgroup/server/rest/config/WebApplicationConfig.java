@@ -1,7 +1,12 @@
 package com.softgroup.server.rest.config;
 
-import com.softgroup.common.datamapper.DataMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +25,6 @@ import java.util.List;
 )
 public class WebApplicationConfig extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    private DataMapper mapper;
-
     @Override
     public void configureMessageConverters( List<HttpMessageConverter<?>> converters ) {
         converters.add(converter());
@@ -32,7 +34,17 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter {
     MappingJackson2HttpMessageConverter converter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 
-        converter.setObjectMapper(mapper.getMapper());
+        converter.setObjectMapper(configureMapper());
         return converter;
+    }
+
+    private ObjectMapper configureMapper(){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return mapper;
     }
 }

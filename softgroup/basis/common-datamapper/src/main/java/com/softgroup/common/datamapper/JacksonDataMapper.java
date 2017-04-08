@@ -30,10 +30,6 @@ public class JacksonDataMapper implements DataMapper {
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 	}
 
-	public ObjectMapper getMapper() {
-		return mapper;
-	}
-
 	@Override
 	public Map<String, Object> convertToMap(final Object value) {
 		try {
