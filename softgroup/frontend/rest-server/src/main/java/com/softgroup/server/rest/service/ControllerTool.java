@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
  * Created by user on 07.04.2017.
  */
 @Service
-public class RestTool implements RestToolService{
+public class ControllerTool implements ControllerToolService {
 
     @Autowired
     private DataMapper dataMapper;

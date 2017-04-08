@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by user on 07.04.2017.
  */
-public interface RestToolService {
+public interface ControllerToolService {
 
     Request<LinkedHashMap> parseRequestFromJson(String json);
 
