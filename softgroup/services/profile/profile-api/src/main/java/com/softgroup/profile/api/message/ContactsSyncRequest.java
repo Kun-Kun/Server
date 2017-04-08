@@ -18,7 +18,7 @@ public class ContactsSyncRequest implements RequestData {
         return addedContact;
     }
 
-    public void setAddedContact(List<DTOContact> addedConatct) {
+    public void setAddedContact(List<DTOContact> addedContact) {
         this.addedContact = addedContact;
     }
 }

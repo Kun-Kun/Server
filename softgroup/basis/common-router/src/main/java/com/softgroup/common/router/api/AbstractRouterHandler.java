@@ -2,7 +2,6 @@ package com.softgroup.common.router.api;
 
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
-import com.softgroup.common.protocol.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -14,12 +13,7 @@ public abstract class AbstractRouterHandler<T extends Handler> implements Router
 
 	@Autowired
 	private List<T> handlers;
-	private Map<String,T> handlerMap = new HashMap<String, T>();
-
-	public abstract String getName();
-
-	@Override
-	public abstract String getRouteKey(Request<?> msg) ;
+	private Map<String,T> handlerMap = new HashMap<>();
 
 	@Override
 	public Response<?> handle(Request<?> msg) {
