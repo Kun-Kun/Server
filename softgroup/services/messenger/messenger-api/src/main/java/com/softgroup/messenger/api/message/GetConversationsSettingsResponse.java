@@ -18,7 +18,7 @@ public class GetConversationsSettingsResponse implements ResponseData {
         return conversationSettings;
     }
 
-    public void setConversationSettings(List<DTOConversationSettings> conversationSettingss) {
-        this.conversationSettings = conversationSettingss;
+    public void setConversationSettings(List<DTOConversationSettings> conversationSettings) {
+        this.conversationSettings = conversationSettings;
     }
 }

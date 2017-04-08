@@ -18,7 +18,7 @@ public class GetConversationsDetailsResponse implements ResponseData {
         return conversationDetails;
     }
 
-    public void setConversationDetails(List<DTOConversationDetails> conversationDetailss) {
-        this.conversationDetails = conversationDetailss;
+    public void setConversationDetails(List<DTOConversationDetails> conversationDetails) {
+        this.conversationDetails = conversationDetails;
     }
 }
