@@ -11,6 +11,13 @@
 
     <artifactId>common-dao-api</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>messenger-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
