@@ -1,9 +1,8 @@
 package com.softgroup.messenger.impl.router;
 
-import com.softgroup.common.router.api.AbstractCommandRouterHandler;
-
+import com.softgroup.common.router.api.AbstractRouterHandler;
 import com.softgroup.common.router.api.CommandRouterHandler;
-import com.softgroup.messenger.api.router.MessengerRequestHandler;
+import com.softgroup.messenger.api.factory.MessengerHandlerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class MessengerRouter extends AbstractCommandRouterHandler<MessengerRequestHandler> implements CommandRouterHandler {
+public class MessengerRouter extends AbstractRouterHandler<MessengerHandlerFactory> implements CommandRouterHandler {
 
     @Override
     public String getName(){
