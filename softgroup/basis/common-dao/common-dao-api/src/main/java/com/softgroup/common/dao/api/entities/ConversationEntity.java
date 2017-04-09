@@ -1,7 +1,8 @@
 package com.softgroup.common.dao.api.entities;
 
 import javax.persistence.*;
-import com.softgroup.messenger.api.dto.enumeration.*;
+
+import com.softgroup.common.protocol.enumeration.ConversationType;
 
 /**
  * Created by user on 24.03.2017.

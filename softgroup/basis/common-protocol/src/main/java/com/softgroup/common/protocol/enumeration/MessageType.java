@@ -1,11 +1,7 @@
-package com.softgroup.messenger.api.dto.enumeration;
+package com.softgroup.common.protocol.enumeration;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by user on 26.03.2017.
@@ -18,17 +14,6 @@ public enum  MessageType {
 
     private Integer value;
 
-    private static final Map<Integer,MessageType> TYPE_MAP;
-
-    static {
-        Map<Integer,MessageType> map = new HashMap<>();
-        for (MessageType messageType : MessageType.values()) {
-            map.put(messageType.getValue(), messageType);
-        }
-        TYPE_MAP = Collections.unmodifiableMap(map);
-    }
-
-
     @JsonValue
     public Integer getValue() {
         return value;
@@ -40,7 +25,12 @@ public enum  MessageType {
 
     @JsonCreator
     public static MessageType fromValue(final Integer value) {
-        return TYPE_MAP.get(value);
+        for (MessageType messageType : MessageType.values()) {
+            if(messageType.getValue().equals(value)){
+                return messageType;
+            }
+        }
+        return null;
     }
 
 }

@@ -1,7 +1,7 @@
 package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.RequestData;
-import com.softgroup.messenger.api.dto.enumeration.ConversationType;
+import com.softgroup.common.protocol.enumeration.ConversationType;
 
 /**
  * Created by user on 26.02.2017.

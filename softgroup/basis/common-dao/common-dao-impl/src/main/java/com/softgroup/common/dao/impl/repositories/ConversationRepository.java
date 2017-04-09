@@ -1,8 +1,8 @@
 package com.softgroup.common.dao.impl.repositories;
 
 import com.softgroup.common.dao.api.entities.ConversationEntity;
+import com.softgroup.common.protocol.enumeration.ConversationType;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import com.softgroup.messenger.api.dto.enumeration.*;
 
 import java.util.List;
 
