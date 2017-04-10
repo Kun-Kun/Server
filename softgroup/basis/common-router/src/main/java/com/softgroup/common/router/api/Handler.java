@@ -6,5 +6,5 @@ import com.softgroup.common.protocol.Response;
 public interface Handler  {
     String getName();
 
-    Response<?> handle(final Request<?> msg);
+    Response handle(final Request<?> msg);
 }

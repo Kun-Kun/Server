@@ -4,7 +4,7 @@ package com.softgroup.common.exceptions;
  * @author odin
  * @since 15.02.17.
  */
-public class MapperException extends SoftgroupException {//NOSONAR: this is exception class
+public class MapperException extends SoftgroupException {
     private static final long serialVersionUID = 1400802494145013136L;
 
     public MapperException(String message, Throwable cause) {

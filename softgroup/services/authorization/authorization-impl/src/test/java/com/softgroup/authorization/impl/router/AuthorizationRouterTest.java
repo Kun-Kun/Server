@@ -39,7 +39,7 @@ public class AuthorizationRouterTest {
 
     @Autowired
     @Qualifier("login")
-    private Handler loginHander;
+    private Handler loginHandler;
 
     @Test
     public void isRouterExist() {
@@ -79,7 +79,7 @@ public class AuthorizationRouterTest {
     @Test
     public void traceRouteToLogin() {
         Response r = router.handle(loginRequestREST);
-        verify(loginHander).handle(loginRequestREST);
+        verify(loginHandler).handle(loginRequestREST);
         verify(registerHandler, never()).handle(loginRequestREST);
     }
 
@@ -87,7 +87,7 @@ public class AuthorizationRouterTest {
     public void traceRouteToRegister() {
         Response r = router.handle(registerRequestREST);
         verify(registerHandler).handle(registerRequestREST);
-        verify(loginHander, never()).handle(registerRequestREST);
+        verify(loginHandler, never()).handle(registerRequestREST);
 
     }
 

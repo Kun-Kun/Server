@@ -11,15 +11,10 @@
 
     <artifactId>type-router-api</artifactId>
     <packaging>jar</packaging>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>com.softgroup</groupId>
-            <artifactId>common-router</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

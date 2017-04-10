@@ -2,8 +2,6 @@ package com.softgroup.authorization.impl.router;
 
 import com.softgroup.authorization.api.message.*;
 import com.softgroup.authorization.api.router.AuthorizationRequestHandler;
-import com.softgroup.authorization.impl.handler.LoginRequestHandler;
-import com.softgroup.authorization.impl.handler.RegisterRequestHandler;
 import com.softgroup.common.protocol.ActionHeader;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;

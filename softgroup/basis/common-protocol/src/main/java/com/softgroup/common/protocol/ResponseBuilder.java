@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class ResponseBuilder<T extends Serializable> {
 
-    private Response<T> response = new Response<T>();
+    private Response<T> response = new Response<>();
 
     public ResponseBuilder<T> setHeader(ActionHeader header){
         response.setHeader(header);

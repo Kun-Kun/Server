@@ -2,7 +2,6 @@ package com.softgroup.messenger.api.message;
 
 import com.softgroup.common.protocol.RequestData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
