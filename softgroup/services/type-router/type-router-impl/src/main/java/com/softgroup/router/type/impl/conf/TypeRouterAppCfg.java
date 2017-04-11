@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@ComponentScan(value = "com.softgroup.router.type.impl.router")
+@ComponentScan(value = "com.softgroup.router.type.impl")
 public class TypeRouterAppCfg {
 
 }

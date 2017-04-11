@@ -4,11 +4,13 @@ package com.softgroup.common.impl.router;
  * Created by user on 03.03.2017.
  */
 
+import com.softgroup.common.factory.AbstractHandlerFactory;
 import com.softgroup.common.protocol.ActionHeader;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.RequestData;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.CommandRouterHandler;
+
 
 import com.softgroup.router.type.impl.router.TypeRouter;
 import org.hamcrest.CoreMatchers;
@@ -49,6 +51,9 @@ public class TypeRouterUnitTest {
     @Mock
     private CommandRouterHandler profileRouter;
 
+    @Mock
+    private AbstractHandlerFactory factory;
+
     @Test
     public void isRouterExist(){
         assertThat(router, CoreMatchers.notNullValue());
@@ -72,7 +77,8 @@ public class TypeRouterUnitTest {
         profileRequestREST.setHeader(header1);
 
         when(profileRouter.getName()).thenReturn("profile");
-
+        when(factory.getHandler(authorizationRequestREST)).thenReturn(authorizationRouter);
+        when(factory.getHandler(profileRequestREST)).thenReturn(profileRouter);
         handlers.add(authorizationRouter);
         handlers.add(profileRouter);
 
