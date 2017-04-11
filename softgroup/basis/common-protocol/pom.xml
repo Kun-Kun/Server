@@ -23,5 +23,10 @@
             <artifactId>common-exceptions</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-datamapper</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
