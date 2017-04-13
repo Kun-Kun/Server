@@ -1,8 +1,6 @@
 package com.softgroup.authorization.impl.data;
 
-import com.softgroup.authorization.api.cache.ConfirmationRegisterData;
 import com.softgroup.authorization.api.cache.ConfirmationRegisterDataCache;
-import com.softgroup.authorization.api.message.RegisterRequest;
 import com.softgroup.authorization.impl.config.AuthorizationAppCfg;
 import com.softgroup.common.datamapper.configuration.DataMapperAppCfg;
 import org.junit.Test;
@@ -10,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by user on 13.04.2017.
@@ -19,18 +19,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ConfirmationRegisterCacheTest {
 
     @Autowired
-    private ConfirmationRegisterDataCache cache;
+    private ConfirmationRegisterDataCache cache1;
 
+    @Autowired
+    private ConfirmationRegisterDataCache cache2;
     @Test
-    public void makeRegisterCache() throws Exception {
-
-        for (int i = 0; i < 700; i++) {
-            ConfirmationRegisterData data = new ConfirmationRegisterData(new RegisterRequest());
-            cache.put(data.getRegistrationRequestUUID(),data);
-            Thread.sleep(1000);
-            System.out.println(cache.size());
-        }
-
+    public void checkCacheServiceSingleton() throws Exception {
+        assertNotNull(cache1);
+        assertEquals(cache1,cache2);
     }
 
 }

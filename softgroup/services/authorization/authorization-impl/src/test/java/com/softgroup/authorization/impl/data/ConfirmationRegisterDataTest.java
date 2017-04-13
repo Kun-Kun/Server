@@ -5,6 +5,11 @@ import com.softgroup.authorization.api.message.RegisterRequest;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * Created by user on 13.04.2017.
  */
@@ -12,7 +17,7 @@ public class ConfirmationRegisterDataTest {
 
     private RegisterRequest request;
 
-    private ConfirmationRegisterData data;
+    private ArrayList<ConfirmationRegisterData> data = new ArrayList<>();
 
     @Before
     public void prepare(){
@@ -20,23 +25,23 @@ public class ConfirmationRegisterDataTest {
         request.setDeviceId("device_id1");
         request.setPhoneNumber("063-12-34-567");
         request.setLocaleCode("ua-ua");
-        data = new ConfirmationRegisterData(request);
-
+        for (int i = 0; i <100 ; i++) {
+            data.add(new ConfirmationRegisterData(request));
+        }
     }
 
+    //Check that generators generate unique value for different RegistrationRequests
     @Test
-    public void getRequest() throws Exception {
-        System.out.println(data.getRequest());
-    }
-
-    @Test
-    public void getRegistrationRequestUUID() throws Exception {
-        System.out.println(data.getRegistrationRequestUUID());
-    }
-
-    @Test
-    public void getConfirmationCode() throws Exception {
-        System.out.println(data.getConfirmationCode());
+    public void getUniqueRegistrationRequestUUIDAndCode() throws Exception {
+        for (ConfirmationRegisterData registerData:data) {
+            assertNotNull(registerData.getRegistrationRequestUUID());
+            for (ConfirmationRegisterData registerData1:data) {
+                if(registerData!=registerData1) {
+                    assertNotEquals(registerData.getRegistrationRequestUUID(), registerData1.getRegistrationRequestUUID());
+                    assertNotEquals(registerData.getConfirmationCode(), registerData1.getConfirmationCode());
+                }
+            }
+        }
 
     }
 
