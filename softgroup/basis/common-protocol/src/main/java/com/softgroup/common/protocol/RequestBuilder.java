@@ -1,5 +1,7 @@
 package com.softgroup.common.protocol;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 12.03.2017.
  */
