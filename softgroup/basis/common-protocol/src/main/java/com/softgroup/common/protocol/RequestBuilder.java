@@ -1,9 +1,11 @@
 package com.softgroup.common.protocol;
 
+import java.io.Serializable;
+
 /**
  * Created by user on 12.03.2017.
  */
-public class RequestBuilder<T extends RequestData> {
+public class RequestBuilder<T extends Serializable> {
 
     private Request<T> request = new Request<>();
 
@@ -14,6 +16,11 @@ public class RequestBuilder<T extends RequestData> {
 
     public RequestBuilder<T> setData(T data){
         request.setData(data);
+        return this;
+    }
+
+    public RequestBuilder<T> setRoutingData(RoutingData data){
+        request.setRoutingData(data);
         return this;
     }
 
