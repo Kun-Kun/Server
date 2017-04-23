@@ -1,8 +1,11 @@
 package com.softgroup.server.rest.security.filter;
 
+import com.softgroup.common.exceptions.TokenException;
 import com.softgroup.token.api.JwtUserIdentifier;
 import com.softgroup.token.api.TokenGeneratorService;
 import com.softgroup.token.api.TokenType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,31 +20,42 @@ import java.io.IOException;
 
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private TokenGeneratorService jwtTokenUtil;
+    private Log log = LogFactory.getLog(JwtAuthenticationTokenFilter.class);
 
-    private String tokenHeader = "token";
+    @Autowired
+    private TokenGeneratorService tokenService;
+
+    private static final String TOKEN_HEADER = "token";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        JwtUserIdentifier userIdentifier = null;
-        String authToken = request.getHeader(this.tokenHeader);
-        if(authToken == null){
-            authToken = request.getParameter(this.tokenHeader);
+
+        JwtUserIdentifier userIdentifier;
+
+        try{
+            //get token from header
+            String authToken = request.getHeader(TOKEN_HEADER);
+            if(authToken == null){
+                //get token from request parameter
+                authToken = request.getParameter(TOKEN_HEADER);
+            }
+            if(authToken != null){
+                //check token and get user ids
+                userIdentifier = tokenService.getUserIdentifier(authToken, TokenType.SHORT_TERM);
+                //if no exception - save ids to Security Context Holder
+                if ( SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userIdentifier, null, null);
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+
+        }catch (TokenException exception){
+            log.error("An error occurred. Token is invalid. ",exception);
+
+        }finally {
+            //filter anyway
+            chain.doFilter(request, response);
         }
-        if(authToken != null){
-            userIdentifier = jwtTokenUtil.getUserIdentifier(authToken, TokenType.SHORT_TERM);
-        }
-
-
-        if (userIdentifier != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userIdentifier, null, null);
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        }
-
-        chain.doFilter(request, response);
     }
 }

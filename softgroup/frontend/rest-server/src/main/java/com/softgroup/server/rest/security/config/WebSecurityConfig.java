@@ -24,11 +24,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
-
                 // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                //permit unauthorized requests to public controller
                 .antMatchers("/api/public").permitAll()
+                //deny any others
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter
