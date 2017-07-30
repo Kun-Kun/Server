@@ -5,6 +5,7 @@ import com.softgroup.common.datamapper.JacksonDataMapper;
 import com.softgroup.messenger.impl.conf.MessengerAppCfg;
 import com.softgroup.profile.impl.config.ProfileAppCfg;
 import com.softgroup.router.type.impl.conf.TypeRouterAppCfg;
+import com.softgroup.token.config.TokenServiceAppCfg;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -21,7 +22,8 @@ import org.springframework.context.annotation.Import;
         TypeRouterAppCfg.class,
         AuthorizationAppCfg.class,
         MessengerAppCfg.class,
-        ProfileAppCfg.class})
+        ProfileAppCfg.class,
+        TokenServiceAppCfg.class})
 public class RestApplicationConfig {
 
 
