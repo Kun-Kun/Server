@@ -15,6 +15,7 @@
 		<module>messenger</module>
 		<module>profile</module>
 		<module>type-router</module>
+		<module>request-border-filter</module>
 	</modules>
 
 	<properties>
