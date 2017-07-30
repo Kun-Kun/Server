@@ -28,7 +28,7 @@ public class ResponseBuilder<T extends ResponseData> {
         return this;
     }
 
-    public Response build(){
+    public Response<T> build(){
         return response;
     }
 }
