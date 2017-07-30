@@ -4,14 +4,18 @@ import com.sofrgroup.router.type.api.TypeRouterHandler;
 import com.softgroup.common.filter.api.AbstractCommandFilterHandler;
 import com.softgroup.common.filter.api.FilterAction;
 
+import com.softgroup.filter.api.AllowAuthorizationRequestBorderFilterHandler;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
  * Created by user on 10.04.2017.
  */
-public class DenyRequestBorderFilter extends AbstractCommandFilterHandler<TypeRouterHandler> {
+@Component
+public class AllowAuthorizationRequestBorderFilter extends AbstractCommandFilterHandler<TypeRouterHandler> implements AllowAuthorizationRequestBorderFilterHandler {
 
-    public DenyRequestBorderFilter() {
+    public AllowAuthorizationRequestBorderFilter() {
         List<String> list = getAccessList();
         list.add("register");
         list.add("sms_confirm");
@@ -20,11 +24,11 @@ public class DenyRequestBorderFilter extends AbstractCommandFilterHandler<TypeRo
 
     @Override
     public String getName() {
-        return "DenyRequestBorderFilter";
+        return "AllowRequestBorderFilter";
     }
 
     @Override
     public FilterAction getAction() {
-        return FilterAction.DENY;
+        return FilterAction.ALLOW;
     }
 }

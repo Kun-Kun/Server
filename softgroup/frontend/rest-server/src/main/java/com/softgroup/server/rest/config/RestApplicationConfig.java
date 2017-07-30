@@ -2,6 +2,7 @@ package com.softgroup.server.rest.config;
 
 import com.softgroup.authorization.impl.config.AuthorizationAppCfg;
 import com.softgroup.common.datamapper.JacksonDataMapper;
+import com.softgroup.filter.config.RequestFilterAppCfg;
 import com.softgroup.messenger.impl.conf.MessengerAppCfg;
 import com.softgroup.profile.impl.config.ProfileAppCfg;
 import com.softgroup.router.type.impl.conf.TypeRouterAppCfg;
@@ -23,7 +24,8 @@ import org.springframework.context.annotation.Import;
         AuthorizationAppCfg.class,
         MessengerAppCfg.class,
         ProfileAppCfg.class,
-        TokenServiceAppCfg.class})
+        TokenServiceAppCfg.class,
+        RequestFilterAppCfg.class})
 public class RestApplicationConfig {
 
 

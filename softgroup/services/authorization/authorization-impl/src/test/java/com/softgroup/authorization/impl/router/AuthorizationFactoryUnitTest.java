@@ -1,6 +1,5 @@
 package com.softgroup.authorization.impl.router;
 
-import com.softgroup.authorization.api.factory.AuthorizationHandlerFactory;
 import com.softgroup.authorization.api.message.LoginRequest;
 import com.softgroup.authorization.api.message.LoginResponse;
 import com.softgroup.authorization.api.message.RegisterRequest;
@@ -23,7 +22,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
