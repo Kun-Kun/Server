@@ -22,8 +22,8 @@
         <module>common-protocol</module>
         <module>common-token</module>
         <module>common-dao</module>
+        <module>common-cache</module>
         <module>common-sms</module>
-
     </modules>
 
     <dependencies>

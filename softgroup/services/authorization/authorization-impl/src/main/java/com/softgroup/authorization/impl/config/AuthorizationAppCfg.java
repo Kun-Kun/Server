@@ -1,5 +1,8 @@
 package com.softgroup.authorization.impl.config;
 
+import com.softgroup.authorization.impl.data.ConfirmationRegisterCache;
+import com.softgroup.authorization.api.cache.ConfirmationRegisterDataCache;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,4 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.softgroup.authorization")
 public class AuthorizationAppCfg {
 
+    @Bean
+    public ConfirmationRegisterDataCache makeRegisterCache() {
+
+        return new ConfirmationRegisterCache();
+
+    }
 }
