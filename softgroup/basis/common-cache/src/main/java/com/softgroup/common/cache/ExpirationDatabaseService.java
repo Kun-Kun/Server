@@ -14,16 +14,23 @@ public class ExpirationDatabaseService<K,V> implements ExpirationDatabase<K,V> {
 
     private Cache<K,V> cache;
 
+    private final Long timeoutTime;
+
     public ExpirationDatabaseService(Integer size, long time, TimeUnit unit) {
         cache = CacheBuilder.newBuilder()
                 .concurrencyLevel(4)
                 .maximumSize(size)
                 .expireAfterWrite(time, unit)
                 .build();
+        timeoutTime = unit.toMillis(time);
     }
 
     public Cache<K, V> getCache() {
         return cache;
+    }
+
+    public boolean isInDatabase(K key){
+        return cache.getIfPresent(key)!=null;
     }
 
     public V get(K key){
@@ -46,5 +53,9 @@ public class ExpirationDatabaseService<K,V> implements ExpirationDatabase<K,V> {
 
     public Long size(){
         return cache.size();
+    }
+
+    public Long getTimeoutTime() {
+        return timeoutTime;
     }
 }

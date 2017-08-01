@@ -6,6 +6,8 @@ package com.softgroup.common.cache;
 public interface ExpirationDatabase<K,V> {
     V get(K key);
 
+    boolean isInDatabase(K key);
+
     void put(K key,V value);
 
     void invalidate(K key);
@@ -13,4 +15,6 @@ public interface ExpirationDatabase<K,V> {
     V pop(K key);
 
     Long size();
+
+    Long getTimeoutTime();
 }

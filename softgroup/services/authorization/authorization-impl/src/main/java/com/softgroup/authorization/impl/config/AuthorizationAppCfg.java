@@ -1,7 +1,11 @@
 package com.softgroup.authorization.impl.config;
 
-import com.softgroup.authorization.impl.data.ConfirmationRegisterCache;
-import com.softgroup.authorization.api.cache.ConfirmationRegisterDataCache;
+import com.softgroup.authorization.api.cache.ConfirmationRegisterCache;
+import com.softgroup.authorization.api.cache.PhoneNumberUUIDCache;
+import com.softgroup.authorization.api.cache.SmsQuantityLimiterCache;
+import com.softgroup.authorization.impl.data.ConfirmationRegisterCacheImpl;
+import com.softgroup.authorization.impl.data.PhoneNumberUUIDCacheImpl;
+import com.softgroup.authorization.impl.data.SmsQuantityLimiterCacheImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +18,17 @@ import org.springframework.context.annotation.Configuration;
 public class AuthorizationAppCfg {
 
     @Bean
-    public ConfirmationRegisterDataCache makeRegisterCache() {
+    public ConfirmationRegisterCache makeRegisterCache() {
+        return new ConfirmationRegisterCacheImpl();
+    }
 
-        return new ConfirmationRegisterCache();
+    @Bean
+    public SmsQuantityLimiterCache makeSmsQuantityCache() {
+        return new SmsQuantityLimiterCacheImpl();
+    }
 
+    @Bean
+    public PhoneNumberUUIDCache makeReverseRegisterCache() {
+        return new PhoneNumberUUIDCacheImpl();
     }
 }

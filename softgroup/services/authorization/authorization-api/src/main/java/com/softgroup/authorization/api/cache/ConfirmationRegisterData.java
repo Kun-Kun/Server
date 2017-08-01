@@ -2,19 +2,24 @@ package com.softgroup.authorization.api.cache;
 
 import com.softgroup.authorization.api.message.RegisterRequest;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
  * Created by user on 13.04.2017.
  */
 public class ConfirmationRegisterData {
-    private String registrationRequestUUID;
+    private final String registrationRequestUUID;
 
-    private String confirmationCode;
+    private final String confirmationCode;
+
+    private final Long createTime;
 
     private RegisterRequest request;
 
+
     public ConfirmationRegisterData(RegisterRequest request) {
+        this.createTime = new Date().getTime();
         this.request = request;
         this.registrationRequestUUID = generateUUID();
         this.confirmationCode = generateConfirmationCode();
@@ -25,12 +30,15 @@ public class ConfirmationRegisterData {
     }
 
     public String getRegistrationRequestUUID() {
-
         return registrationRequestUUID;
     }
 
     public String getConfirmationCode() {
         return confirmationCode;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
     }
 
     private String generateUUID(){
