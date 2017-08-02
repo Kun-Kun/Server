@@ -81,4 +81,8 @@ public class AuthorizationServiceImpl implements AuthorizationService{
         Long timeoutMs = data.getCreateTime()+timeToTimeout-requestTime;
         return (int)TimeUnit.MILLISECONDS.toSeconds(timeoutMs);
     }
+
+    public Boolean checkVerificationCode(){
+        return null;
+    }
 }
