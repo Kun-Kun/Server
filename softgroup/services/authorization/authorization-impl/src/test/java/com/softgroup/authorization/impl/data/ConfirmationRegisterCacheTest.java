@@ -1,6 +1,6 @@
 package com.softgroup.authorization.impl.data;
 
-import com.softgroup.authorization.api.cache.ConfirmationRegisterDataCache;
+import com.softgroup.authorization.api.cache.ConfirmationRegisterCache;
 import com.softgroup.authorization.impl.config.AuthorizationAppCfg;
 import com.softgroup.common.datamapper.configuration.DataMapperAppCfg;
 import org.junit.Test;
@@ -19,10 +19,10 @@ import static org.junit.Assert.*;
 public class ConfirmationRegisterCacheTest {
 
     @Autowired
-    private ConfirmationRegisterDataCache cache1;
+    private ConfirmationRegisterCache cache1;
 
     @Autowired
-    private ConfirmationRegisterDataCache cache2;
+    private ConfirmationRegisterCache cache2;
     @Test
     public void checkCacheServiceSingleton() throws Exception {
         assertNotNull(cache1);

@@ -1,15 +1,11 @@
 package com.softgroup.server.rest.controller;
 
-import com.sofrgroup.router.type.api.TypeRouterHandler;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
+import com.softgroup.filter.api.AllowAuthorizationRequestBorderFilterHandler;
 import com.softgroup.server.rest.service.ControllerToolService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 
@@ -17,12 +13,12 @@ import java.util.LinkedHashMap;
  * Created by user on 26.03.2017.
  */
 
-@Controller
+@RestController
 @RequestMapping(value = "/api")
 public class PublicController {
 
     @Autowired
-    private TypeRouterHandler router;
+    private AllowAuthorizationRequestBorderFilterHandler allowAuthorizationRequestBorderFilterHandler;
 
     @Autowired
     private ControllerToolService controllerTool;
@@ -31,7 +27,7 @@ public class PublicController {
     @ResponseBody
     public Response publicController(@RequestParam String data) {
        Request<LinkedHashMap> request = controllerTool.parseRequestFromJson(data);
-       return router.handle(request);
+       return allowAuthorizationRequestBorderFilterHandler.handle(request);
     }
 
 }

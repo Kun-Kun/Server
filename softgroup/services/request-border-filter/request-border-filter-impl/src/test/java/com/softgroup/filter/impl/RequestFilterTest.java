@@ -23,10 +23,10 @@ import static org.mockito.Mockito.verify;
 public class RequestFilterTest {
 
     @InjectMocks
-    private AllowRequestBorderFilter allowRequestBorderFilter;
+    private AllowAuthorizationRequestBorderFilter allowRequestBorderFilter;
 
     @InjectMocks
-    private DenyRequestBorderFilter denyRequestBorderFilter;
+    private DenyAuthorizationRequestBorderFilter denyRequestBorderFilter;
 
     @Mock
     private Handler handler;
