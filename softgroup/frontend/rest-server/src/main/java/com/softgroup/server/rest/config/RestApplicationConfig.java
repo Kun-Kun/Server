@@ -2,6 +2,7 @@ package com.softgroup.server.rest.config;
 
 import com.softgroup.authorization.impl.config.AuthorizationAppCfg;
 import com.softgroup.common.conf.SmsServiceAppCfg;
+import com.softgroup.common.dao.impl.configuration.CommonDaoAppCfg;
 import com.softgroup.common.datamapper.JacksonDataMapper;
 import com.softgroup.filter.config.RequestFilterAppCfg;
 import com.softgroup.messenger.impl.conf.MessengerAppCfg;
@@ -27,7 +28,9 @@ import org.springframework.context.annotation.Import;
         ProfileAppCfg.class,
         TokenServiceAppCfg.class,
         RequestFilterAppCfg.class,
-        SmsServiceAppCfg.class})
+        SmsServiceAppCfg.class,
+        CommonDaoAppCfg.class
+})
 public class RestApplicationConfig {
 
 

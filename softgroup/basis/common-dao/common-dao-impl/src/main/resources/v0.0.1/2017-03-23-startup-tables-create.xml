@@ -36,6 +36,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <addUniqueConstraint columnNames="device_id, user_id" tableName="devices"/>
     </changeSet>
 
     <changeSet id="1490301927" author="Kun-Kun">
@@ -106,7 +107,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="avatar_uri" type="varchar(128)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="status" type="varchar(128)"/>
             <column name="last_time_online" type="long" >

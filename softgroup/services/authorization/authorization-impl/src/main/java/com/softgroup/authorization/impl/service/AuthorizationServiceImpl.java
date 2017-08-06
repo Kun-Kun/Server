@@ -5,8 +5,15 @@ import com.softgroup.authorization.api.cache.ConfirmationRegisterData;
 import com.softgroup.authorization.api.cache.PhoneNumberUUIDCache;
 import com.softgroup.authorization.api.cache.SmsQuantityLimiterCache;
 import com.softgroup.authorization.api.message.RegisterRequest;
+import com.softgroup.authorization.api.message.SmsConfirmRequest;
 import com.softgroup.authorization.api.service.AuthorizationService;
+import com.softgroup.common.dao.api.entities.DeviceEntity;
+import com.softgroup.common.dao.api.entities.ProfileEntity;
+import com.softgroup.common.dao.impl.repositories.DeviceRepository;
+import com.softgroup.common.dao.impl.repositories.ProfileRepository;
 import com.softgroup.common.sms.SmsService;
+import com.softgroup.token.api.TokenGeneratorService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +38,19 @@ public class AuthorizationServiceImpl implements AuthorizationService{
     private PhoneNumberUUIDCache phoneNumberUUIDCache;
 
     @Autowired
+    private TokenGeneratorService tokenGeneratorService;
+
+    @Autowired
+    private ProfileRepository profileRepository;
+
+    @Autowired
+    private DeviceRepository deviceRepository;
+
+    @Autowired
     private SmsService smsService;
 
     public Boolean checkPhoneNumber(String phoneNumber){
-        Pattern pattern = Pattern.compile("^\\+?[0-9]{12}$");
+        Pattern pattern = Pattern.compile("^\\+[0-9]{12}$");
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
     }
@@ -82,7 +98,66 @@ public class AuthorizationServiceImpl implements AuthorizationService{
         return (int)TimeUnit.MILLISECONDS.toSeconds(timeoutMs);
     }
 
-    public Boolean checkVerificationCode(){
-        return null;
+    public Boolean checkVerificationCode(String registrationRequestUUID, String confirmationCode){
+        ConfirmationRegisterData confirmationRegisterData = confirmationRegisterCache.get(registrationRequestUUID);
+        return confirmationRegisterData!=null && confirmationCode.equals(confirmationRegisterData.getConfirmationCode());
+    }
+
+    public RegisterRequest popRecordFromCache(String registrationRequestUUID){
+        RegisterRequest registerRequest = confirmationRegisterCache.pop(registrationRequestUUID).getRequest();
+        String phoneNumber = registerRequest.getPhoneNumber();
+        phoneNumberUUIDCache.invalidate(phoneNumber);
+        return registerRequest;
+    }
+
+    public String createProfileIfNotExist(String phoneNumber, String locale){
+        ProfileEntity profileEntity = profileRepository.findByPhoneNumber(phoneNumber);
+        if (profileEntity != null){
+            return profileEntity.getId();
+        }else{
+            return createProfile(phoneNumber,locale);
+        }
+    }
+
+    public String createDeviceIfNotExist(String profileId, String deviceId){
+        DeviceEntity deviceEntity = deviceRepository.findFirstByUserIdAndDeviceId(profileId,deviceId);
+        if(deviceEntity != null){
+            updateLastConfirm(deviceEntity);
+            return deviceEntity.getId();
+        }else {
+            return createDevice(profileId, deviceId);
+        }
+    }
+
+    public String generateDeviceToken(String profileId, String deviceId){
+        return tokenGeneratorService.createLongTermToken(deviceId, profileId);
+    }
+
+    private String createProfile(String phoneNumber, String locale){
+        Long timestamp = new Date().getTime();
+        ProfileEntity entity = new ProfileEntity();
+        entity.setCreateDateTime(timestamp);
+        entity.setUpdateDateTime(timestamp);
+        entity.setLastTimeOnline(timestamp);
+        entity.setLocale(locale);
+        entity.setPhoneNumber(phoneNumber);
+        entity.setAvatarUri("/avatar/default_profile.jpg");
+        ProfileEntity entityInDatabase = profileRepository.save(entity);
+        return entityInDatabase.getId();
+    }
+
+    private String createDevice(String userId, String deviceId){
+        Long timestamp = new Date().getTime();
+        DeviceEntity deviceEntity = new DeviceEntity();
+        deviceEntity.setUserId(userId);
+        deviceEntity.setDeviceId(deviceId);
+        deviceEntity.setLastConfirm(timestamp);
+        DeviceEntity entityInDatabase = deviceRepository.save(deviceEntity);
+        return entityInDatabase.getId();
+    }
+
+    private void updateLastConfirm(DeviceEntity deviceEntity){
+        deviceEntity.setLastConfirm(new Date().getTime());
+        deviceRepository.save(deviceEntity);
     }
 }

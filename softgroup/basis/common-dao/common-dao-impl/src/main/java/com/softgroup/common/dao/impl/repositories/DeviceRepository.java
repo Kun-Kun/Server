@@ -11,4 +11,6 @@ import java.util.List;
 public interface DeviceRepository extends PagingAndSortingRepository<DeviceEntity, String> {
 
     List<DeviceEntity> findByUserId(String userId);
+
+    DeviceEntity findFirstByUserIdAndDeviceId(String userId,String deviceId);
 }
