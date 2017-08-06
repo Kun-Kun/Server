@@ -13,7 +13,7 @@ import com.softgroup.common.dao.impl.repositories.DeviceRepository;
 import com.softgroup.common.dao.impl.repositories.ProfileRepository;
 import com.softgroup.common.sms.SmsService;
 import com.softgroup.token.api.TokenGeneratorService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.softgroup.token.api.TokenType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -160,4 +160,17 @@ public class AuthorizationServiceImpl implements AuthorizationService{
         deviceEntity.setLastConfirm(new Date().getTime());
         deviceRepository.save(deviceEntity);
     }
+
+    public String generateDeviceToken(String profileId, String deviceId){
+        return tokenGeneratorService.createLongTermToken(deviceId, profileId);
+    }
+
+    public String generateToken(String deviceToken){
+        return tokenGeneratorService.createShortTermToken(deviceToken);
+    }
+
+    public Boolean validateDeviceToken(String deviceToken){
+        return tokenGeneratorService.validateToken(deviceToken,TokenType.LONG_TERM);
+    }
+
 }
