@@ -34,4 +34,10 @@ public interface AuthorizationService {
     String createDeviceIfNotExist(String profileId, String deviceId);
 
     String generateDeviceToken(String profileId, String deviceId);
+
+    String generateDeviceToken(String profileId, String deviceId);
+
+    String generateToken(String deviceToken);
+
+    Boolean validateDeviceToken(String deviceToken);
 }
