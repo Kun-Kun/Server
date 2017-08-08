@@ -129,9 +129,6 @@ public class AuthorizationServiceImpl implements AuthorizationService{
         }
     }
 
-    public String generateDeviceToken(String profileId, String deviceId){
-        return tokenGeneratorService.createLongTermToken(deviceId, profileId);
-    }
 
     private String createProfile(String phoneNumber, String locale){
         Long timestamp = new Date().getTime();
