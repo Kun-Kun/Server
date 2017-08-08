@@ -52,7 +52,7 @@ public class CommonDaoAppCfg {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/messenger");
         dataSource.setUsername( "root" );
-        dataSource.setPassword( "root" );
+        dataSource.setPassword( "Admin111" );
         return dataSource;
     }
 
