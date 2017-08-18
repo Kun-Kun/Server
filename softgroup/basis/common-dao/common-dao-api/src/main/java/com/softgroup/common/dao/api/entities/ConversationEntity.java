@@ -31,6 +31,9 @@ public class ConversationEntity extends BaseEntity {
     @Column(name = "create_time")
     private Long createTime;
 
+    @Column(name = "members_count")
+    private Integer membersCount;
+
     public String getName() {
         return name;
     }
@@ -79,10 +82,18 @@ public class ConversationEntity extends BaseEntity {
         this.createTime = createTime;
     }
 
+    public Integer getMembersCount() {
+        return membersCount;
+    }
+
+    public void setMembersCount(Integer membersCount) {
+        this.membersCount = membersCount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ConversationEntity)) return false;
 
         ConversationEntity that = (ConversationEntity) o;
 
@@ -92,7 +103,9 @@ public class ConversationEntity extends BaseEntity {
         if (getType() != that.getType()) return false;
         if (getAdminId() != null ? !getAdminId().equals(that.getAdminId()) : that.getAdminId() != null) return false;
         if (getExists() != null ? !getExists().equals(that.getExists()) : that.getExists() != null) return false;
-        return getCreateTime() != null ? getCreateTime().equals(that.getCreateTime()) : that.getCreateTime() == null;
+        if (getCreateTime() != null ? !getCreateTime().equals(that.getCreateTime()) : that.getCreateTime() != null)
+            return false;
+        return getMembersCount() != null ? getMembersCount().equals(that.getMembersCount()) : that.getMembersCount() == null;
     }
 
     @Override
@@ -103,6 +116,7 @@ public class ConversationEntity extends BaseEntity {
         result = 31 * result + (getAdminId() != null ? getAdminId().hashCode() : 0);
         result = 31 * result + (getExists() != null ? getExists().hashCode() : 0);
         result = 31 * result + (getCreateTime() != null ? getCreateTime().hashCode() : 0);
+        result = 31 * result + (getMembersCount() != null ? getMembersCount().hashCode() : 0);
         return result;
     }
 }

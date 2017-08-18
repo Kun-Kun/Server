@@ -92,13 +92,13 @@ public class MessengerFactoryUnitTest {
     @Test
     public void traceRouteToCreateConversation(){
         Handler handler = factory.getHandler(createConversationRequestREST);
-        assertThat(handler,is(createConversationHandler));
+        assertThat(handler, is(createConversationHandler));
     }
 
     @Test
     public void traceRouteToDeleteConversation(){
         Handler handler = factory.getHandler(deleteConversationRequestREST);
-        assertThat(handler,is(deleteConversationHandler));
+        assertThat(handler, is(deleteConversationHandler));
     }
 
     @Test

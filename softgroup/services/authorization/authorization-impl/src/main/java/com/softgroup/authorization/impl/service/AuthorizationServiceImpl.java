@@ -138,6 +138,7 @@ public class AuthorizationServiceImpl implements AuthorizationService{
         entity.setLastTimeOnline(timestamp);
         entity.setLocale(locale);
         entity.setPhoneNumber(phoneNumber);
+        entity.setName(phoneNumber);
         entity.setAvatarUri("/avatar/default_profile.jpg");
         ProfileEntity entityInDatabase = profileRepository.save(entity);
         return entityInDatabase.getId();

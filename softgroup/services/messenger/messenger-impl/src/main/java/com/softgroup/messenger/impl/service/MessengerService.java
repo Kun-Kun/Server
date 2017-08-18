@@ -1,12 +1,16 @@
 package com.softgroup.messenger.impl.service;
 
+import com.softgroup.common.dao.api.entities.ConversationEntity;
+import com.softgroup.common.dao.api.entities.ConversationMemberEntity;
 import com.softgroup.common.dao.api.entities.ProfileEntity;
 import com.softgroup.common.dao.impl.repositories.*;
 import com.softgroup.common.exceptions.SoftgroupException;
+import com.softgroup.common.protocol.enumeration.ConversationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +62,46 @@ public class MessengerService {
         }else {
             throw new SoftgroupException("Count of real users less than 3");
         }
+    }
+
+    public ConversationEntity getConversationByProfiles(List<ProfileEntity> profileEntities){
+        List<String> ids = profileEntities.parallelStream()
+                .map(ProfileEntity::getId).collect(Collectors.toList());
+        return conversationRepository.findOneByMemberIds(ids);
+    }
+
+    public ConversationEntity createConversation(List<ProfileEntity> profileEntities, ConversationType conversationType, String adminId){
+        String conversationName = profileEntities.stream()
+                .map(ProfileEntity::getName)
+                .collect(Collectors.joining(", "));
+
+        ConversationEntity conversationEntity = new ConversationEntity();
+        conversationEntity.setName(conversationName);
+        conversationEntity.setType(conversationType);
+        conversationEntity.setExists(true);
+        conversationEntity.setMembersCount(profileEntities.size());
+        conversationEntity.setCreateTime(new Date().getTime());
+        conversationEntity.setLogoImageUri("/default_conversation.jpg");
+
+        if (conversationType.equals(ConversationType.INDIVIDUAL)){
+            conversationEntity.setAdminId(null);
+        }else {
+            conversationEntity.setAdminId(adminId);
+        }
+        ConversationEntity conversationEntityInDatabase = conversationRepository.save(conversationEntity);
+        return conversationEntityInDatabase;
+    }
+
+    public void addMembersToConversation(String conversationId, List<ProfileEntity> profileEntities){
+        Long currentTime = new Date().getTime();
+        profileEntities.stream().forEach(profileEntity -> {
+            ConversationMemberEntity conversationMemberEntity = new ConversationMemberEntity();
+            conversationMemberEntity.setConversationId(conversationId);
+            conversationMemberEntity.setDeleted(false);
+            conversationMemberEntity.setJoinDate(currentTime);
+            conversationMemberEntity.setMemberId(profileEntity.getId());
+            conversationMemberRepository.save(conversationMemberEntity);
+        });
     }
 
 
