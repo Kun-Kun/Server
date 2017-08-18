@@ -35,8 +35,6 @@ public interface AuthorizationService {
 
     String generateDeviceToken(String profileId, String deviceId);
 
-    String generateDeviceToken(String profileId, String deviceId);
-
     String generateToken(String deviceToken);
 
     Boolean validateDeviceToken(String deviceToken);

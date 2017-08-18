@@ -23,7 +23,7 @@ public abstract class AbstractRequestHandler<RQ extends RequestData, RS extends 
 		Map<String,Object> map = (Map<String,Object>) msg.getData();
 
 		RQ requestData = dataMapper.convert(map, getRequestDataClass());
-		return new RequestBuilder<RQ>().setData(requestData).setHeader(msg.getHeader()).build();
+		return new RequestBuilder<RQ>().setData(requestData).setHeader(msg.getHeader()).setRoutingData(msg.getRoutingData()).build();
 	}
 
 	public abstract Class<RQ> getRequestDataClass();
