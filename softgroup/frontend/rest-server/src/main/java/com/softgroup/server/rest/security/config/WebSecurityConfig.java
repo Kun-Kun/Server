@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //permit unauthorized requests to public controller
                 .antMatchers("/api/public").permitAll()
-                .antMatchers("/*","/static/**").permitAll()
+                .antMatchers("/*","/static/**","/js/**","/css/**","/img/**").permitAll()
                 //deny any others
                 .anyRequest().authenticated();
 

@@ -104,6 +104,35 @@ public class MessengerService {
         });
     }
 
+    public ConversationEntity getConversationById(String conversationId){
+        return conversationRepository.findOne(conversationId);
+    }
+
+    public Boolean isUserAdmin(String userId, ConversationEntity conversationEntity){
+        if(conversationEntity==null){
+            return false;
+        }else{
+            return conversationEntity.getAdminId().equals(userId);
+        }
+    }
+
+    public void deleteUsersFromConversation(String conversationId){
+        List<ConversationMemberEntity> conversationMembers = conversationMemberRepository.findByConversationIdAndAndDeletedIsFalse(conversationId);
+        List<ConversationMemberEntity> deletedConversationMembers = conversationMembers.stream().map(conversationMemberEntity ->{
+            conversationMemberEntity.setDeleted(true);
+            return conversationMemberEntity;
+        }).collect(Collectors.toList());
+        conversationMemberRepository.save(deletedConversationMembers);
+    }
+
+    public void deleteConversation(String conversationId){
+        ConversationEntity conversation = conversationRepository.findOne(conversationId);
+        if(conversation.getExists()==false){
+            throw new SoftgroupException("Conversation already deleted");
+        }
+        conversation.setExists(false);
+        conversationRepository.save(conversation);
+    }
 
     private List<ProfileEntity> loadConversationMemberProfiles(String userId, List<String> members){
         List<String> userAndMemberList = new ArrayList<>();
@@ -114,4 +143,5 @@ public class MessengerService {
             return profileRepository.findOne(s);
         }).filter(profileEntity -> profileEntity!=null).collect(Collectors.toList());
     }
+
 }

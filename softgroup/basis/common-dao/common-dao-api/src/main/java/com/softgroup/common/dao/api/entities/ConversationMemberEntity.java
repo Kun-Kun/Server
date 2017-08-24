@@ -20,7 +20,7 @@ public class ConversationMemberEntity extends BaseEntity{
     private String lastMessageId;
 
     @Column(name = "is_deleted")
-    private Boolean isDeleted;
+    private Boolean deleted;
 
     @Column(name = "join_date")
     private Long joinDate;
@@ -50,11 +50,11 @@ public class ConversationMemberEntity extends BaseEntity{
     }
 
     public Boolean getDeleted() {
-        return isDeleted;
+        return deleted;
     }
 
     public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
+        this.deleted = deleted;
     }
 
     public Long getJoinDate() {
@@ -78,7 +78,7 @@ public class ConversationMemberEntity extends BaseEntity{
             return false;
         if (getLastMessageId() != null ? !getLastMessageId().equals(that.getLastMessageId()) : that.getLastMessageId() != null)
             return false;
-        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
+        if (deleted != null ? !deleted.equals(that.deleted) : that.deleted != null) return false;
         return getJoinDate() != null ? getJoinDate().equals(that.getJoinDate()) : that.getJoinDate() == null;
     }
 
@@ -87,7 +87,7 @@ public class ConversationMemberEntity extends BaseEntity{
         int result = getConversationId() != null ? getConversationId().hashCode() : 0;
         result = 31 * result + (getMemberId() != null ? getMemberId().hashCode() : 0);
         result = 31 * result + (getLastMessageId() != null ? getLastMessageId().hashCode() : 0);
-        result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
+        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         result = 31 * result + (getJoinDate() != null ? getJoinDate().hashCode() : 0);
         return result;
     }

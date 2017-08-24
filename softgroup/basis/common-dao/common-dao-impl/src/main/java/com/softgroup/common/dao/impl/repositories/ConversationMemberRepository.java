@@ -10,10 +10,12 @@ import java.util.List;
  */
 public interface ConversationMemberRepository extends PagingAndSortingRepository<ConversationMemberEntity, String> {
 
-    List<ConversationMemberEntity> findByMemberId(String memberId);
+    List<ConversationMemberEntity> findByMemberIdAndDeletedIsFalse(String memberId);
 
-    List<ConversationMemberEntity> findByConversationId(String conversationId);
+    List<ConversationMemberEntity> findByConversationIdAndAndDeletedIsFalse(String conversationId);
 
-    List<ConversationMemberEntity> findByConversationIdAndMemberId(String conversationId, String memberId);
+    List<ConversationMemberEntity> findByConversationIdAndMemberIdAndDeletedIsFalse(String conversationId, String memberId);
+
+    void deleteConversationMemberEntitiesByConversationId(String conversationId);
 
 }
