@@ -15,15 +15,15 @@ public interface ConversationRepository extends PagingAndSortingRepository<Conve
 
     List<ConversationEntity> findByName(String name);
 
-    List<ConversationEntity> findByAdminId(String adminId);
+    List<ConversationEntity> findByAdminIdAndExistsIsTrue(String adminId);
 
-    List<ConversationEntity> findByType(ConversationType type);
+    List<ConversationEntity> findByTypeAndExistsIsTrue(ConversationType type);
 
     //ToDo Make test with speed query of * and need columns in SELECT
     @Query(nativeQuery = true, value =  "SELECT *,COUNT(*) as q_member_size " +
                                             "FROM conversation_members cm " +
                                             "LEFT JOIN conversations c ON c.id = cm.conversation_id " +
-                                            "WHERE cm.member_id in :memberIds and members_count=:#{#memberIds.size()} " +
+                                            "WHERE cm.member_id in :memberIds and members_count=:#{#memberIds.size()} and c.is_exists = TRUE and cm.is_deleted = false " +
                                             "GROUP BY conversation_id " +
                                             "HAVING q_member_size=members_count")
     ConversationEntity findOneByMemberIds(@Param(value = "memberIds") List<String> memberIds);

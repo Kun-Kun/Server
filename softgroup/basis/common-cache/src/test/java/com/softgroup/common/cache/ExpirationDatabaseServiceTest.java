@@ -59,9 +59,9 @@ public class ExpirationDatabaseServiceTest {
     @Test
     public void testExpiration() throws Exception {
         assertThat(cache.size(),is(3L));
-        Thread.sleep(2000);
+        Thread.sleep(2050);
         cache.put("key6","value6");
-        Thread.sleep(1000);
+        Thread.sleep(1050);
         assertThat(cache.size(),is(1L));
         assertNull(cache.get("key1"));
         assertNull(cache.get("key2"));

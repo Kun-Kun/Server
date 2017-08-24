@@ -27,7 +27,6 @@ public class AuthorizationServiceUnitTest {
     public void testValidPhoneNumbers(){
         List<String> validPhones = new ArrayList<>();
         validPhones.add("+380123456789");
-        validPhones.add("380123456789");
         for(String number: validPhones){
             assertThat(authorizationService.checkPhoneNumber(number),is(true));
         }

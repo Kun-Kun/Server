@@ -108,7 +108,7 @@ public class StartupTest {
 
         assertEquals(conversationMember,member);
 
-        List<ConversationMemberEntity> conversationMemberEntities = conversationMemberRepository.findByConversationId("conv_id");
+        List<ConversationMemberEntity> conversationMemberEntities = conversationMemberRepository.findByConversationIdAndAndDeletedIsFalse("conv_id");
         assertThat(conversationMemberEntities.isEmpty(),is(false));
 
         conversationMemberRepository.delete(conversationMember.getId());
@@ -128,6 +128,7 @@ public class StartupTest {
         conversation.setLogoImageUri("uri");
         conversation.setCreateTime(123456124356L);
         conversation.setType(ConversationType.GROUP);
+        conversation.setMembersCount(2);
 
         conversation = conversationRepository.save(conversation);
 
