@@ -12,7 +12,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel="spring")
 public interface ConversationMapper {
 
-    //@Mapping(source = "logoImageUri", target = "logoImageUri")
     DTOConversation mapConversationDtoFromEntity(ConversationEntity conversationEntity);
 
 }

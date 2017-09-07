@@ -6,6 +6,7 @@ import com.softgroup.common.dao.api.entities.ProfileEntity;
 import com.softgroup.common.dao.impl.repositories.*;
 import com.softgroup.common.exceptions.SoftgroupException;
 import com.softgroup.common.protocol.enumeration.ConversationType;
+import com.softgroup.messenger.api.dto.DTOConversation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,6 @@ public class MessengerService {
             throw new SoftgroupException("Can't find your member");
         }
     }
-
 
     public List<ProfileEntity> loadGroupConversationMemberProfiles(String userId, List<String> members){
         List<ProfileEntity> userAndMember;
@@ -142,6 +142,18 @@ public class MessengerService {
         return userAndMemberList.parallelStream().distinct().map(s -> {
             return profileRepository.findOne(s);
         }).filter(profileEntity -> profileEntity!=null).collect(Collectors.toList());
+    }
+
+    public List<ConversationEntity> getGroupConversationForUser(String userId){
+        return conversationRepository.findAllByMemberIdAAndType(userId,ConversationType.GROUP);
+    }
+
+    public List<ConversationEntity> getIndividualConversationForUser(String userId){
+        return conversationRepository.findAllByMemberIdAAndType(userId,ConversationType.INDIVIDUAL);
+    }
+
+    public List<ConversationEntity> getAllConversationForUser(String userId){
+        return conversationRepository.findAllByMemberId(userId);
     }
 
 }
