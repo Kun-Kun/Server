@@ -28,4 +28,10 @@ public interface ConversationRepository extends PagingAndSortingRepository<Conve
                                             "HAVING q_member_size=members_count")
     ConversationEntity findOneByMemberIds(@Param(value = "memberIds") List<String> memberIds);
 
+
+    @Query(nativeQuery = true, value =  "SELECT c.*,cm.member_id FROM messenger.conversation_members cm LEFT JOIN messenger.conversations c ON cm.conversation_id = c.id WHERE cm.member_id = ':memberId' AND c.type=:type;")
+    List<ConversationEntity> findAllByMemberIdAAndType(@Param(value = "memberId") String memberId, @Param(value = "type") ConversationType type );
+
+    @Query(nativeQuery = true, value =  "SELECT c.*,cm.member_id FROM messenger.conversation_members cm LEFT JOIN messenger.conversations c ON cm.conversation_id = c.id WHERE cm.member_id = ':memberId'")
+    List<ConversationEntity> findAllByMemberId(@Param(value = "memberId") String memberId);
 }

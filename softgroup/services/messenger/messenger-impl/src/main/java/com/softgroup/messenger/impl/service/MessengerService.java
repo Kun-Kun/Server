@@ -49,7 +49,6 @@ public class MessengerService {
         }
     }
 
-
     public List<ProfileEntity> loadGroupConversationMemberProfiles(String userId, List<String> members){
         List<ProfileEntity> userAndMember;
         if(members.size()>1){
@@ -142,6 +141,22 @@ public class MessengerService {
         return userAndMemberList.parallelStream().distinct().map(s -> {
             return profileRepository.findOne(s);
         }).filter(profileEntity -> profileEntity!=null).collect(Collectors.toList());
+    }
+
+    public List<ConversationEntity> getGroupConversationForUser(String userId){
+        return conversationRepository.findAllByMemberIdAAndType(userId,ConversationType.GROUP);
+    }
+
+    public List<ConversationEntity> getIndividualConversationForUser(String userId){
+        return conversationRepository.findAllByMemberIdAAndType(userId,ConversationType.INDIVIDUAL);
+    }
+
+    public List<ConversationEntity> getAllConversationForUser(String userId){
+        return conversationRepository.findAllByMemberId(userId);
+    }
+
+    public List<ProfileEntity> getConversationDetails(String conversationId){
+        return profileRepository.findByConversationId(conversationId);
     }
 
 }
