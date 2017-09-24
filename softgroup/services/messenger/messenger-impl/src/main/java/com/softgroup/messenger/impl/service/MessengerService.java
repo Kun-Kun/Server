@@ -6,7 +6,6 @@ import com.softgroup.common.dao.api.entities.ProfileEntity;
 import com.softgroup.common.dao.impl.repositories.*;
 import com.softgroup.common.exceptions.SoftgroupException;
 import com.softgroup.common.protocol.enumeration.ConversationType;
-import com.softgroup.messenger.api.dto.DTOConversation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -154,6 +153,10 @@ public class MessengerService {
 
     public List<ConversationEntity> getAllConversationForUser(String userId){
         return conversationRepository.findAllByMemberId(userId);
+    }
+
+    public List<ProfileEntity> getConversationDetails(String conversationId){
+        return profileRepository.findByConversationId(conversationId);
     }
 
 }

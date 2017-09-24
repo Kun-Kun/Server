@@ -13,8 +13,6 @@ import com.softgroup.messenger.api.message.CreateConversationResponse;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
 import com.softgroup.messenger.impl.mapper.ConversationMapper;
 import com.softgroup.messenger.impl.service.MessengerService;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
