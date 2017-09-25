@@ -6,6 +6,9 @@ import com.softgroup.common.dao.api.entities.ProfileEntity;
 import com.softgroup.common.dao.impl.repositories.*;
 import com.softgroup.common.exceptions.SoftgroupException;
 import com.softgroup.common.protocol.enumeration.ConversationType;
+import com.softgroup.messenger.api.dto.DTOConversationDetails;
+import com.softgroup.messenger.api.dto.DTOProfile;
+import com.softgroup.messenger.impl.mapper.ProfileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +37,9 @@ public class MessengerService {
 
     @Autowired
     private ProfileRepository profileRepository;
+
+    @Autowired
+    private ProfileMapper profileMapper;
 
     public List<ProfileEntity> loadIndividualConversationMemberProfiles(String userId, List<String> members){
         List<ProfileEntity> userAndMember;
@@ -155,8 +161,20 @@ public class MessengerService {
         return conversationRepository.findAllByMemberId(userId);
     }
 
-    public List<ProfileEntity> getConversationDetails(String conversationId){
+    public List<ProfileEntity> getConversationUserProfiles(String conversationId){
         return profileRepository.findByConversationId(conversationId);
+    }
+
+    public DTOConversationDetails getConversationDetails(String conversationId){
+        List<ProfileEntity> profileEntities = getConversationUserProfiles(conversationId);
+        List<DTOProfile> dtoProfiles = profileEntities.parallelStream().map(profileEntity -> {
+            return profileMapper.mapProfileDtoFromEntity(profileEntity);
+        }).collect(Collectors.toList());
+
+        DTOConversationDetails dtoConversationDetails = new DTOConversationDetails();
+        dtoConversationDetails.setId(conversationId);
+        dtoConversationDetails.setMembers(dtoProfiles);
+        return dtoConversationDetails;
     }
 
 }
