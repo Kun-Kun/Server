@@ -34,4 +34,5 @@ public interface ConversationRepository extends PagingAndSortingRepository<Conve
 
     @Query(nativeQuery = true, value =  "SELECT c.*,cm.member_id FROM messenger.conversation_members cm LEFT JOIN messenger.conversations c ON cm.conversation_id = c.id WHERE cm.member_id = ':memberId'")
     List<ConversationEntity> findAllByMemberId(@Param(value = "memberId") String memberId);
+
 }

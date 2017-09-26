@@ -11,8 +11,6 @@ import com.softgroup.messenger.impl.service.MessengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by user on 26.02.2017.

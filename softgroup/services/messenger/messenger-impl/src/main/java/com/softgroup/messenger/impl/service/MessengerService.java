@@ -1,5 +1,6 @@
 package com.softgroup.messenger.impl.service;
 
+import com.google.common.collect.Lists;
 import com.softgroup.common.dao.api.entities.ConversationEntity;
 import com.softgroup.common.dao.api.entities.ConversationMemberEntity;
 import com.softgroup.common.dao.api.entities.ProfileEntity;
@@ -175,6 +176,10 @@ public class MessengerService {
         dtoConversationDetails.setId(conversationId);
         dtoConversationDetails.setMembers(dtoProfiles);
         return dtoConversationDetails;
+    }
+
+    public List<ConversationEntity> findConversationByIds(List<String> ids){
+        return Lists.newArrayList(conversationRepository.findAll(ids));
     }
 
 }
