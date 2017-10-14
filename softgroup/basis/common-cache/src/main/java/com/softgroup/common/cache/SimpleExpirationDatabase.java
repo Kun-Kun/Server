@@ -10,13 +10,13 @@ import java.util.concurrent.TimeUnit;
  * Created by user on 11.04.2017.
  */
 
-public class ExpirationDatabaseService<K,V> implements ExpirationDatabase<K,V> {
+public class SimpleExpirationDatabase<K,V> implements ExpirationDatabase<K,V> {
 
     private Cache<K,V> cache;
 
     private final Long timeoutTime;
 
-    public ExpirationDatabaseService(Integer size, long time, TimeUnit unit) {
+    public SimpleExpirationDatabase(Integer size, long time, TimeUnit unit) {
         cache = CacheBuilder.newBuilder()
                 .concurrencyLevel(4)
                 .maximumSize(size)

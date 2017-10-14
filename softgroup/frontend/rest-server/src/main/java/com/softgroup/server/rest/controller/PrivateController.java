@@ -3,7 +3,7 @@ package com.softgroup.server.rest.controller;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.filter.api.DenyAuthorizationRequestBorderFilterHandler;
-import com.softgroup.server.rest.service.ControllerToolService;
+import com.softgroup.server.tools.service.ControllerTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ public class PrivateController {
     private DenyAuthorizationRequestBorderFilterHandler denyAuthorizationRequestBorderFilterHandler;
 
     @Autowired
-    private ControllerToolService controllerTool;
+    private ControllerTool controllerTool;
 
     @RequestMapping(value = "/private",method = RequestMethod.POST,consumes="application/json",produces = "application/json")
     @ResponseBody

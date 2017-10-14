@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class ExpirationDatabaseServiceTest {
 
-    private ExpirationDatabase<String,String> cache = new ExpirationDatabaseService<>(5,2, TimeUnit.SECONDS);
+    private ExpirationDatabase<String,String> cache = new SimpleExpirationDatabase<>(5,2, TimeUnit.SECONDS);
 
     @Before
     public void prepare(){

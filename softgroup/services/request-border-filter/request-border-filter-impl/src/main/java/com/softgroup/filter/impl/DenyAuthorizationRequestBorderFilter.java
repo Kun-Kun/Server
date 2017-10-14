@@ -30,4 +30,9 @@ public class DenyAuthorizationRequestBorderFilter extends AbstractCommandFilterH
     public FilterAction getAction() {
         return FilterAction.DENY;
     }
+
+    @Override
+    protected String getMessageOnFilter() {
+        return "Register, sms_confirm, login not allowed.";
+    }
 }
