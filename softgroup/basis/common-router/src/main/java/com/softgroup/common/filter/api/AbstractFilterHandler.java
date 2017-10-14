@@ -3,6 +3,7 @@ package com.softgroup.common.filter.api;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.Handler;
+import com.softgroup.common.utilites.ResponseStatusCode;
 import com.softgroup.common.utilites.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,25 +32,30 @@ public abstract class AbstractFilterHandler<T extends Handler> implements Reques
 
     @Override
     public Response<?> handle(Request<?> msg) {
-        if(accessList.contains(getFilteredValue(msg))){
-            return triggeredRuleAction(msg);
-        }else {
-            return notTriggeredRuleAction(msg);
+        try {
+            if (accessList.contains(getFilteredValue(msg))) {
+                return triggeredRuleAction(msg);
+            } else {
+                return notTriggeredRuleAction(msg);
+            }
+        }catch (NullPointerException npe){
+            npe.printStackTrace();
+            return ResponseUtils.createCustomResponse(new Request<>(), ResponseStatusCode.UNPROCESSABLE_ENTITY,"Entity can't be null");
         }
     }
 
-    abstract String getFilteredValue(Request<?> msg);
+    abstract protected String getFilteredValue(Request<?> msg);
 
     private Response<?> triggeredRuleAction(Request<?> msg){
         if(getAction().equals(FilterAction.ALLOW)){
             return doHandle(msg);
         }else
-            return ResponseUtils.createBadRequestResponse(msg);
+            return ResponseUtils.createCustomResponse(msg, ResponseStatusCode.FORBIDDEN,getMessageOnFilter());
     }
 
     private Response<?> notTriggeredRuleAction(Request<?> msg){
         if(getAction().equals(FilterAction.ALLOW)){
-            return ResponseUtils.createBadRequestResponse(msg);
+            return ResponseUtils.createCustomResponse(msg, ResponseStatusCode.FORBIDDEN,getMessageOnFilter());
         }else
             return doHandle(msg);
     }
@@ -57,4 +63,6 @@ public abstract class AbstractFilterHandler<T extends Handler> implements Reques
     private Response<?> doHandle(Request<?> msg) {
         return handler.handle(msg);
     }
+
+    abstract protected String getMessageOnFilter();
 }

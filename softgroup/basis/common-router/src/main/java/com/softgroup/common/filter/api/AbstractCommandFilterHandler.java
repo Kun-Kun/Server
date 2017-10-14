@@ -8,7 +8,7 @@ import com.softgroup.common.router.api.Handler;
  */
 public abstract class AbstractCommandFilterHandler<T extends Handler> extends AbstractFilterHandler<T> {
 
-    String getFilteredValue(Request<?> msg){
+    protected String getFilteredValue(Request<?> msg){
         return msg.getHeader().getCommand();
     }
 }

@@ -31,4 +31,9 @@ public class AllowAuthorizationRequestBorderFilter extends AbstractCommandFilter
     public FilterAction getAction() {
         return FilterAction.ALLOW;
     }
+
+    @Override
+    protected String getMessageOnFilter() {
+        return "You not authorized. Allowed only register, sms_confirm, login commands.";
+    }
 }

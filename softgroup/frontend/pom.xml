@@ -13,7 +13,9 @@
 
 	<modules>
         <module>rest-server</module>
-    </modules>
+        <module>socket-server</module>
+		<module>frontend-tools</module>
+	</modules>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

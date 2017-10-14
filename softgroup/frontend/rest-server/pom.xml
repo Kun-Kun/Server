@@ -81,6 +81,11 @@
             <artifactId>request-border-filter-impl</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>socket-server</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

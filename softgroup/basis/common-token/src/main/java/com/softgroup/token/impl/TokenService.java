@@ -1,7 +1,7 @@
 package com.softgroup.token.impl;
 
 import com.softgroup.common.exceptions.TokenException;
-import com.softgroup.token.api.JwtUserIdentifier;
+import com.softgroup.token.api.JwtUserIdentifierExtended;
 import com.softgroup.token.api.TokenGeneratorService;
 import com.softgroup.token.api.TokenType;
 import io.jsonwebtoken.*;
@@ -96,7 +96,7 @@ public class TokenService implements TokenGeneratorService {
     }
 
     @Override
-    public JwtUserIdentifier getUserIdentifier(String token, TokenType type) throws TokenException{
+    public JwtUserIdentifierExtended getUserIdentifier(String token, TokenType type) throws TokenException{
         //Parse and validate token
         try {
             if(token==null){
@@ -111,7 +111,7 @@ public class TokenService implements TokenGeneratorService {
                 throw exception;
             }
 
-            return new JwtUserIdentifier(body.get(USER_ID_DATA_KEY,String.class),body.get(DEVICE_ID_DATA_KEY,String.class));
+            return new JwtUserIdentifierExtended(body.get(USER_ID_DATA_KEY,String.class),body.get(DEVICE_ID_DATA_KEY,String.class),body.getIssuedAt(),body.getExpiration());
 
         } catch (JwtException exception) {
             //log this jwt error
