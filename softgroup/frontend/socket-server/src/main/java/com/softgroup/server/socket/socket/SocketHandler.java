@@ -97,6 +97,7 @@ public class SocketHandler extends TextWebSocketHandler {
     private void processMessage(Object data, WebSocketSession session) throws IOException{
         Request request = controllerTool.parseRequestFromJson(controllerTool.dataToString(data));
         JwtUserIdentifierExtended userIdentifier = webSocketSessionHolderService.getUser(session);
+        userIdentifier = webSocketSessionHolderService.validateSessionRegistration(session,userIdentifier);
         Request requestWithRoutingData = controllerTool.setRoutingData(request, userIdentifier);
         Response response = socketRouterHandler.handle(requestWithRoutingData);
         String textResponse = controllerTool.dataToString(response);
