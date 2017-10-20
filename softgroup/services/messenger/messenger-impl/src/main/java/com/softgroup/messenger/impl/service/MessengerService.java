@@ -1,18 +1,20 @@
 package com.softgroup.messenger.impl.service;
 
 import com.google.common.collect.Lists;
-import com.softgroup.common.dao.api.entities.ConversationEntity;
-import com.softgroup.common.dao.api.entities.ConversationMemberEntity;
-import com.softgroup.common.dao.api.entities.ProfileEntity;
+import com.softgroup.common.dao.api.entities.*;
 import com.softgroup.common.dao.impl.repositories.*;
 import com.softgroup.common.exceptions.SoftgroupException;
 import com.softgroup.common.protocol.enumeration.ConversationType;
+import com.softgroup.common.protocol.enumeration.MessageStatus;
 import com.softgroup.messenger.api.dto.DTOConversationDetails;
+import com.softgroup.messenger.api.dto.DTOMessageRequest;
 import com.softgroup.messenger.api.dto.DTOProfile;
+import com.softgroup.messenger.impl.mapper.MessageMapper;
 import com.softgroup.messenger.impl.mapper.ProfileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +43,9 @@ public class MessengerService {
 
     @Autowired
     private ProfileMapper profileMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     public List<ProfileEntity> loadIndividualConversationMemberProfiles(String userId, List<String> members){
         List<ProfileEntity> userAndMember;
@@ -182,4 +187,32 @@ public class MessengerService {
         return Lists.newArrayList(conversationRepository.findAll(ids));
     }
 
+    public Boolean isUserInConversation(String userId, String conversationId){
+        return conversationMemberRepository.findByConversationIdAndMemberIdAndDeletedIsFalse(conversationId,userId)!=null;
+    }
+
+    public MessageEntity saveMessage(DTOMessageRequest messageRequest, String userId){
+        MessageEntity messageEntity = messageMapper.mapEntityFromMessageDto(messageRequest);
+        messageEntity.setSenderId(userId);
+        messageEntity.setServerReceiveTime(new Date().getTime());
+        MessageEntity messageWithId = messageRepository.save(messageEntity);
+        return messageWithId;
+    }
+
+    public void saveMessageStatus(DTOMessageRequest messageRequest, String userId, String messageId){
+        Date date = new Date();
+        List<ConversationMemberEntity> memberEntities = conversationMemberRepository.findByConversationIdAndAndDeletedIsFalse(messageRequest.getConversationId());
+
+        List<MessageStatusEntity> messageStatusEntities = memberEntities.parallelStream().map(conversationMemberEntity -> {
+            MessageStatusEntity entity = new MessageStatusEntity();
+            entity.setMessageId(messageId);
+            entity.setSenderId(userId);
+            entity.setUserId(conversationMemberEntity.getMemberId());
+            entity.setStatus(MessageStatus.DELIVERED);
+            entity.setStatusDate(date.getTime());
+            return entity;
+        }).collect(Collectors.toList());
+
+        messageStatusRepository.save(messageStatusEntities);
+    }
 }
