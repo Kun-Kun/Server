@@ -7,6 +7,7 @@ import com.softgroup.common.exceptions.SoftgroupException;
 import com.softgroup.common.protocol.enumeration.ConversationType;
 import com.softgroup.common.protocol.enumeration.MessageStatus;
 import com.softgroup.messenger.api.dto.DTOConversationDetails;
+import com.softgroup.messenger.api.dto.DTOCursorRequest;
 import com.softgroup.messenger.api.dto.DTOMessageRequest;
 import com.softgroup.messenger.api.dto.DTOProfile;
 import com.softgroup.messenger.impl.mapper.MessageMapper;
@@ -188,15 +189,14 @@ public class MessengerService {
     }
 
     public Boolean isUserInConversation(String userId, String conversationId){
-        return conversationMemberRepository.findByConversationIdAndMemberIdAndDeletedIsFalse(conversationId,userId)!=null;
+        return !conversationMemberRepository.findByConversationIdAndMemberIdAndDeletedIsFalse(conversationId,userId).isEmpty();
     }
 
     public MessageEntity saveMessage(DTOMessageRequest messageRequest, String userId){
         MessageEntity messageEntity = messageMapper.mapEntityFromMessageDto(messageRequest);
         messageEntity.setSenderId(userId);
         messageEntity.setServerReceiveTime(new Date().getTime());
-        MessageEntity messageWithId = messageRepository.save(messageEntity);
-        return messageWithId;
+        return messageRepository.save(messageEntity);
     }
 
     public void saveMessageStatus(DTOMessageRequest messageRequest, String userId, String messageId){
@@ -208,11 +208,33 @@ public class MessengerService {
             entity.setMessageId(messageId);
             entity.setSenderId(userId);
             entity.setUserId(conversationMemberEntity.getMemberId());
-            entity.setStatus(MessageStatus.DELIVERED);
-            entity.setStatusDate(date.getTime());
+            if(conversationMemberEntity.getMemberId().equals(userId)){
+                entity.setStatus(MessageStatus.VIEWED);
+            }else {
+                entity.setStatus(MessageStatus.SENT);
+            }
+            entity.setStatusDate(date.getTime()/1000);
             return entity;
         }).collect(Collectors.toList());
 
         messageStatusRepository.save(messageStatusEntities);
     }
+
+    public List<MessageEntity> loadMessages(String conversationId, String userId, DTOCursorRequest cursorRequest){
+        messageStatusRepository.markMessageStatusAsDelivered(conversationId,userId,cursorRequest.getOffset(),cursorRequest.getCount());
+        return messageRepository.findByConversationIdAndUserIdAndServerReceiveTimeBeforeLimit(conversationId,userId,cursorRequest.getOffset(),cursorRequest.getCount());
+    }
+
+    public boolean isMoreMessageExist(String conversationId, String userId, Long offset){
+        return messageRepository.findByConversationIdAndUserIdAndServerReceiveTimeBeforeLimit(conversationId,userId,offset,1).size()==1;
+    }
+
+    public Integer getUnreadMessagesCount(String conversationId, String userId){
+        return messageRepository.getTotalUnreadMessages(conversationId, userId);
+    }
+
+    public void markMessagesAsViewed(String conversationId, String userId,List<String> messageIds){
+        messageStatusRepository.markMessageStatusAsViewed(conversationId, userId,messageIds);
+    }
+
 }
