@@ -10,16 +10,16 @@ public class GetMessagesRequest implements RequestData {
 
     private static final long serialVersionUID = 79682569157940855L;
 
-    private String conversationsId;
+    private String conversationId;
 
     private DTOCursorRequest cursor;
 
-    public String getConversationsId() {
-        return conversationsId;
+    public String getConversationId() {
+        return conversationId;
     }
 
-    public void setConversationsId(String conversationsId) {
-        this.conversationsId = conversationsId;
+    public void setConversationId(String conversationsId) {
+        this.conversationId = conversationsId;
     }
 
     public DTOCursorRequest getCursor() {

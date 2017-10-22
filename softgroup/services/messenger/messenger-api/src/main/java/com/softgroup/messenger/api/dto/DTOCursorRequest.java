@@ -11,7 +11,7 @@ public class DTOCursorRequest implements Serializable {
     //amount
     private	Integer	count;
     //messages offset
-    private	Integer	offset;
+    private	Long offset;
 
     public Integer getCount() {
         return count;
@@ -21,11 +21,11 @@ public class DTOCursorRequest implements Serializable {
         this.count = count;
     }
 
-    public Integer getOffset() {
+    public Long getOffset() {
         return offset;
     }
 
-    public void setOffset(Integer offset) {
+    public void setOffset(Long offset) {
         this.offset = offset;
     }
 }
