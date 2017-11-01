@@ -7,7 +7,7 @@ import com.softgroup.common.protocol.Response;
 import com.softgroup.common.utilites.ResponseStatusCode;
 import com.softgroup.common.utilites.ResponseUtils;
 import com.softgroup.server.socket.filter.SocketRouterHandler;
-import com.softgroup.server.socket.service.WebSocketSessionHolderServiceImpl;
+import com.softgroup.common.cache.service.WebSocketSessionHolderServiceImpl;
 import com.softgroup.server.tools.service.ControllerTool;
 import com.softgroup.token.api.JwtUserIdentifierExtended;
 import com.softgroup.token.api.TokenType;

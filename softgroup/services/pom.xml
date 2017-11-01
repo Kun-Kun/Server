@@ -16,7 +16,8 @@
 		<module>profile</module>
 		<module>type-router</module>
 		<module>request-border-filter</module>
-	</modules>
+        <module>ws-multicast-notifier</module>
+    </modules>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

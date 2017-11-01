@@ -6,6 +6,8 @@ package com.softgroup.common.cache;
 public interface ExpirationDatabase<K,V> {
     V get(K key);
 
+    V getIfPresent(K key);
+
     boolean isInDatabase(K key);
 
     void put(K key,V value);

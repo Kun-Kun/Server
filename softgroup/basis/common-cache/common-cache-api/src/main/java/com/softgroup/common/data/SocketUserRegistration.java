@@ -1,4 +1,4 @@
-package com.softgroup.server.socket.socket;
+package com.softgroup.common.data;
 
 import com.softgroup.token.api.JwtUserIdentifierExtended;
 import org.springframework.web.socket.WebSocketSession;

@@ -1,6 +1,5 @@
 package com.softgroup.authorization.impl.service;
 
-import com.softgroup.authorization.api.service.AuthorizationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

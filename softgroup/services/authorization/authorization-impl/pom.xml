@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>authorization-impl</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -20,6 +20,7 @@
 		<dependency>
 			<groupId>com.softgroup</groupId>
 			<artifactId>authorization-api</artifactId>
+            <version>0.0.1</version>
 		</dependency>
         <dependency>
             <groupId>com.softgroup</groupId>
@@ -39,6 +40,11 @@
         <dependency>
             <groupId>com.softgroup</groupId>
             <artifactId>common-token</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-cache-impl</artifactId>
             <version>0.0.1</version>
         </dependency>
 

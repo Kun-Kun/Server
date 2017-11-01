@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.softgroup.common.dao.api.entities.*;
 import com.softgroup.common.dao.impl.repositories.*;
 import com.softgroup.common.exceptions.SoftgroupException;
+import com.softgroup.common.protocol.Response;
 import com.softgroup.common.protocol.enumeration.ConversationType;
 import com.softgroup.common.protocol.enumeration.MessageStatus;
 import com.softgroup.messenger.api.dto.DTOConversationDetails;
@@ -12,6 +13,7 @@ import com.softgroup.messenger.api.dto.DTOMessageRequest;
 import com.softgroup.messenger.api.dto.DTOProfile;
 import com.softgroup.messenger.impl.mapper.MessageMapper;
 import com.softgroup.messenger.impl.mapper.ProfileMapper;
+import com.softgroup.multicast.notifier.WebSocketMulticastNotifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +49,9 @@ public class MessengerService {
 
     @Autowired
     private MessageMapper messageMapper;
+
+    @Autowired
+    private WebSocketMulticastNotifier webSocketMulticastNotifier;
 
     public List<ProfileEntity> loadIndividualConversationMemberProfiles(String userId, List<String> members){
         List<ProfileEntity> userAndMember;
@@ -235,6 +240,10 @@ public class MessengerService {
 
     public void markMessagesAsViewed(String conversationId, String userId,List<String> messageIds){
         messageStatusRepository.markMessageStatusAsViewed(conversationId, userId,messageIds);
+    }
+
+    public void notifyConversation(String conversationId, Response response){
+        webSocketMulticastNotifier.sendResponseToConversationMembers(conversationId,response);
     }
 
 }
