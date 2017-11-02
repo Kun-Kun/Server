@@ -1,13 +1,15 @@
-package com.softgroup.server.socket.service;
+package com.softgroup.common.cache.service;
 
-import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.softgroup.server.socket.socket.SocketExpirationDatabase;
-import com.softgroup.server.socket.socket.SocketHandler;
-import com.softgroup.server.socket.socket.SocketUserRegistration;
+
+import com.softgroup.common.cache.ConversationWebSocketSessionSubscriber;
+import com.softgroup.common.data.SocketUserRegistration;
+import com.softgroup.common.cache.socket.SocketExpirationDatabase;
 import com.softgroup.token.api.JwtUserIdentifierExtended;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -23,13 +25,16 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class WebSocketSessionHolderServiceImpl {
 
+    @Autowired
+    private ConversationWebSocketSessionSubscriber subscriber;
+
     private Log log = LogFactory.getLog(WebSocketSessionHolderServiceImpl.class);
 
     private SocketExpirationDatabase parkingSessions = new SocketExpirationDatabase(5000,10, TimeUnit.MINUTES);
 
-    private HashMap<String, SocketUserRegistration> registeredSessions = new HashMap<String, SocketUserRegistration>();
+    private HashMap<String, SocketUserRegistration> registeredSessions = new HashMap<>();
 
-    private Multimap<String, WebSocketSession> userIdSessionMap = ArrayListMultimap.create();
+    private Multimap<String, WebSocketSession> userIdSessionMap = HashMultimap.create();
 
     public void registerSession(WebSocketSession session){
         parkingSessions.put(session.getId(),session);
@@ -38,13 +43,15 @@ public class WebSocketSessionHolderServiceImpl {
 
     public void registerUser(WebSocketSession session, JwtUserIdentifierExtended user){
         log.info(session.getId()+" session moved from parking to registered list for user "+user.getUserId());
-        registeredSessions.put(session.getId(),new SocketUserRegistration(user,session));
+        SocketUserRegistration registration = new SocketUserRegistration(user,session);
+        registeredSessions.put(session.getId(),registration);
+        subscriber.subscribe(registration);
         userIdSessionMap.put(user.getUserId(),session);
         parkingSessions.invalidate(session.getId());
     }
 
     public List<WebSocketSession> getUserSessions(String userId){
-        return new ArrayList<WebSocketSession>(userIdSessionMap.get(userId));
+        return new ArrayList<>(userIdSessionMap.get(userId));
     }
 
     public void invalidateAll(WebSocketSession session){
@@ -91,6 +98,7 @@ public class WebSocketSessionHolderServiceImpl {
     public void deregisterUser(WebSocketSession session, JwtUserIdentifierExtended user){
         log.info("Move "+session.getId()+" session to parking list");
         registeredSessions.remove(session.getId());
+        subscriber.unsubscribe(session,user);
         userIdSessionMap.remove(user.getUserId(),session);
         registerSession(session);
     }
@@ -98,8 +106,8 @@ public class WebSocketSessionHolderServiceImpl {
     //TODO configure scheduler to process inactive session
     public void sessionValidatorScheduler(){
         log.info("Start session validation scheduler");
-        registeredSessions.forEach((s, userIdentifierExtended) -> {
-            validateSessionRegistration(userIdentifierExtended.getSession(),userIdentifierExtended.getUserIdentifier());
-        });
+        registeredSessions.forEach((s, userIdentifierExtended) ->
+            validateSessionRegistration(userIdentifierExtended.getSession(),userIdentifierExtended.getUserIdentifier())
+        );
     }
 }

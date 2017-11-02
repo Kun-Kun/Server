@@ -3,7 +3,6 @@ package com.softgroup.messenger.impl.handler;
 import com.softgroup.common.dao.api.entities.ConversationEntity;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
-import com.softgroup.common.protocol.ResponseBuilder;
 import com.softgroup.common.protocol.enumeration.ConversationType;
 import com.softgroup.common.router.api.AbstractRequestHandler;
 import com.softgroup.common.utilites.ResponseUtils;
@@ -54,9 +53,9 @@ public class GetConversationsRequestHandler extends AbstractRequestHandler<GetCo
             conversationEntities = messengerService.getAllConversationForUser(userId);
         }
 
-         List<DTOConversation> conversations = conversationEntities.parallelStream().map(conversationEntity -> {
-            return conversationMapper.mapConversationDtoFromEntity(conversationEntity);
-        }).collect(Collectors.toList());
+         List<DTOConversation> conversations = conversationEntities.parallelStream().map(conversationEntity ->
+            conversationMapper.mapConversationDtoFromEntity(conversationEntity)
+        ).collect(Collectors.toList());
 
         GetConversationsResponse response = new GetConversationsResponse();
         response.setConversations(conversations);

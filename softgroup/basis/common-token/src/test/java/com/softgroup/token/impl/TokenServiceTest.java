@@ -176,4 +176,31 @@ public class TokenServiceTest {
         return jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact();
 
     }
+
+    @Test
+    //Generate valid tokens from date for a month
+    public void generateTokenAnyDate1(){
+
+        KeyFactory factory = new KeyFactory();
+
+        Date date = new Date();
+        String deviceId = "00000";
+        String userId = "1";
+        String key = factory.getKey(TokenType.SHORT_TERM);
+        TokenType type = TokenType.SHORT_TERM;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.YEAR, 1);
+        JwtBuilder jwtBuilder = Jwts.builder();
+        Claims tokenData = Jwts.claims()
+                .setExpiration(calendar.getTime())
+                .setIssuedAt(date);
+        tokenData.put("tokenType", type);
+        tokenData.put("userID", userId);
+        tokenData.put("deviceID", deviceId);
+        jwtBuilder.setClaims(tokenData);
+        System.out.println(jwtBuilder.signWith(SignatureAlgorithm.HS512, key).compact());
+
+    }
 }

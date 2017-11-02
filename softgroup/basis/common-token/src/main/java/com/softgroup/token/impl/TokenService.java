@@ -85,7 +85,7 @@ public class TokenService implements TokenGeneratorService {
         } catch (JwtException exception) {
             //log this jwt error
             log.error("An error occurred during creating short term token",exception);
-            // throw exception;
+
             throw new TokenException("An error occurred during creating short term token",exception);
         }
     }
@@ -116,7 +116,6 @@ public class TokenService implements TokenGeneratorService {
         } catch (JwtException exception) {
             //log this jwt error
             log.error("An error occurred during parsing a user identifier",exception);
-           // throw exception;
             throw new TokenException("An error occurred during parsing a user identifier",exception);
         }
     }

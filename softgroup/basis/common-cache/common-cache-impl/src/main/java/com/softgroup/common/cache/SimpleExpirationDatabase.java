@@ -37,6 +37,11 @@ public class SimpleExpirationDatabase<K,V> implements ExpirationDatabase<K,V> {
         return cache.getIfPresent(key);
     }
 
+    @Override
+    public V getIfPresent(K key) {
+        return cache.getIfPresent(key);
+    }
+
     public void put(K key,V value){
         cache.put(key,value);
     }

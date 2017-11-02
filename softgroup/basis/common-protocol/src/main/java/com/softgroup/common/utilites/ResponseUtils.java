@@ -2,6 +2,8 @@ package com.softgroup.common.utilites;
 
 import com.softgroup.common.protocol.*;
 
+import java.util.UUID;
+
 /**
  * Created by user on 09.04.2017.
  */
@@ -13,7 +15,7 @@ public class ResponseUtils {
     public static <T extends ResponseData> Response<T> createResponseFromRequest(Request<?> request, ResponseStatus status, T data){
          return new ResponseBuilder<T>()
                  .setData(data)
-                 .setHeader(request.getHeader())
+                 .setHeader(makeNewHeader(request.getHeader()))
                  .setStatus(status).build();
     }
 
@@ -49,6 +51,16 @@ public class ResponseUtils {
 
     public static <T extends ResponseData> Response<T> createCustomResponse(Request<?> request,ResponseStatusCode status, String additionMessage){
         return createCustomResponse(request, status.getCode(), status.getMessage()+". "+ additionMessage);
+    }
+
+    private static ActionHeader makeNewHeader(ActionHeader header){
+        ActionHeader newHeader = new ActionHeader();
+        newHeader.setType(header.getType());
+        newHeader.setCommand(header.getCommand());
+        newHeader.setVersion(header.getVersion());
+        newHeader.setOriginUuid(header.getUuid());
+        newHeader.setUuid(UUID.randomUUID().toString());
+        return newHeader;
     }
 
 }

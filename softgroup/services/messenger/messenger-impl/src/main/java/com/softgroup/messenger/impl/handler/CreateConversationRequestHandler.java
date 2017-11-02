@@ -58,9 +58,8 @@ public class CreateConversationRequestHandler extends AbstractRequestHandler<Cre
             conversation = messengerService.createConversation(profiles,request.getType(),userId);
             conversationId = conversation.getId();
             messengerService.addMembersToConversation(conversationId,profiles);
-        }else{
-            conversationId = conversation.getId();
         }
+
         //ToDo add returning lastMessageIndex
         DTOConversation dtoConversation = conversationMapper.mapConversationDtoFromEntity(conversation);
         CreateConversationResponse response = new CreateConversationResponse();

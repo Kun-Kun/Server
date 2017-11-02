@@ -16,7 +16,7 @@ public abstract class AbstractHandlerFactory<T extends Handler> implements Handl
 
     @Autowired
     private List<T> handlers;
-    private Map<String,T> handlerMap = new HashMap<String, T>();
+    private Map<String,T> handlerMap = new HashMap<>();
 
     public abstract String getRouteKey(Request<?> msg) ;
 

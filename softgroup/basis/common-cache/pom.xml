@@ -8,8 +8,16 @@
         <version>0.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
     <artifactId>common-cache</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>common-cache-api</module>
+        <module>common-cache-impl</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>

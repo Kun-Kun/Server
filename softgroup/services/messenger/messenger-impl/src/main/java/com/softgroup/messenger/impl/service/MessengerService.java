@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.softgroup.common.dao.api.entities.*;
 import com.softgroup.common.dao.impl.repositories.*;
 import com.softgroup.common.exceptions.SoftgroupException;
+import com.softgroup.common.protocol.Response;
 import com.softgroup.common.protocol.enumeration.ConversationType;
 import com.softgroup.common.protocol.enumeration.MessageStatus;
 import com.softgroup.messenger.api.dto.DTOConversationDetails;
@@ -12,10 +13,10 @@ import com.softgroup.messenger.api.dto.DTOMessageRequest;
 import com.softgroup.messenger.api.dto.DTOProfile;
 import com.softgroup.messenger.impl.mapper.MessageMapper;
 import com.softgroup.messenger.impl.mapper.ProfileMapper;
+import com.softgroup.multicast.notifier.WebSocketMulticastNotifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +48,9 @@ public class MessengerService {
 
     @Autowired
     private MessageMapper messageMapper;
+
+    @Autowired
+    private WebSocketMulticastNotifier webSocketMulticastNotifier;
 
     public List<ProfileEntity> loadIndividualConversationMemberProfiles(String userId, List<String> members){
         List<ProfileEntity> userAndMember;
@@ -100,13 +104,12 @@ public class MessengerService {
         }else {
             conversationEntity.setAdminId(adminId);
         }
-        ConversationEntity conversationEntityInDatabase = conversationRepository.save(conversationEntity);
-        return conversationEntityInDatabase;
+        return conversationRepository.save(conversationEntity);
     }
 
     public void addMembersToConversation(String conversationId, List<ProfileEntity> profileEntities){
         Long currentTime = new Date().getTime();
-        profileEntities.stream().forEach(profileEntity -> {
+        profileEntities.forEach(profileEntity -> {
             ConversationMemberEntity conversationMemberEntity = new ConversationMemberEntity();
             conversationMemberEntity.setConversationId(conversationId);
             conversationMemberEntity.setDeleted(false);
@@ -151,9 +154,9 @@ public class MessengerService {
         userAndMemberList.add(userId);
         userAndMemberList.addAll(members);
 
-        return userAndMemberList.parallelStream().distinct().map(s -> {
-            return profileRepository.findOne(s);
-        }).filter(profileEntity -> profileEntity!=null).collect(Collectors.toList());
+        return userAndMemberList.parallelStream().distinct().map(s ->
+            profileRepository.findOne(s)
+        ).filter(profileEntity -> profileEntity!=null).collect(Collectors.toList());
     }
 
     public List<ConversationEntity> getGroupConversationForUser(String userId){
@@ -174,9 +177,9 @@ public class MessengerService {
 
     public DTOConversationDetails getConversationDetails(String conversationId){
         List<ProfileEntity> profileEntities = getConversationUserProfiles(conversationId);
-        List<DTOProfile> dtoProfiles = profileEntities.parallelStream().map(profileEntity -> {
-            return profileMapper.mapProfileDtoFromEntity(profileEntity);
-        }).collect(Collectors.toList());
+        List<DTOProfile> dtoProfiles = profileEntities.parallelStream().map(profileEntity ->
+            profileMapper.mapProfileDtoFromEntity(profileEntity)
+        ).collect(Collectors.toList());
 
         DTOConversationDetails dtoConversationDetails = new DTOConversationDetails();
         dtoConversationDetails.setId(conversationId);
@@ -235,6 +238,10 @@ public class MessengerService {
 
     public void markMessagesAsViewed(String conversationId, String userId,List<String> messageIds){
         messageStatusRepository.markMessageStatusAsViewed(conversationId, userId,messageIds);
+    }
+
+    public void notifyConversation(String conversationId, Response response){
+        webSocketMulticastNotifier.sendResponseToConversationMembers(conversationId,response);
     }
 
 }

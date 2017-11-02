@@ -1,11 +1,10 @@
-package com.softgroup.server.socket.socket;
+package com.softgroup.common.cache.socket;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalNotification;
 import com.softgroup.common.cache.ExpirationDatabase;
-import com.softgroup.server.socket.service.WebSocketSessionHolderServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.socket.WebSocketSession;
@@ -47,6 +46,11 @@ public class SocketExpirationDatabase implements ExpirationDatabase<String,WebSo
     public WebSocketSession get(String key){
         log.info("Get "+key);
         return cache.getIfPresent(key);
+    }
+
+    @Override
+    public WebSocketSession getIfPresent(String key) {
+        return get(key);
     }
 
     public void put(String key,WebSocketSession value){

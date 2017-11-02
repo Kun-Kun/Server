@@ -5,7 +5,6 @@ import com.softgroup.authorization.api.cache.ConfirmationRegisterData;
 import com.softgroup.authorization.api.cache.PhoneNumberUUIDCache;
 import com.softgroup.authorization.api.cache.SmsQuantityLimiterCache;
 import com.softgroup.authorization.api.message.RegisterRequest;
-import com.softgroup.authorization.api.message.SmsConfirmRequest;
 import com.softgroup.authorization.api.service.AuthorizationService;
 import com.softgroup.common.dao.api.entities.DeviceEntity;
 import com.softgroup.common.dao.api.entities.ProfileEntity;

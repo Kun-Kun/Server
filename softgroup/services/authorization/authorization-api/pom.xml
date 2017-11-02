@@ -10,11 +10,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>authorization-api</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
     <dependencies>
         <dependency>
             <groupId>com.softgroup</groupId>
-            <artifactId>common-cache</artifactId>
+            <artifactId>common-cache-api</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>
