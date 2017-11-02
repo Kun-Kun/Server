@@ -10,6 +10,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by user on 28.10.2017.
@@ -31,23 +32,20 @@ public class WebSocketMulticastNotifier implements MulticastNotifier {
         }
     }
 
-    private void sendMessages(HashSet<WebSocketSession> sessions, String message){
+    private void sendMessages(Set<WebSocketSession> sessions, String message){
         sessions.forEach(session -> sendMessage(session,message));
     }
 
     private void sendMessageToConversationMembers(String conversationId, String message){
-        HashSet<WebSocketSession> sessions = webSocketCache.get(conversationId);
+        Set<WebSocketSession> sessions = webSocketCache.get(conversationId);
         if(sessions!=null) {
             sendMessages(sessions, message);
         }
     }
-
+    // TODO make method async
     public void sendResponseToConversationMembers(String conversationId, Response response){
         String message = dataMapper.dataToString(response);
         sendMessageToConversationMembers(conversationId,message);
     }
 
-    public void conversationMembersChanged(String conversationId){
-        webSocketCache.invalidate(conversationId);
-    }
 }

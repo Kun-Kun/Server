@@ -36,9 +36,9 @@ public class GetConversationsDetailsRequestHandler extends AbstractRequestHandle
     @Override
     public Response<GetConversationsDetailsResponse> processRequest(Request<GetConversationsDetailsRequest> msg){
         List<String> conversationIds =  msg.getData().getConversationsIds();
-        List<DTOConversationDetails> conversationDetails = conversationIds.parallelStream().map(s -> {
-            return messengerService.getConversationDetails(s);
-        }).collect(Collectors.toList());
+        List<DTOConversationDetails> conversationDetails = conversationIds.parallelStream().map(s ->
+            messengerService.getConversationDetails(s)
+        ).collect(Collectors.toList());
 
         GetConversationsDetailsResponse response = new GetConversationsDetailsResponse();
         response.setConversationDetails(conversationDetails);

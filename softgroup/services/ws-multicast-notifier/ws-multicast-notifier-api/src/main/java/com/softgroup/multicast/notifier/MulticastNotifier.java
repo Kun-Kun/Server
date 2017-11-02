@@ -8,6 +8,4 @@ import com.softgroup.common.protocol.Response;
 public interface MulticastNotifier {
     
     void sendResponseToConversationMembers(String conversationId, Response response);
-
-    void conversationMembersChanged(String conversationId);
 }

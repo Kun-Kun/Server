@@ -17,7 +17,6 @@ import com.softgroup.multicast.notifier.WebSocketMulticastNotifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -105,13 +104,12 @@ public class MessengerService {
         }else {
             conversationEntity.setAdminId(adminId);
         }
-        ConversationEntity conversationEntityInDatabase = conversationRepository.save(conversationEntity);
-        return conversationEntityInDatabase;
+        return conversationRepository.save(conversationEntity);
     }
 
     public void addMembersToConversation(String conversationId, List<ProfileEntity> profileEntities){
         Long currentTime = new Date().getTime();
-        profileEntities.stream().forEach(profileEntity -> {
+        profileEntities.forEach(profileEntity -> {
             ConversationMemberEntity conversationMemberEntity = new ConversationMemberEntity();
             conversationMemberEntity.setConversationId(conversationId);
             conversationMemberEntity.setDeleted(false);
@@ -156,9 +154,9 @@ public class MessengerService {
         userAndMemberList.add(userId);
         userAndMemberList.addAll(members);
 
-        return userAndMemberList.parallelStream().distinct().map(s -> {
-            return profileRepository.findOne(s);
-        }).filter(profileEntity -> profileEntity!=null).collect(Collectors.toList());
+        return userAndMemberList.parallelStream().distinct().map(s ->
+            profileRepository.findOne(s)
+        ).filter(profileEntity -> profileEntity!=null).collect(Collectors.toList());
     }
 
     public List<ConversationEntity> getGroupConversationForUser(String userId){
@@ -179,9 +177,9 @@ public class MessengerService {
 
     public DTOConversationDetails getConversationDetails(String conversationId){
         List<ProfileEntity> profileEntities = getConversationUserProfiles(conversationId);
-        List<DTOProfile> dtoProfiles = profileEntities.parallelStream().map(profileEntity -> {
-            return profileMapper.mapProfileDtoFromEntity(profileEntity);
-        }).collect(Collectors.toList());
+        List<DTOProfile> dtoProfiles = profileEntities.parallelStream().map(profileEntity ->
+            profileMapper.mapProfileDtoFromEntity(profileEntity)
+        ).collect(Collectors.toList());
 
         DTOConversationDetails dtoConversationDetails = new DTOConversationDetails();
         dtoConversationDetails.setId(conversationId);

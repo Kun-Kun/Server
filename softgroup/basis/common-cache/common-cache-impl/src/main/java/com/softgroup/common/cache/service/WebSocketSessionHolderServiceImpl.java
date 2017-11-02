@@ -32,7 +32,7 @@ public class WebSocketSessionHolderServiceImpl {
 
     private SocketExpirationDatabase parkingSessions = new SocketExpirationDatabase(5000,10, TimeUnit.MINUTES);
 
-    private HashMap<String, SocketUserRegistration> registeredSessions = new HashMap<String, SocketUserRegistration>();
+    private HashMap<String, SocketUserRegistration> registeredSessions = new HashMap<>();
 
     private Multimap<String, WebSocketSession> userIdSessionMap = HashMultimap.create();
 
@@ -51,7 +51,7 @@ public class WebSocketSessionHolderServiceImpl {
     }
 
     public List<WebSocketSession> getUserSessions(String userId){
-        return new ArrayList<WebSocketSession>(userIdSessionMap.get(userId));
+        return new ArrayList<>(userIdSessionMap.get(userId));
     }
 
     public void invalidateAll(WebSocketSession session){
@@ -106,8 +106,8 @@ public class WebSocketSessionHolderServiceImpl {
     //TODO configure scheduler to process inactive session
     public void sessionValidatorScheduler(){
         log.info("Start session validation scheduler");
-        registeredSessions.forEach((s, userIdentifierExtended) -> {
-            validateSessionRegistration(userIdentifierExtended.getSession(),userIdentifierExtended.getUserIdentifier());
-        });
+        registeredSessions.forEach((s, userIdentifierExtended) ->
+            validateSessionRegistration(userIdentifierExtended.getSession(),userIdentifierExtended.getUserIdentifier())
+        );
     }
 }

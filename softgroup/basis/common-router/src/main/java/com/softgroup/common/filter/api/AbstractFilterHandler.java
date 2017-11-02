@@ -44,7 +44,7 @@ public abstract class AbstractFilterHandler<T extends Handler> implements Reques
         }
     }
 
-    abstract protected String getFilteredValue(Request<?> msg);
+    protected abstract String getFilteredValue(Request<?> msg);
 
     private Response<?> triggeredRuleAction(Request<?> msg){
         if(getAction().equals(FilterAction.ALLOW)){
@@ -64,5 +64,5 @@ public abstract class AbstractFilterHandler<T extends Handler> implements Reques
         return handler.handle(msg);
     }
 
-    abstract protected String getMessageOnFilter();
+    protected abstract String getMessageOnFilter();
 }

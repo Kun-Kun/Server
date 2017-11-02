@@ -42,9 +42,9 @@ public class GetConversationsByIdsRequestHandler extends AbstractRequestHandler<
 
         List<String> conversationIds = msg.getData().getConversationsIds();
         List<ConversationEntity> conversationEntities = messengerService.findConversationByIds(conversationIds);
-        List<DTOConversation> dtoConversations = conversationEntities.parallelStream().map(conversationEntity -> {
-            return conversationMapper.mapConversationDtoFromEntity(conversationEntity);
-        }).collect(Collectors.toList());
+        List<DTOConversation> dtoConversations = conversationEntities.parallelStream().map(conversationEntity ->
+             conversationMapper.mapConversationDtoFromEntity(conversationEntity)
+        ).collect(Collectors.toList());
 
         GetConversationsByIdsResponse response = new GetConversationsByIdsResponse();
         response.setConversations(dtoConversations);

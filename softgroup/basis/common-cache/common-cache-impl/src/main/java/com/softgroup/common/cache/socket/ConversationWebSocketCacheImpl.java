@@ -13,22 +13,23 @@ import org.springframework.web.socket.WebSocketSession;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by user on 28.10.2017.
  */
 @Component
-public class ConversationWebSocketCacheImpl implements ExpirationDatabase<String,HashSet<WebSocketSession>>, ConversationWebSocketCache {
+public class ConversationWebSocketCacheImpl implements ExpirationDatabase<String,Set<WebSocketSession>>, ConversationWebSocketCache {
 
-    private LoadingCache<String,HashSet<WebSocketSession>> cache;
+    private LoadingCache<String, Set<WebSocketSession>> cache;
 
     private Long timeoutTime;
 
     @Autowired
     private WebSocketSessionCacheLoaderImpl cacheLoader;
 
-    public Cache<String, HashSet<WebSocketSession>> getCache() {
+    public Cache<String, Set<WebSocketSession>> getCache() {
         return cache;
     }
 
@@ -36,15 +37,15 @@ public class ConversationWebSocketCacheImpl implements ExpirationDatabase<String
         return cache.getUnchecked(key)!=null;
     }
 
-    public HashSet<WebSocketSession> get(String key){
+    public Set<WebSocketSession> get(String key){
         return cache.getUnchecked(key);
     }
 
-    public HashSet<WebSocketSession> getIfPresent(String key) {
+    public Set<WebSocketSession> getIfPresent(String key) {
         return cache.getIfPresent(key);
     }
 
-    public void put(String key,HashSet<WebSocketSession> value){
+    public void put(String key,Set<WebSocketSession> value){
         cache.put(key,value);
     }
 
@@ -52,8 +53,8 @@ public class ConversationWebSocketCacheImpl implements ExpirationDatabase<String
         cache.invalidate(key);
     }
 
-    public HashSet<WebSocketSession> pop(String key){
-        HashSet<WebSocketSession> value = cache.getUnchecked(key);
+    public Set<WebSocketSession> pop(String key){
+        Set<WebSocketSession> value = cache.getUnchecked(key);
         cache.invalidate(key);
         return value;
     }
