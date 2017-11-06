@@ -13,9 +13,6 @@
             <column name="user_id" type="char(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone_number" type="varchar(14)">
-                <constraints nullable="false"/>
-            </column>
             <column name="name" type="varchar(128)" >
             </column>
         </createTable>
@@ -170,6 +167,20 @@
                 <constraints nullable="false"/>
             </column>
             <column name="status_date" type="long" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1509701787" author="Kun-Kun">
+        <createTable tableName="contact_phone_numbers">
+            <column name="id" type="char(36)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="contact_id" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(14)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
