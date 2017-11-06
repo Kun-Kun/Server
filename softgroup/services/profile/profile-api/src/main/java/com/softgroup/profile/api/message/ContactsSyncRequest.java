@@ -14,11 +14,21 @@ public class ContactsSyncRequest implements RequestData {
 
     private List<DTOContact> addedContact;
 
+    private List<DTOContact> removedContact;
+
     public List<DTOContact> getAddedContact() {
         return addedContact;
     }
 
     public void setAddedContact(List<DTOContact> addedContact) {
         this.addedContact = addedContact;
+    }
+
+    public List<DTOContact> getRemovedContact() {
+        return removedContact;
+    }
+
+    public void setRemovedContact(List<DTOContact> removedContact) {
+        this.removedContact = removedContact;
     }
 }

@@ -74,7 +74,6 @@ public class StartupTest {
         ContactEntity contactEntity = new ContactEntity();
         contactEntity.setName("test_name");
         contactEntity.setUserId("user_id");
-        contactEntity.setPhoneNumber("12345678");
 
         contactEntity = contactRepository.save(contactEntity);
 
