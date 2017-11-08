@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+//Todo make interface
 @Service
 public class ProfileService {
 
@@ -46,5 +47,8 @@ public class ProfileService {
         return profileRepository.findProfileFromUserContactList(userId);
     }
 
+    public ProfileEntity getUserProfile(String userId){
+        return profileRepository.findOne(userId);
+    }
 
 }
