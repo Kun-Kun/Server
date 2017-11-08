@@ -1,7 +1,7 @@
 package com.softgroup.messenger.api.message;
 
+import com.softgroup.common.dto.DTOConversationDetails;
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.messenger.api.dto.DTOConversationDetails;
 
 /**
  * Created by user on 26.02.2017.

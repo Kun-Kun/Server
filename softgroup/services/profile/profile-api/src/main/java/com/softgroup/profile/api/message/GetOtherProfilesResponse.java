@@ -1,7 +1,7 @@
 package com.softgroup.profile.api.message;
 
+import com.softgroup.common.dto.DTOProfile;
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.profile.api.message.dto.DTOProfile;
 
 import java.util.List;
 

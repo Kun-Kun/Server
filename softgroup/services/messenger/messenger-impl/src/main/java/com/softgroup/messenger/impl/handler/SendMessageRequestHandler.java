@@ -1,16 +1,16 @@
 package com.softgroup.messenger.impl.handler;
 
 import com.softgroup.common.dao.api.entities.MessageEntity;
+import com.softgroup.common.dto.DTOMessage;
+import com.softgroup.common.dto.DTOMessageRequest;
+import com.softgroup.common.mapper.MessageMapper;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
 import com.softgroup.common.utilites.ResponseStatusCode;
 import com.softgroup.common.utilites.ResponseUtils;
-import com.softgroup.messenger.api.dto.DTOMessage;
-import com.softgroup.messenger.api.dto.DTOMessageRequest;
 import com.softgroup.messenger.api.message.*;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
-import com.softgroup.messenger.impl.mapper.MessageMapper;
 import com.softgroup.messenger.impl.service.MessengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.softgroup.profile.api.message.dto;
+package com.softgroup.common.dto;
 
 import java.io.Serializable;
 import java.util.List;

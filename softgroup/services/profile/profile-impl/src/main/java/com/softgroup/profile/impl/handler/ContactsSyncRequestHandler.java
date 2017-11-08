@@ -3,19 +3,19 @@ package com.softgroup.profile.impl.handler;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
+import com.softgroup.common.utilites.OtherUtils;
+import com.softgroup.common.utilites.ResponseStatusCode;
 import com.softgroup.common.utilites.ResponseUtils;
 import com.softgroup.profile.api.message.ContactsSyncRequest;
 import com.softgroup.profile.api.message.ContactsSyncResponse;
-import com.softgroup.profile.api.message.dto.DTOContact;
+import com.softgroup.common.dto.DTOContact;
 import com.softgroup.profile.api.router.ProfileRequestHandler;
 import com.softgroup.profile.impl.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
 
 /**
  * Created by user on 26.02.2017.
@@ -40,25 +40,27 @@ public class ContactsSyncRequestHandler extends AbstractRequestHandler<ContactsS
         String userId = msg.getRoutingData().getUserId();
         List<DTOContact> added =  msg.getData().getAddedContact();
         List<DTOContact> deleted = msg.getData().getRemovedContact();
-        if(deleted!=null) {
-            deleted.forEach(dtoContact -> {
-                List<String> validList = dtoContact.getPhoneNumber().stream().filter(s -> checkPhoneNumber(s)).collect(Collectors.toList());
-                profileService.removePhoneNumbers(userId, dtoContact.getName(), validList);
-            });
-        }
-        if(added!=null) {
-            added.forEach(dtoContact -> {
-                List<String> validList = dtoContact.getPhoneNumber().stream().filter(s -> checkPhoneNumber(s)).collect(Collectors.toList());
-                profileService.addPhoneNumbers(userId, dtoContact.getName(), validList);
-            });
-        }
-        return ResponseUtils.createOKResponse(msg,new ContactsSyncResponse());
+        if(checkNumbers(added)&&checkNumbers(deleted)){
+            if(deleted!=null) {
+                deleted.forEach(dtoContact -> {
+                    profileService.removePhoneNumbers(userId, dtoContact.getName(), dtoContact.getPhoneNumber());
+                });
+            }
+            if(added!=null) {
+                added.forEach(dtoContact -> {
+                    profileService.addPhoneNumbers(userId, dtoContact.getName(), dtoContact.getPhoneNumber());
+                });
+            }
+            return ResponseUtils.createOKResponse(msg,new ContactsSyncResponse());
+        }else return ResponseUtils.createCustomResponse(msg, ResponseStatusCode.UNPROCESSABLE_ENTITY,"Bad phone number format");
     }
 
-    //Todo make one method (another in auth service)
-    private Boolean checkPhoneNumber(String phoneNumber){
-        Pattern pattern = Pattern.compile("^\\+[0-9]{12}$");
-        Matcher matcher = pattern.matcher(phoneNumber);
-        return matcher.matches();
+    private Boolean checkNumbers(List<DTOContact> contacts){
+        if(contacts!=null) {
+            return contacts.stream().allMatch(dtoContact ->
+                dtoContact.getPhoneNumber().stream().allMatch(s -> OtherUtils.checkPhoneNumber(s))
+            );
+        }else return true;
     }
+
 }

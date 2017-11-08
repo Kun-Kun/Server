@@ -8,6 +8,7 @@ import com.softgroup.authorization.api.service.AuthorizationService;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
+import com.softgroup.common.utilites.OtherUtils;
 import com.softgroup.common.utilites.ResponseStatusCode;
 import com.softgroup.common.utilites.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class RegisterRequestHandler extends AbstractRequestHandler<RegisterReque
         if(!authorizationService.checkLocaleCode(msg.getData().getLocaleCode())){
             return  ResponseUtils.createCustomResponse(msg, ResponseStatusCode.BAD_REQUEST,"Unknown locale");
         }
-        String clearedPhoneNumber = authorizationService.clearPhoneNumber(msg.getData().getPhoneNumber());
-        if(!authorizationService.checkPhoneNumber(clearedPhoneNumber)){
+        String clearedPhoneNumber = OtherUtils.clearPhoneNumber(msg.getData().getPhoneNumber());
+        if(!OtherUtils.checkPhoneNumber(clearedPhoneNumber)){
             return  ResponseUtils.createCustomResponse(msg, ResponseStatusCode.BAD_REQUEST,"Invalid phone number format");
         }
 
