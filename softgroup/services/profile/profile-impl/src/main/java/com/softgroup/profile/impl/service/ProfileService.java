@@ -51,4 +51,8 @@ public class ProfileService {
         return profileRepository.findOne(userId);
     }
 
+    public void saveUserProfile(ProfileEntity entity){
+        profileRepository.save(entity);
+    }
+
 }
