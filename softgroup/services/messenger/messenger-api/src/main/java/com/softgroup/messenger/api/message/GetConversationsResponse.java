@@ -1,7 +1,7 @@
 package com.softgroup.messenger.api.message;
 
+import com.softgroup.common.dto.DTOConversation;
 import com.softgroup.common.protocol.ResponseData;
-import com.softgroup.messenger.api.dto.DTOConversation;
 
 import java.util.List;
 

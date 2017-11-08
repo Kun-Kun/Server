@@ -35,6 +35,16 @@
             <artifactId>ws-multicast-notifier-impl</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-dto-impl</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.softgroup</groupId>
+            <artifactId>common-dto-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
 
     </dependencies>
 

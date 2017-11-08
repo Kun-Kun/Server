@@ -11,6 +11,7 @@ import com.softgroup.common.dao.api.entities.ProfileEntity;
 import com.softgroup.common.dao.impl.repositories.DeviceRepository;
 import com.softgroup.common.dao.impl.repositories.ProfileRepository;
 import com.softgroup.common.sms.SmsService;
+import com.softgroup.common.utilites.OtherUtils;
 import com.softgroup.token.api.TokenGeneratorService;
 import com.softgroup.token.api.TokenType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,15 +49,6 @@ public class AuthorizationServiceImpl implements AuthorizationService{
     @Autowired
     private SmsService smsService;
 
-    public Boolean checkPhoneNumber(String phoneNumber){
-        Pattern pattern = Pattern.compile("^\\+[0-9]{12}$");
-        Matcher matcher = pattern.matcher(phoneNumber);
-        return matcher.matches();
-    }
-
-    public String clearPhoneNumber(String phoneNumber){
-        return phoneNumber.replaceAll("[- )(]","");
-    }
 
     //Now only available only Ukrainian locale
     public Boolean checkLocaleCode(String locale){
@@ -69,7 +61,7 @@ public class AuthorizationServiceImpl implements AuthorizationService{
 
     public void addDataToConfirmationRegisterCache(ConfirmationRegisterData data){
         confirmationRegisterCache.put(data.getRegistrationRequestUUID(),data);
-        String phoneNumber = clearPhoneNumber(data.getRequest().getPhoneNumber());
+        String phoneNumber = OtherUtils.clearPhoneNumber(data.getRequest().getPhoneNumber());
         phoneNumberUUIDCache.put(phoneNumber,data.getRegistrationRequestUUID());
     }
 

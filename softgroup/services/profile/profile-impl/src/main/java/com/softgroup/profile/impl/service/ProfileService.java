@@ -2,8 +2,10 @@ package com.softgroup.profile.impl.service;
 
 import com.softgroup.common.dao.api.entities.ContactEntity;
 import com.softgroup.common.dao.api.entities.ContactPhoneNumberEntity;
+import com.softgroup.common.dao.api.entities.ProfileEntity;
 import com.softgroup.common.dao.impl.repositories.ContactPhoneNumberRepository;
 import com.softgroup.common.dao.impl.repositories.ContactRepository;
+import com.softgroup.common.dao.impl.repositories.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class ProfileService {
 
     @Autowired
     private ContactPhoneNumberRepository contactPhoneNumberRepository;
+
+    @Autowired
+    private ProfileRepository profileRepository;
 
     public void removePhoneNumbers(String userId, String name, List<String> numbers){
         contactPhoneNumberRepository.removeAllByNameAndUserIdAndPhoneNumbers(userId,name,numbers);
@@ -37,6 +42,9 @@ public class ProfileService {
 
     }
 
+    public List<ProfileEntity> getContactProfiles(String userId){
+        return profileRepository.findProfileFromUserContactList(userId);
+    }
 
 
 }

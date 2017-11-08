@@ -3,6 +3,7 @@ package com.softgroup.server.rest.config;
 import com.softgroup.authorization.impl.config.AuthorizationAppCfg;
 import com.softgroup.common.cache.config.CommonCacheConfig;
 import com.softgroup.common.conf.SmsServiceAppCfg;
+import com.softgroup.common.config.MapstructMapperConfig;
 import com.softgroup.common.dao.impl.configuration.CommonDaoAppCfg;
 import com.softgroup.common.datamapper.configuration.DataMapperAppCfg;
 import com.softgroup.filter.config.RequestFilterAppCfg;
@@ -37,7 +38,8 @@ import org.springframework.context.annotation.Import;
         DataMapperAppCfg.class,
         ControllerToolsConfig.class,
         WebSocketMulticastNotifierConfig.class,
-        CommonCacheConfig.class
+        CommonCacheConfig.class,
+        MapstructMapperConfig.class
 })
 public class RestApplicationConfig {
 

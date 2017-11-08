@@ -1,7 +1,7 @@
-package com.softgroup.messenger.impl.mapper;
+package com.softgroup.common.mapper;
 
 import com.softgroup.common.dao.api.entities.ProfileEntity;
-import com.softgroup.messenger.api.dto.DTOProfile;
+import com.softgroup.common.dto.DTOProfile;
 import org.mapstruct.Mapper;
 
 /**

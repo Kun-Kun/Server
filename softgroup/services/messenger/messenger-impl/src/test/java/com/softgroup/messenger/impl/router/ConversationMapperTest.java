@@ -1,18 +1,13 @@
 package com.softgroup.messenger.impl.router;
 
 import com.softgroup.common.dao.api.entities.ConversationEntity;
-import com.softgroup.common.datamapper.configuration.DataMapperAppCfg;
+import com.softgroup.common.dto.DTOConversation;
+import com.softgroup.common.mapper.ConversationMapper;
 import com.softgroup.common.protocol.enumeration.ConversationType;
-import com.softgroup.messenger.api.dto.DTOConversation;
-import com.softgroup.messenger.impl.conf.MessengerAppCfg;
-import com.softgroup.messenger.impl.mapper.ConversationMapper;
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.InjectMocks;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;

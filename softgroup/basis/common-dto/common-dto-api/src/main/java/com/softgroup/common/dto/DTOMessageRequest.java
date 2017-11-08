@@ -1,4 +1,4 @@
-package com.softgroup.messenger.api.dto;
+package com.softgroup.common.dto;
 
 import com.softgroup.common.protocol.enumeration.MessageType;
 

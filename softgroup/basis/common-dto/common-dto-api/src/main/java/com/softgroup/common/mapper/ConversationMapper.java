@@ -1,7 +1,7 @@
-package com.softgroup.messenger.impl.mapper;
+package com.softgroup.common.mapper;
 
 import com.softgroup.common.dao.api.entities.ConversationEntity;
-import com.softgroup.messenger.api.dto.DTOConversation;
+import com.softgroup.common.dto.DTOConversation;
 import org.mapstruct.Mapper;
 
 /**

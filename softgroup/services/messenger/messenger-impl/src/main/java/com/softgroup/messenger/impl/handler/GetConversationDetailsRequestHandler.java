@@ -1,10 +1,10 @@
 package com.softgroup.messenger.impl.handler;
 
+import com.softgroup.common.dto.DTOConversationDetails;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
 import com.softgroup.common.utilites.ResponseUtils;
-import com.softgroup.messenger.api.dto.DTOConversationDetails;
 import com.softgroup.messenger.api.message.*;
 import com.softgroup.messenger.api.router.MessengerRequestHandler;
 import com.softgroup.messenger.impl.service.MessengerService;
