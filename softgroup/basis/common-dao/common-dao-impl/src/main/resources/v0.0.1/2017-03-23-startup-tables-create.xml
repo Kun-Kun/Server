@@ -186,4 +186,19 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="1510611382" author="Kun-Kun">
+        <createTable tableName="profile_settings">
+            <column name="id" type="char(36)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="profile_id" type="char(36)">
+                <constraints nullable="false" />
+            </column>
+            <column name="setting" type="MEDIUMTEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
 </databaseChangeLog>
