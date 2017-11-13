@@ -1,5 +1,6 @@
 package com.softgroup.profile.impl.service;
 
+import com.google.common.collect.Lists;
 import com.softgroup.common.dao.api.entities.ContactEntity;
 import com.softgroup.common.dao.api.entities.ContactPhoneNumberEntity;
 import com.softgroup.common.dao.api.entities.ProfileEntity;
@@ -55,4 +56,7 @@ public class ProfileService {
         profileRepository.save(entity);
     }
 
+    public List<ProfileEntity> getProfiles(List<String> ids){
+        return Lists.newArrayList(profileRepository.findAll(ids));
+    }
 }
