@@ -14,6 +14,10 @@ public class ProfileSettingsEntity extends BaseEntity {
     @Column(name = "profile_id",unique = true)
     private String profileId;
 
+    @Column(name = "setting")
+    private String setting;
+
+
     public String getProfileId() {
         return profileId;
     }
@@ -22,21 +26,30 @@ public class ProfileSettingsEntity extends BaseEntity {
         this.profileId = profileId;
     }
 
+    public String getSetting() {
+        return setting;
+    }
+
+    public void setSetting(String setting) {
+        this.setting = setting;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ProfileSettingsEntity)) return false;
 
         ProfileSettingsEntity that = (ProfileSettingsEntity) o;
 
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        return getProfileId() != null ? getProfileId().equals(that.getProfileId()) : that.getProfileId() == null;
+        if (getProfileId() != null ? !getProfileId().equals(that.getProfileId()) : that.getProfileId() != null)
+            return false;
+        return getSetting() != null ? getSetting().equals(that.getSetting()) : that.getSetting() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getProfileId() != null ? getProfileId().hashCode() : 0);
+        int result = getProfileId() != null ? getProfileId().hashCode() : 0;
+        result = 31 * result + (getSetting() != null ? getSetting().hashCode() : 0);
         return result;
     }
 }
